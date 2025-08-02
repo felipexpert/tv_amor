@@ -1,0 +1,1 @@
+Utilize o estilo de escrita 'underscore_case', exemplo: "arquivo_de_texto.txt"
