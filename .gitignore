@@ -1,0 +1,19 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+ModelGL/__pycache__/
+ModelGL/utils/__pycache__/
+
+*.py[cod]
+*$py.class
+
+# Distribuição e arquivos build
+build/
+dist/
+*.egg-info/
+
+# Arquivos de configuração local
+*.env
+*.venv
+
+# Configurações do editor (exemplo VSCode)
+.vscode/
