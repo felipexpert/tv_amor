@@ -19,4 +19,4 @@ main = do
     TIO.putStrLn mensagem
     TIO.putStrLn "Executando comunicação com GuidoLang..."
     executarComunicacao
-    TIO.putStrLn "Comunicação concluída. 3"
+    TIO.putStrLn "Comunicação concluída"
