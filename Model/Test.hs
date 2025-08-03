@@ -32,7 +32,7 @@ instance FromJSON Resposta where
 -- Função principal que envia JSON, lê resposta e imprime
 executarComunicacao :: IO ()
 executarComunicacao = do
-    let comando = Comando "somar" 3 5
+    let comando = Comando "somar" 6 7
         inputJson = encode comando
 
     (Just hin, Just hout, _, _) <- createProcess (proc "python" ["ModelGL/guido_responde.py"])
