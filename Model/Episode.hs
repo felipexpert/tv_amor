@@ -6,50 +6,68 @@ module Model.Episode where
 
 import qualified Data.Text as T
 import Data.Text (Text)
-import GHC.Generics (Generic)
+import GHC.Generics (Generic) 
 
+import Model.EpisodeChar (ECharLabel(..))
 
-
--- Representa o personagem que está falando
-newtype CharLabel = CharLabel Text
-    deriving (Show, Eq, Ord, Generic)
-
--- Representa os comandos embutidos no texto
-data InlineCommand
-    = Wave CharLabel
-    | Pause Double
-    deriving (Show, Eq)
-
--- Um trecho de texto com comandos embutidos
-data RichText
-    = PlainText Text
-    | Command InlineCommand
-    deriving (Show, Eq)
-
--- Um bloco de fala, associado a um personagem
-data DialogueBlock = DialogueBlock
-    { speaker :: CharLabel
-    , contents :: [RichText]
-    } deriving (Show, Eq)
 
 -- O episódio completo (lista de blocos)
-type Episode = [DialogueBlock]
+-- NOTA: Posso fazer validação, aceita 1 ou 2 chars, e no eDialogueBlock, aceita apenas
+-- ECharLabel que estão na lista de eChars
+data Episode = Episode 
+    { eChars :: [ECharLabel] -- Lista de personagens que participam do episódio
+    , eDialogueBlocks :: [EDialogueBlock] -- Lista de blocos de fala
+    } deriving (Show, Eq, Generic)
+
+
+-- Um bloco de fala, associado a um personagem
+data EDialogueBlock = EDialogueBlock
+    { dChar :: ECharLabel
+    , dContents :: [DRichText]
+    } deriving (Show, Eq)
+
+-- Um trecho de texto com comandos embutidos
+data DRichText
+    = RPlainText Text
+    | RCommand RCCommand
+    deriving (Show, Eq)
+
+-- Representa os comandos embutidos no texto
+data RCCommand 
+    -- ERTCGesture tem quem está fazendo o gesto, porque durante a fala de um, o outro pode fazer um gesto
+    = CGesture
+        { cGesture :: CGesture
+        , cChar :: ECharLabel }
+    | CPause Double
+    deriving (Show, Eq)
+
+data CGesture
+    = GWave
+    | GThink1 -- detalhes como duração, podem variar, por isso tem EGThing1 e EGThink2, etc
+    | GThink2
+    deriving (Show, Eq) 
 
 exampleEpisode :: Episode
-exampleEpisode =
-    [ DialogueBlock
-        { speaker = CharLabel "char_felipe"
-        , contents =
-            [ PlainText "Olá Gisele"
-            , Command (Wave (CharLabel "char_felipe"))
-            , Command (Wave (CharLabel "char_gisele"))
-            , Command (Pause 0.5)
-            , PlainText "Tudo bem por aí?"
+exampleEpisode = Episode
+    { eChars = [ECharLabel "char_felipe", ECharLabel "char_gisele"]
+    , eDialogueBlocks = exampleDialogueBlocks
+    }
+    where
+        exampleDialogueBlocks :: [EDialogueBlock]
+        exampleDialogueBlocks =
+            [ EDialogueBlock
+                { dChar = ECharLabel "char_felipe"
+                , dContents =
+                    [ RPlainText "Olá Gisele"
+                    , RCommand (CGesture GWave (ECharLabel "char_felipe"))
+                    , RCommand (CGesture GWave (ECharLabel "char_gisele"))
+                    , RCommand (CPause 0.5)
+                    , RPlainText "Tudo bem por aí?"
+                    ]
+                }
+            , EDialogueBlock
+                { dChar = ECharLabel "char_gisele"
+                , dContents =
+                    [ RPlainText "Olá Felipe! Tudo ótimo!" ]
+                }
             ]
-        }
-    , DialogueBlock
-        { speaker = CharLabel "char_gisele"
-        , contents =
-            [ PlainText "Olá Felipe! Tudo ótimo!" ]
-        }
-    ]

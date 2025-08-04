@@ -9,7 +9,9 @@ maintainer:          felipe.miquilini@gmail.com
 executable tv_amor-exe
     main-is:             Main.hs
     hs-source-dirs:      .
-    build-depends:       base >=4.7 && <5,
+    -- other-modules:
+    --     Model.Episode
+    build-depends:       base >= 4.7 && < 5,
                         text,
                         bytestring,
                         unordered-containers,

@@ -3,5 +3,8 @@
 
 module Model.Constants where
 
-tvAmorBaseDir :: Text
-tvAmorBaseDir = "C:\Users\Geppetto\Desktop\tv_amor"
+import Data.Text
+
+tvAmorBaseDir :: FilePath
+tvAmorBaseDir = "C:\\Users\\Geppetto\\Desktop\\tv_amor"
+
