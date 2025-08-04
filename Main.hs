@@ -17,6 +17,7 @@ import Model.Test (executarComunicacao)
 import Model.Constants (tvAmorBaseDir)
 
 import Model.Episode (exampleEpisode)
+import Model.EpisodeSetup (exampleEpisodeSetup)
 
 main :: IO ()
 main = do 
@@ -32,3 +33,6 @@ main = do
     TIO.putStrLn ""
     let ep = exampleEpisode
     TU.putShowable ep
+    TIO.putStrLn ""
+    let setup = exampleEpisodeSetup
+    TU.putShowable setup
