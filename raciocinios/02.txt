@@ -1,0 +1,34 @@
+V tipo Episode.hs
+
+V tipo EpisodeSetup.hs
+
+Qual o próximo passo?
+- Cria 2 exemplos com infos corretas para gerar o "Arquivos Infos"
+	- V Episode
+	- V EpisodeSetup
+	
+
+Vai ter que fazer uma função que vai ter que criar o `Episode` e o `EpisodeSetup` em "Arquivos Infos"
+
+Qual o formato de "Arquiros e Infos"/"FilesInfos"
+AnimationInfoAndFiles
+
+class AniAutoTask:
+	tOutputDir -- diretório que vai exportar o(s) vídeo(s) pronto(s) (pode ter mais de um formato)
+	tEpsode :: TEpisode -- o episódio (audios, tempos, etc)
+	
+	sprites :: [TSprite]
+
+	
+
+AATSprite 
+	numero
+	position P
+
+    """Animation Automation Task — estrutura que guia o pyautogui no CA4"""
+	
+	
+CONCLUSION_TYPE = "GEN_VIDEOS"  # Para gerar/exportar os vídeos finalizados
+# ou
+CONCLUSION_TYPE = "WAIT"        # Para só montar e deixar aberto para revisão
+	

@@ -1,0 +1,52 @@
+
+
+
+🔊 Eventos de fala e comandos:
+{
+  "tipo": "fala",
+  "char_label": "char_felipe",
+  "arquivo": "0_char_felipe.mp3",
+  "inicio": 0.0,
+  "fim": 1.968
+}
+{
+  "tipo": "comando",
+  "acao": "wave",
+  "char_label": "char_felipe",
+  "inicio": 1.968
+}
+{
+  "tipo": "comando",
+  "acao": "wave",
+  "char_label": "char_gisele",
+  "inicio": 1.968
+}
+-- imagina que tem uma pausa aqui, a unica coisa que acontece, é que o próximo audio, começa um pouco depois...
+{
+  "tipo": "fala",
+  "char_label": "char_felipe",
+  "arquivo": "0_char_felipe.mp3",
+  "inicio": 0.0,
+  "fim": 1.968
+}
+
+{
+  "tipo": "fala",
+  "char_label": "char_felipe",
+  "arquivo": "2_char_felipe.mp3",
+  "inicio": 2.468,
+  "fim": 4.34
+}
+{
+  "tipo": "fala",
+  "char_label": "char_gisele",
+  "arquivo": "3_char_gisele.mp3",
+  "inicio": 4.34,
+  "fim": 8.036
+}
+
+Arquivos individuais salvos:
+ - 0_char_felipe.mp3
+ - 1_pause.mp3
+ - 2_char_felipe.mp3
+ - 3_char_gisele.mp3

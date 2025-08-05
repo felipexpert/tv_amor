@@ -52,16 +52,16 @@ data PSprite = PSprite
 exampleEpisodeSetup :: EpisodeSetup
 exampleEpisodeSetup = EpisodeSetup
     { sSprites = 
-        [ SSprite (ECharLabel "char_felipe") "path/to/sprite1.psd" SNumber1
-        , SSprite (ECharLabel "char_gisele") "path/to/sprite2.psd" SNumber2
+        [ SSprite (ECharLabel "char_damiao") "02 sprite mega-sushi-temakeria IMPORT.psd" SNumber1
+        , SSprite (ECharLabel "char_felipe") "01 sprite melhores-ofertas IMPORT.psd" SNumber2
         ]
     , sBackgroundImage = SBackground
-        { bImagePath = "path/to/background.jpg"
-        , bWidth = 800
-        , bHeight = 600
+        { bImagePath = "01_escritorio.png"
+        , bWidth = 1536
+        , bHeight = 1024
         , bSpritePositions = SPositionsFor2
-            { pFor2Sprite1 = PSprite 100 150
-            , pFor2Sprite2 = PSprite 200 250
+            { pFor2Sprite1 = PSprite 512 932
+            , pFor2Sprite2 = PSprite 1144 932
             }
         }
     }

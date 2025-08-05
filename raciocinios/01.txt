@@ -1,0 +1,10 @@
+Lista de ações
+
+Defina uma variavel para fazer os episódios
+
+Vamos agora pensar no Episode.hs
+
+Para testar, constroi os tipos criados, e printa na tela, com o Show padrão
+- Como posso criar isto?
+
+
