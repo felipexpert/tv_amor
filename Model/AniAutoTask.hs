@@ -17,6 +17,9 @@ import Model.EpisodePersona (EPeNumber(..))
 import Model.Episode(CGesture(..))
 import Model.EpisodePersona(EPeLabel(..))
 
+import qualified Model.Episode as E
+import qualified Model.Episode as E
+
 data AniAutoTask = AniAutoTask
     { aatActions :: [TPeAction]
     , aatTotalDuration :: Int -- Duração total do episódio em milissegundos
@@ -45,6 +48,7 @@ data AAction
 
 -- ***** START - tipo intermediário entre EDialoguePe e AudioInfo e duration - START *****
 -- utilizado para criar os TPeAction do AniAutoTask
+-- `TDialoguePe` (Task DialoguePe) é o `EDialoguePe` (Episode DialogPe) com informações de áudio
 data TDialoguePe = EDialoguePe
     { dPe :: EPeLabel
     , dPeNumber :: EPeNumber
@@ -79,7 +83,6 @@ data RCCommand
     | CPause Int
     deriving (Show, Eq)
 -- ***** END   - tipo intermediário entre EDialoguePe e AudioInfo e duration - END   *****
-
 
 -- aqui concatenamos os trechos de fala de cada personagem, e somamos o tempo total
 dialoguesToActions :: [TDialoguePe] -> ([TPeAction], Int)
@@ -120,3 +123,78 @@ dialogueToActions dialogue = generateActions' (dContents dialogue)
             where 
                 (actionOpts, totalTime) = generateActions ts
                 actions = [a | Just a <- actionOpts] -- filtra as ações válidas
+
+-- funções de IO
+
+-- depois coloca `processAudiosInfoIO` no lugar certo
+-- se quiser por uma validação se o texto voltou com os indexes correspondentes corretos, faz
+-- lançar uma mensagem de erro se não estiver correto, tem que ter as mesmas posições correspondentes
+processAudiosInfoIO :: AudiosRequest -> IO AudiosInfo
+processAudiosInfoIO = undefined -- aqui entra o GuidoLang para processar os textos e gerar os AudioInfo
+
+episodeToTaskDialoguesIO :: E.Episode -> IO [TDialoguePe]
+episodeToTaskDialoguesIO ep = mapM dialoguePeToTaskDialogue (E.eDialoguePeList ep)
+    where
+        dialoguePeToTaskDialogue :: E.EDialoguePe -> IO TDialoguePe
+        dialoguePeToTaskDialogue edp = do
+            let peLabel = E.dPe edp
+                peNumber :: EPeNumber
+                peNumber = E.episodePeNumber ep peLabel
+
+            contentsWithAudio <- processDRichText (E.dContents edp)
+            return $ TDialoguePe
+                { dPe = peLabel
+                , dPeNumber = peNumber
+                , dContents = contentsWithAudio
+                }
+        
+        processDRichText :: [E.DRichText] -> IO [DRichText]
+        processDRichText texts = do
+            audiosInfo <- processAudiosInfoIO audiosRequest
+            let richTexts = richTextsWithAudioAndTimeInfo texts audiosInfo
+            return richTexts
+            where 
+                audiosRequest :: AudiosRequest
+                audiosRequest = richTextsToAudiosRequests texts
+
+                richTextsToAudiosRequests :: [E.DRichText] -> AudiosRequest
+                richTextsToAudiosRequests richTexts = AudiosRequest $ map textToAudioRequest (richTextsToTexts richTexts)
+                    where
+                        richTextsToTexts :: [E.DRichText] -> [Text]
+                        richTextsToTexts richTexts = [ text | (RPlainText text) <- richTexts ]
+
+                        textToAudioRequest :: Text -> AudioRequest
+                        textToAudioRequest text = AudioRequest
+                            { arText = text
+                            , arConfig = AudioRequestConfig { arcVoice = "pt-BR-AntonioNeural" } -- aqui você pode definir a voz padrão ou outra lógica
+                            }
+                -- converte os rich texts do episodio para o formato rich texts com as informações de audios,
+                -- que será utilizado para criar o AniAutoTask
+                richTextsWithAudioAndTimeInfo :: [E.DRichText] -> AudiosInfo -> [DRichText]
+                richTextsWithAudioAndTimeInfo richTexts audiosInfo = map convertRichText richTexts
+                    where
+                        convertRichText :: E.DRichText -> DRichText
+                        convertRichText (E.RPlainText text) = RPlainText $ RSpeech text (findAudioInfo text audiosInfo)
+                        convertRichText (E.RCommand command) = RCommand $ convertCommand command
+
+                        findAudioInfo :: Text -> AudiosInfo -> AudioInfo
+                        findAudioInfo text (AudiosInfo infos) = head [info | info@(AudioInfo _ _ t) <- infos, t == text]
+
+                        convertCommand :: E.RCCommand -> RCCommand
+                        convertCommand (E.CGesture gesture peLabel) =
+                            let peNumber = E.episodePeNumber ep peLabel
+                            in CGesture gesture peLabel peNumber
+                        convertCommand (E.CPause duration) = CPause duration
+
+{-
+episodeCompleteToAniAutoTaskIO :: EpisodeComplete -> IO AniAutoTask
+episodeCompleteToAniAutoTaskIO ec = do
+    -- começa pelos audios
+    aInfos <- requestAudiosIO audiosRequest -- aqui você cria o AudiosRequest com base
+    undefined
+    where
+        audiosRequest :: AudiosRequest
+        audiosRequest = undefined
+        episode :: Episode
+        episode = ecEpisode ec
+-}

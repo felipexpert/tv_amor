@@ -8,7 +8,9 @@ import qualified Data.Text as T
 import Data.Text (Text)
 import GHC.Generics (Generic) 
 
-import Model.EpisodePersona (EPeLabel(..))
+import Model.EpisodePersona (EPeLabel(..), EPeNumber(..))
+
+import qualified Data.List as List
 
 
 -- O episódio completo (lista de blocos)
@@ -19,6 +21,19 @@ data Episode = Episode
     , eDialoguePeList :: [EDialoguePe] -- Lista de blocos de fala
     } deriving (Show, Eq, Generic)
 
+episodePeNumber :: Episode -> EPeLabel -> EPeNumber
+episodePeNumber episode label = peNumber
+    where 
+        indexOpt :: Maybe Int
+        indexOpt = List.findIndex sameLabel (ePes episode)
+            where 
+                sameLabel :: EPeLabel -> Bool
+                sameLabel = (== label) 
+        peNumber :: EPeNumber
+        peNumber = case indexOpt of
+            Just 0 -> EPeNum1
+            Just 1 -> EPeNum2
+            _      -> EPeNum1 -- Default, caso não encontre, retorna EPeNum1
 
 -- Um bloco de fala, associado a um personagem
 data EDialoguePe = EDialoguePe

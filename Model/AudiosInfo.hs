@@ -32,6 +32,7 @@ data AudioInfo = AudioInfo
     { aiFilePath :: FilePath 
     -- Duração do áudio em milissegundos
     , aiDuration :: Int 
+    , aiText :: Text -- Texto original que foi convertido em áudio
     } deriving (Show, Eq, Generic, FromJSON)
 
 data AudioRequest = AudioRequest
