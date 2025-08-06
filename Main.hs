@@ -20,9 +20,6 @@ import Model.EpisodeComplete (EpisodeComplete(..))
 
 main :: IO ()
 main = do 
-    hSetEncoding stdin utf8
-    hSetEncoding stdout utf8
-    hSetEncoding stderr utf8
     setLocaleEncoding utf8
 
     TIO.putStrLn mensagem

@@ -38,7 +38,7 @@ glCall script input = do
             putStrLn "Erro ao decodificar resposta JSON do GuidoLang:"
             putStrLn err
             putStrLn "Resposta recebida:"
-            BL.putStrLn respostaJson
+            putStrLn (show respostaJson)
             throwIO (userError "Falha ao decodificar JSON de resposta do GuidoLang")
 
 data GLScript
