@@ -10,13 +10,9 @@ import GHC.Generics (Generic)
 
 import Model.Episode
 import Model.EpisodeSetup
-import Model.AniAutoTask
 
 
 data EpisodeComplete = EpisodeComplete 
     { ecEpisode :: Episode
     , ecEpisodeSetup :: EpisodeSetup
     } deriving (Show, Eq, Generic)
-
-episodeCompleteToAniAutoTaskIO :: EpisodeComplete -> IO AniAutoTask
-episodeCompleteToAniAutoTaskIO ec = undefined

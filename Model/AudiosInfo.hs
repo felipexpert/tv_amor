@@ -5,7 +5,7 @@
 {-# HLINT ignore "Unused LANGUAGE pragma" #-}
 
 -- MyModule.hs
-module Model.AudioInfo where
+module Model.AudiosInfo where
 
 -- Utiliza para comunicar com o GuidoLang, parâmetro de envio
 newtype AudiosRequest = [AudioRequest] deriving (Show, Eq, Generic)

@@ -10,6 +10,7 @@ module Model.AniAutoTask where
 import qualified Data.Text as T
 import Data.Text (Text)
 import GHC.Generics (Generic) 
+import Model.EpisodeComplete
 
 data AniAutoTask = AniAutoTask
     { aatActions :: [TPeAction]
@@ -45,3 +46,6 @@ data TPeNumber
     = PNumber1
     | PNumber2
     deriving (Show, Eq, Generic)
+
+episodeCompleteToAniAutoTaskIO :: EpisodeComplete -> IO AniAutoTask
+episodeCompleteToAniAutoTaskIO ec = undefined
