@@ -10,7 +10,10 @@ pip install pyautogui opencv-python
 pip install pillow
 
 instale também o pydantic
-pip install pydantic
+pip install pydantic 
+
+pip install edge-tts pydub
+    -- E lembre-se: o pydub depende do ffmpeg instalado no sistema para converter áudios.
 
 ## Estrutura de pastas
 tv_amor/

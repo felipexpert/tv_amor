@@ -30,8 +30,8 @@ instance FromJSON Resposta where
         Resposta <$> obj .: "resultado"
 
 -- Função principal que envia JSON, lê resposta e imprime
-executarComunicacao :: IO ()
-executarComunicacao = do
+fazerComunicacao :: IO ()
+fazerComunicacao = do
     let comando = Comando "somar" 6 9
         inputJson = encode comando
 

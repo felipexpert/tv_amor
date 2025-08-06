@@ -12,7 +12,7 @@ import GHC.IO.Encoding
 
 import Model.MyModule (mensagem)
 
-import Model.Test (executarComunicacao)
+import Model.Test (fazerComunicacao)
 
 import Model.Constants (tvAmorBaseDir)
 
@@ -29,7 +29,7 @@ main = do
 
     TIO.putStrLn mensagem
     TIO.putStrLn "Executando comunicação com GuidoLang..."
-    executarComunicacao
+    fazerComunicacao
     TIO.putStrLn "Comunicação concluída"
     TIO.putStrLn ""
     let ep = exampleEpisode

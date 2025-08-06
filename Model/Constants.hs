@@ -5,6 +5,7 @@ module Model.Constants where
 
 import Data.Text
 
-tvAmorBaseDir :: FilePath
-tvAmorBaseDir = "C:\\Users\\Geppetto\\Desktop\\tv_amor"
+-- isto, `tvAmorBaseDir` vai no json de configuração
+-- tvAmorBaseDir :: FilePath
+-- tvAmorBaseDir = "C:\\Users\\Geppetto\\Desktop\\tv_amor"
 

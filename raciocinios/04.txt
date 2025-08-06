@@ -1,0 +1,1 @@
+Vamos fazer o script GL audios_info.py, segue os tipos relevantes para esta tarefa

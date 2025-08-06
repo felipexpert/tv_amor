@@ -32,4 +32,8 @@ data AudioRequestConfig = AudioRequestConfig
 
 -- Função para solicitar áudios ao GuidoLang
 requestAudiosIO :: AudiosRequest -> IO AudiosInfo
-requestAudiosIO = undefined
+requestAudiosIO ar = do 
+    -- Aqui você implementaria a lógica para enviar a requisição ao GuidoLang
+    -- e receber a resposta com as informações dos áudios.
+    
+    
