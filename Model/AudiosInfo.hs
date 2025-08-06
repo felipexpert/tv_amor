@@ -7,11 +7,22 @@
 -- MyModule.hs
 module Model.AudiosInfo where
 
+import GHC.Generics (Generic) 
+
+import qualified Data.Text as T
+import Data.Text (Text)
+
+import qualified Data.ByteString.Lazy.Char8 as BL
+
+-- import Model.GuidoLangUtil (glCall, GLAudiosInfo)
+
 -- Utiliza para comunicar com o GuidoLang, parâmetro de envio
-newtype AudiosRequest = [AudioRequest] deriving (Show, Eq, Generic)
+newtype AudiosRequest = AudiosRequest [AudioRequest] 
+    deriving (Show, Eq, Generic)
 
 -- Utiliza para comunicar com o GuidoLang, resultado
-newtype AudiosInfo = [AudioInfo] deriving (Show, Eq, Generic)
+newtype AudiosInfo = AudiosInfo [AudioInfo]
+    deriving (Show, Eq, Generic)
 
 data AudioInfo = AudioInfo
     -- Caminho do arquivo de áudio, pode ser um número 00001.wav, 00002.wav, etc.
@@ -32,4 +43,5 @@ data AudioRequestConfig = AudioRequestConfig
 
 -- Função para solicitar áudios ao GuidoLang 
 requestAudiosIO :: AudiosRequest -> IO AudiosInfo
-requestAudiosIO = glCall GLAudiosInfo
+-- requestAudiosIO = glCall GLAudiosInfo
+requestAudiosIO = undefined

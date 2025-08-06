@@ -13,3 +13,8 @@ import GHC.Generics (Generic)
 -- Representa o personagem que está falando, o E prefixo é Episode
 newtype EPeLabel = EPeLabel Text
     deriving (Show, Eq, Ord, Generic)
+
+data EPeNumber
+    = EPeNum1
+    | EPeNum2
+    deriving (Show, Eq, Ord, Generic)

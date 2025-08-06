@@ -1,0 +1,53 @@
+Por favor, me ajude com a seguinte dinâmica
+
+data A = A
+	{ duration :: Int
+	}
+
+data B = B
+	{ a :: A
+	, startTime :: Int
+	}
+
+aList = [A 20, A 25, A 15, A 10]
+
+-- recebe uma lista de A e retorna uma tuple com uma lista de B e o total de tempo
+calcB :: [A] -> ([B], Int)
+calcB = undefined -- crie por favor 
+
+-- resultado esperado
+bList = calcB aList
+print bList
+> ([B (A 20) 0, B (A 25) 20, B (A 15) 45, B (A 10) 60 ], 70)
+
+-- ###########################
+-- ##### Código da ITec: #####
+-- ###########################
+
+data A = A
+  { duration :: Int
+  } deriving (Show)
+
+data B = B
+  { a :: A
+  , startTime :: Int
+  } deriving (Show)
+
+-- Função principal
+calcB :: [A] -> ([B], Int)
+calcB as = go as 0 []
+  where
+    go [] total acc = (reverse acc, total)
+    go (x:xs) currentTime acc =
+      let b = B x currentTime
+          nextTime = currentTime + duration x
+      in go xs nextTime (b : acc)
+
+-- Exemplo de uso
+aList = [A 20, A 25, A 15, A 10]
+
+main :: IO ()
+main = do
+  let (bList, total) = calcB aList
+  print bList
+  print total
