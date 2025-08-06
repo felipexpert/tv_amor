@@ -168,6 +168,7 @@ episodeToTaskDialoguesIO ep = mapM dialoguePeToTaskDialogue (E.eDialoguePeList e
                             { arText = text
                             , arConfig = AudioRequestConfig { arcVoice = "pt-BR-AntonioNeural" } -- aqui você pode definir a voz padrão ou outra lógica
                             }
+                
                 -- converte os rich texts do episodio para o formato rich texts com as informações de audios,
                 -- que será utilizado para criar o AniAutoTask
                 richTextsWithAudioAndTimeInfo :: [E.DRichText] -> AudiosInfo -> [DRichText]
