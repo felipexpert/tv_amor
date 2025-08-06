@@ -14,11 +14,9 @@ import Model.MyModule (mensagem)
 
 import Model.Test (fazerComunicacao)
 
-import Model.Constants (tvAmorBaseDir)
-
 import Model.Episode (exampleEpisode)
 import Model.EpisodeSetup (exampleEpisodeSetup) 
-import Model.EpisodeComplete (EpisodeComplete(..), episodeCompleteToAniAutoTaskIO)
+import Model.EpisodeComplete (EpisodeComplete(..))
 
 main :: IO ()
 main = do 

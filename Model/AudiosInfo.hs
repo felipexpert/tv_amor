@@ -30,10 +30,6 @@ data AudioRequestConfig = AudioRequestConfig
     -- vai ter mais campos para parâmetros do timbre da voz
     } deriving (Show, Eq, Generic)
 
--- Função para solicitar áudios ao GuidoLang
+-- Função para solicitar áudios ao GuidoLang 
 requestAudiosIO :: AudiosRequest -> IO AudiosInfo
-requestAudiosIO ar = do 
-    -- Aqui você implementaria a lógica para enviar a requisição ao GuidoLang
-    -- e receber a resposta com as informações dos áudios.
-    
-    
+requestAudiosIO = glCall GLAudiosInfo

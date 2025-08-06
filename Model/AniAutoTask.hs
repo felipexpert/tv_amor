@@ -46,6 +46,3 @@ data TPeNumber
     = PNumber1
     | PNumber2
     deriving (Show, Eq, Generic)
-
-episodeCompleteToAniAutoTaskIO :: EpisodeComplete -> IO AniAutoTask
-episodeCompleteToAniAutoTaskIO ec = undefined

@@ -16,12 +16,12 @@ import Model.EpisodePersona (EPeLabel(..))
 -- EPeLabel que estão na lista de ePes
 data Episode = Episode 
     { ePes :: [EPeLabel] -- Lista de personagens que participam do episódio
-    , eDialogueBlocks :: [EDialogueBlock] -- Lista de blocos de fala
+    , eDialoguePeList :: [EDialoguePe] -- Lista de blocos de fala
     } deriving (Show, Eq, Generic)
 
 
 -- Um bloco de fala, associado a um personagem
-data EDialogueBlock = EDialogueBlock
+data EDialoguePe = EDialoguePe
     { dPe :: EPeLabel
     , dContents :: [DRichText]
     } deriving (Show, Eq)
@@ -50,12 +50,12 @@ data CGesture
 exampleEpisode :: Episode
 exampleEpisode = Episode
     { ePes = [EPeLabel "pe_felipe", EPeLabel "pe_gisele"]
-    , eDialogueBlocks = exampleDialogueBlocks
+    , eDialoguePeList = exampleDialogues
     }
     where
-        exampleDialogueBlocks :: [EDialogueBlock]
-        exampleDialogueBlocks =
-            [ EDialogueBlock
+        exampleDialogues :: [EDialoguePe]
+        exampleDialogues =
+            [ EDialoguePe
                 { dPe = EPeLabel "pe_felipe"
                 , dContents =
                     [ RPlainText "Olá Gisele"
@@ -65,7 +65,7 @@ exampleEpisode = Episode
                     , RPlainText "Tudo bem por aí?"
                     ]
                 }
-            , EDialogueBlock
+            , EDialoguePe
                 { dPe = EPeLabel "pe_gisele"
                 , dContents =
                     [ RPlainText "Olá Felipe! Tudo ótimo!" ]
