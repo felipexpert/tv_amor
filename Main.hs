@@ -23,7 +23,7 @@ main = do
     setLocaleEncoding utf8
 
     TIO.putStrLn mensagem
-    TIO.putStrLn "Executando comunicação com GuidoLang..."
+    TIO.putStrLn "Fazendo comunicação com GuidoLang..."
     fazerComunicacao
     TIO.putStrLn "Comunicação concluída"
     TIO.putStrLn ""
