@@ -38,7 +38,7 @@ data RCCommand
     = CGesture
         { cGesture :: CGesture
         , cPe :: EPeLabel }
-    | CPause Double
+    | CPause Int -- Pausa em milissegundos
     deriving (Show, Eq)
 
 data CGesture
@@ -61,7 +61,7 @@ exampleEpisode = Episode
                     [ RPlainText "Olá Gisele"
                     , RCommand (CGesture GWave (EPeLabel "pe_felipe"))
                     , RCommand (CGesture GWave (EPeLabel "pe_gisele"))
-                    , RCommand (CPause 0.5)
+                    , RCommand (CPause 500)
                     , RPlainText "Tudo bem por aí?"
                     ]
                 }

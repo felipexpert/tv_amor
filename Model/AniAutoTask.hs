@@ -11,10 +11,11 @@ import qualified Data.Text as T
 import Data.Text (Text)
 import GHC.Generics (Generic) 
 import Model.EpisodeComplete
-import Model.AudiosInfo(AudioInfo)
+import Model.AudiosInfo(AudioInfo, aiDuration, aiFilePath)
 
 import Model.EpisodePersona (EPeNumber(..))
 import Model.Episode(CGesture(..))
+import Model.EpisodePersona(EPeLabel(..))
 
 data AniAutoTask = AniAutoTask
     { aatActions :: [TPeAction]
@@ -41,18 +42,30 @@ data AAction
 
 -- você pode criar gestos compostos no CA4 e vincular aqui!
 
-{-
+
 -- ***** START - tipo intermediário entre EDialoguePe e AudioInfo e duration - START *****
 -- utilizado para criar os TPeAction do AniAutoTask
-data EDialoguePe = EDialoguePe
+data TDialoguePe = EDialoguePe
     { dPe :: EPeLabel
+    , dPeNumber :: EPeNumber
     , dContents :: [DRichText]
     } deriving (Show, Eq)
 
 -- Um trecho de texto com comandos embutidos
 data DRichText
-    = RPlainText Text
+    = RPlainText RSpeech
     | RCommand RCCommand
+    deriving (Show, Eq)
+
+dRichTextDuration :: DRichText -> Int
+dRichTextDuration (RPlainText rs) = aiDuration (rsAudioInfo rs)
+dRichTextDuration (RCommand _) = 0 -- Comandos não têm duração de áudio
+dRichTextDuration (RCommand (CPause duration)) = duration
+
+data RSpeech = RSpeech
+    { rsText :: Text -- Texto a ser falado
+    , rsAudioInfo :: AudioInfo -- Informações do áudio associado
+    }
     deriving (Show, Eq)
 
 -- Representa os comandos embutidos no texto
@@ -60,36 +73,44 @@ data RCCommand
     -- ERTCGesture tem quem está fazendo o gesto, porque durante a fala de um, o outro pode fazer um gesto
     = CGesture
         { cGesture :: CGesture
-        , cPe :: EPeLabel }
-    | CPause Double
+        , cPe :: EPeLabel
+        , cPeNumber :: EPeNumber
+        }
+    | CPause Int
     deriving (Show, Eq)
-
-data CGesture
-    = GWave
-    | GThink1 -- detalhes como duração, podem variar, por isso tem EGThing1 e EGThink2, etc
-    | GThink2
-    deriving (Show, Eq) 
 -- ***** END   - tipo intermediário entre EDialoguePe e AudioInfo e duration - END   *****
--}
+
 
 {-
 -- aqui concatenamos os trechos de fala de cada personagem, e somamos o tempo total
-dialoguesToActions :: [EDialoguePeAI] -> ([TPeAction], Int)
+dialoguesToActions :: [TDialoguePe] -> ([TPeAction], Int)
 dialoguesToActions = undefined
+-}
 
 -- cada trecho em que um personagem fala, gera um conjunto de ações, e o total de tempo
-dialogueToActions :: EDialoguePeAI -> ([TPeAction], Int)
-dialogueToActions dialogues = map convertToTPeAction edpaList
+dialogueToActions :: TDialoguePe -> ([TPeAction], Int)
+dialogueToActions dialogue = generateActions' (dContents dialogue)
     where
-        -- Função principal
-        calcB :: [EDialoguePeAI] -> ([TPeAction], Int)
-        calcB dialogues = go dialogues 0 []
+        peNumber :: EPeNumber
+        peNumber = dPeNumber dialogue
+        generateActions :: [DRichText] -> ([Maybe TPeAction], Int)
+        generateActions ts = go ts 0 []
             where
                 go [] total acc = (reverse acc, total)
-                go (d:ds) currentTime acc = go ds nextTime (action : acc)
+                go (t:ts) currentTime acc = go ts nextTime (actionOpt : acc)
                     where
-                        action = B x currentTime
-                        nextTime = currentTime + getDialogDuration d
-                        getDialogDuration :: EDialoguePeAI -> Int
-                        getDialogDuration = undefined
--}
+                        actionOpt = case t of
+                            RPlainText speech -> Just $ speechToAction speech
+                            -- Atenção! peNumberG é o número do personagem que faz o gesto, pode ser diferente do peNumber
+                            RCommand (CGesture gesture _ peNumberG) -> Just $ gestureToAction gesture peNumberG
+                            RCommand (CPause duration) -> Nothing
+                        nextTime = currentTime + dRichTextDuration t
+                        speechToAction :: RSpeech -> TPeAction
+                        speechToAction speech = TPeAction peNumber (ASpeech (aiFilePath (rsAudioInfo speech)) currentTime)
+                        gestureToAction :: CGesture -> EPeNumber -> TPeAction
+                        gestureToAction gesture peNumberG = TPeAction peNumber (AGesture gesture currentTime)
+        generateActions' :: [DRichText] -> ([TPeAction], Int)
+        generateActions' ts = (actions, totalTime)
+            where 
+                (actionOpts, totalTime) = generateActions ts
+                actions = [a | Just a <- actionOpts] -- filtra as ações válidas
