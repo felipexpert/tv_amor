@@ -9,12 +9,21 @@ maintainer:          felipe.miquilini@gmail.com
 executable tv_amor-exe
     main-is:             Main.hs
     hs-source-dirs:      .
-    -- other-modules:
-    --     Model.Episode
-    build-depends:       base >= 4.7 && < 5,
-                        text,
-                        bytestring,
-                        unordered-containers,
-                        process,
-                        aeson
+    other-modules:
+        Model.AniAutoTask
+        Model.Constants
+        Model.Episode
+        Model.EpisodeComplete
+        Model.EpisodePersona
+        Model.EpisodeSetup
+        Model.MyModule
+        Model.Test
+        Model.TextUtil
+    build-depends:
+        base >= 4.7 && < 5,
+        text,
+        bytestring,
+        unordered-containers,
+        process,
+        aeson
     default-language:    Haskell2010

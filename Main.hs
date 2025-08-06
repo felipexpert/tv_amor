@@ -17,7 +17,8 @@ import Model.Test (executarComunicacao)
 import Model.Constants (tvAmorBaseDir)
 
 import Model.Episode (exampleEpisode)
-import Model.EpisodeSetup (exampleEpisodeSetup)
+import Model.EpisodeSetup (exampleEpisodeSetup) 
+import Model.EpisodeComplete (EpisodeComplete(..), episodeCompleteToAniAutoTaskIO)
 
 main :: IO ()
 main = do 

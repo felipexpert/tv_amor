@@ -17,3 +17,5 @@ dist/
 
 # Configurações do editor (exemplo VSCode)
 .vscode/
+
+dist-newstyle/
