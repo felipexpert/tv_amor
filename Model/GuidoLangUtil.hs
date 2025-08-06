@@ -20,11 +20,11 @@ glCall script input = do
     let scriptPath = getGLScriptPath script
         inputJson = encode input
 
-    -- Chama o processo Python
+    -- Chama o processo GL
     (Just hin, Just hout, _, _) <- createProcess (proc "python" [scriptPath])
         { std_in = CreatePipe, std_out = CreatePipe }
 
-    -- Envia o JSON para o Python
+    -- Envia o JSON para o GL
     BL.hPutStr hin inputJson
     hClose hin
 
