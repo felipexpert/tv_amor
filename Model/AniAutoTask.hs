@@ -130,7 +130,20 @@ dialogueToActions dialogue = generateActions' (dContents dialogue)
 -- se quiser por uma validação se o texto voltou com os indexes correspondentes corretos, faz
 -- lançar uma mensagem de erro se não estiver correto, tem que ter as mesmas posições correspondentes
 processAudiosInfoIO :: AudiosRequest -> IO AudiosInfo
-processAudiosInfoIO = undefined -- aqui entra o GuidoLang para processar os textos e gerar os AudioInfo
+processAudiosInfoIO audiosRequest = do
+    audiosInfos <- glCall GLAudiosInfo audiosRequest 
+    if checkValidity audiosInfos
+        then return audiosInfos
+        else error "Erro: A resposta do GuidoLang não corresponde ao pedido de áudios"
+    where 
+        checkValidity :: AudiosInfo -> Bool
+        checkValidity (AudiosInfo infos) = sameLength && sameSequence
+            where 
+                sameLength = length infos == length texts
+                sameSequence = and $ zipWith (\(AudioInfo _ _ t1) t2 -> t1 == t2) infos texts
+                texts :: [Text]
+                texts = [ arText ar | ar <- ars ]
+                (AudiosRequest ars) = audiosRequest
 
 episodeToTaskDialoguesIO :: E.Episode -> IO [TDialoguePe]
 episodeToTaskDialoguesIO ep = mapM dialoguePeToTaskDialogue (E.eDialoguePeList ep)
