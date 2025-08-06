@@ -81,11 +81,17 @@ data RCCommand
 -- ***** END   - tipo intermediário entre EDialoguePe e AudioInfo e duration - END   *****
 
 
-{-
 -- aqui concatenamos os trechos de fala de cada personagem, e somamos o tempo total
 dialoguesToActions :: [TDialoguePe] -> ([TPeAction], Int)
-dialoguesToActions = undefined
--}
+dialoguesToActions dialogues = (actions, totalTime)
+    where
+        actionsAndTimes :: [([TPeAction], Int)]
+        actionsAndTimes = map dialogueToActions dialogues
+        actions :: [TPeAction]
+        actions = concatMap fst actionsAndTimes
+        totalTime :: Int
+        totalTime = sum $ map snd actionsAndTimes
+
 
 -- cada trecho em que um personagem fala, gera um conjunto de ações, e o total de tempo
 dialogueToActions :: TDialoguePe -> ([TPeAction], Int)
