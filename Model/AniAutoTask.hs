@@ -11,7 +11,7 @@ import qualified Data.Text as T
 import Data.Text (Text)
 import GHC.Generics (Generic) 
 import Model.EpisodeComplete
-import Model.AudiosInfo(AudioInfo, aiDuration, aiFilePath)
+import Model.AudiosInfo(AudioInfo(..), aiDuration, aiFilePath, AudiosInfo(..), AudiosRequest(..), AudioRequest(..), AudioRequestConfig(..))
 
 import Model.EpisodePersona (EPeNumber(..))
 import Model.Episode(CGesture(..))
@@ -49,7 +49,7 @@ data AAction
 -- ***** START - tipo intermediário entre EDialoguePe e AudioInfo e duration - START *****
 -- utilizado para criar os TPeAction do AniAutoTask
 -- `TDialoguePe` (Task DialoguePe) é o `EDialoguePe` (Episode DialogPe) com informações de áudio
-data TDialoguePe = EDialoguePe
+data TDialoguePe = TDialoguePe
     { dPe :: EPeLabel
     , dPeNumber :: EPeNumber
     , dContents :: [DRichText]
@@ -161,7 +161,7 @@ episodeToTaskDialoguesIO ep = mapM dialoguePeToTaskDialogue (E.eDialoguePeList e
                 richTextsToAudiosRequests richTexts = AudiosRequest $ map textToAudioRequest (richTextsToTexts richTexts)
                     where
                         richTextsToTexts :: [E.DRichText] -> [Text]
-                        richTextsToTexts richTexts = [ text | (RPlainText text) <- richTexts ]
+                        richTextsToTexts richTexts = [ text | (E.RPlainText text) <- richTexts ]
 
                         textToAudioRequest :: Text -> AudioRequest
                         textToAudioRequest text = AudioRequest
