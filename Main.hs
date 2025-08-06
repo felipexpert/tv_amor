@@ -18,8 +18,10 @@ import Model.Episode (exampleEpisode)
 import Model.EpisodeSetup (exampleEpisodeSetup) 
 import Model.EpisodeComplete (EpisodeComplete(..))
 
-main :: IO ()
-main = do 
+import qualified Model.Test2 as Test2
+
+main_ :: IO ()
+main_ = do 
     setLocaleEncoding utf8
 
     TIO.putStrLn mensagem
@@ -32,3 +34,8 @@ main = do
     TIO.putStrLn ""
     let setup = exampleEpisodeSetup
     TU.putShowable setup
+
+main :: IO ()
+main = do 
+    setLocaleEncoding utf8
+    Test2.testIO

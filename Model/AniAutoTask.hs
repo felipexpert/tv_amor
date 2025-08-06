@@ -17,6 +17,8 @@ import Model.EpisodePersona (EPeNumber(..))
 import Model.Episode(CGesture(..))
 import Model.EpisodePersona(EPeLabel(..))
 
+import Model.GuidoLangUtil (glCall, GLScript(GLAudiosInfo))
+
 import qualified Model.Episode as E
 import qualified Model.Episode as E
 

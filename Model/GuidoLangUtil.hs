@@ -43,8 +43,10 @@ glCall script input = do
 
 data GLScript
     = GLAudiosInfo
+    | GLAudiosInfoTest
     -- vai ter outros
     deriving (Show, Eq, Generic)
 
 getGLScriptPath :: GLScript -> String
-getGLScriptPath GLAudiosInfo = "ModelGL/audios_info.py"
+getGLScriptPath GLAudiosInfo = "ModelGL/main_audios_info.py"
+getGLScriptPath GLAudiosInfoTest = "ModelGL/main_audios_info_test.py"
