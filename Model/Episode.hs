@@ -8,21 +8,21 @@ import qualified Data.Text as T
 import Data.Text (Text)
 import GHC.Generics (Generic) 
 
-import Model.EpisodeChar (ECharLabel(..))
+import Model.EpisodePersona (EPeLabel(..))
 
 
 -- O episódio completo (lista de blocos)
--- NOTA: Posso fazer validação, aceita 1 ou 2 chars, e no eDialogueBlock, aceita apenas
--- ECharLabel que estão na lista de eChars
+-- NOTA: Posso fazer validação, aceita 1 ou 2 personas, e no eDialogueBlock, aceita apenas
+-- EPeLabel que estão na lista de ePes
 data Episode = Episode 
-    { eChars :: [ECharLabel] -- Lista de personagens que participam do episódio
+    { ePes :: [EPeLabel] -- Lista de personagens que participam do episódio
     , eDialogueBlocks :: [EDialogueBlock] -- Lista de blocos de fala
     } deriving (Show, Eq, Generic)
 
 
 -- Um bloco de fala, associado a um personagem
 data EDialogueBlock = EDialogueBlock
-    { dChar :: ECharLabel
+    { dPe :: EPeLabel
     , dContents :: [DRichText]
     } deriving (Show, Eq)
 
@@ -37,7 +37,7 @@ data RCCommand
     -- ERTCGesture tem quem está fazendo o gesto, porque durante a fala de um, o outro pode fazer um gesto
     = CGesture
         { cGesture :: CGesture
-        , cChar :: ECharLabel }
+        , cPe :: EPeLabel }
     | CPause Double
     deriving (Show, Eq)
 
@@ -49,24 +49,24 @@ data CGesture
 
 exampleEpisode :: Episode
 exampleEpisode = Episode
-    { eChars = [ECharLabel "char_felipe", ECharLabel "char_gisele"]
+    { ePes = [EPeLabel "pe_felipe", EPeLabel "pe_gisele"]
     , eDialogueBlocks = exampleDialogueBlocks
     }
     where
         exampleDialogueBlocks :: [EDialogueBlock]
         exampleDialogueBlocks =
             [ EDialogueBlock
-                { dChar = ECharLabel "char_felipe"
+                { dPe = EPeLabel "pe_felipe"
                 , dContents =
                     [ RPlainText "Olá Gisele"
-                    , RCommand (CGesture GWave (ECharLabel "char_felipe"))
-                    , RCommand (CGesture GWave (ECharLabel "char_gisele"))
+                    , RCommand (CGesture GWave (EPeLabel "pe_felipe"))
+                    , RCommand (CGesture GWave (EPeLabel "pe_gisele"))
                     , RCommand (CPause 0.5)
                     , RPlainText "Tudo bem por aí?"
                     ]
                 }
             , EDialogueBlock
-                { dChar = ECharLabel "char_gisele"
+                { dPe = EPeLabel "pe_gisele"
                 , dContents =
                     [ RPlainText "Olá Felipe! Tudo ótimo!" ]
                 }

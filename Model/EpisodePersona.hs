@@ -2,7 +2,7 @@
 {-# LANGUAGE DeriveGeneric #-}
 
 -- Este módulo é utilizando tanto por Episode.hs quanto por EpisodeSetup.hs
-module Model.EpisodeChar where
+module Model.EpisodePersona where
 
 import qualified Data.Text as T
 import Data.Text (Text)
@@ -11,5 +11,5 @@ import GHC.Generics (Generic)
 
 
 -- Representa o personagem que está falando, o E prefixo é Episode
-newtype ECharLabel = ECharLabel Text
+newtype EPeLabel = EPeLabel Text
     deriving (Show, Eq, Ord, Generic)

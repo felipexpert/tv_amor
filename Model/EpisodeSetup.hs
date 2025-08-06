@@ -8,7 +8,7 @@ import qualified Data.Text as T
 import Data.Text (Text)
 import GHC.Generics (Generic)
 
-import Model.EpisodeChar (ECharLabel(..))
+import Model.EpisodePersona (EPeLabel(..))
 
 -- Informações adicionais do episódio
 data EpisodeSetup = EpisodeSetup
@@ -17,7 +17,7 @@ data EpisodeSetup = EpisodeSetup
     } deriving (Show, Eq, Generic)
 
 data SSprite = SSprite
-    { sLabel :: ECharLabel   -- Nome do sprite
+    { sLabel :: EPeLabel   -- Nome do sprite
     , sPsdPath :: FilePath     -- Caminho do sprite
     , sNumber :: SSpriteNumber -- Número do sprite (posição no background)
     } deriving (Show, Eq, Generic)
@@ -52,8 +52,8 @@ data PSprite = PSprite
 exampleEpisodeSetup :: EpisodeSetup
 exampleEpisodeSetup = EpisodeSetup
     { sSprites = 
-        [ SSprite (ECharLabel "char_damiao") "02 sprite mega-sushi-temakeria IMPORT.psd" SNumber1
-        , SSprite (ECharLabel "char_felipe") "01 sprite melhores-ofertas IMPORT.psd" SNumber2
+        [ SSprite (EPeLabel "pe_damiao") "02 sprite mega-sushi-temakeria IMPORT.psd" SNumber1
+        , SSprite (EPeLabel "pe_felipe") "01 sprite melhores-ofertas IMPORT.psd" SNumber2
         ]
     , sBackgroundImage = SBackground
         { bImagePath = "01_escritorio.png"
