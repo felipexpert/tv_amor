@@ -41,8 +41,8 @@ main_ = do
 main :: IO ()
 main = do 
     setLocaleEncoding utf8
-    hSetEncoding stdout utf8
-    hSetEncoding stdin utf8
-    hSetEncoding stderr utf8
+    -- hSetEncoding stdout utf8
+    -- hSetEncoding stdin utf8
+    -- hSetEncoding stderr utf8
     
     Test2.testIO

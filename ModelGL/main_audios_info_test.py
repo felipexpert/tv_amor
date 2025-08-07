@@ -1,3 +1,4 @@
+import io
 import sys
 import json
 from typing import List
@@ -23,6 +24,13 @@ def audio_request_to_audio_info(audio_request: AudioRequest) -> AudioInfo:
     return audioInfo
 
 def main():
+    
+    # Reconfigura sys.stderr para usar UTF-8
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
+    
+    # Redefine sys.stdin para forçar UTF-8 (isso é seguro e eficaz)
+    sys.stdin = io.TextIOWrapper(sys.stdin.buffer, encoding='utf-8')
+    
     entrada = json.load(sys.stdin) 
     lista: List[AudioRequest] = [AudioRequest(**item) for item in entrada]
     audio_infos_test = list(map(audio_request_to_audio_info, lista))
