@@ -18,13 +18,14 @@ import Model.GuidoLangUtil
 
 testIO :: IO ()
 testIO = do
-    let audioRequest = AudioRequest "Olá, humanos!" (AudioRequestConfig "voz_padrao")
-        audioRequest2 = AudioRequest "Tudo bem?!" (AudioRequestConfig "voz_padrao")
+    let audioRequest = AudioRequest "Olá, humanos!" (AudioRequestConfig "pt-BR-AntonioNeural")
+        audioRequest2 = AudioRequest "Tudo bem?!" (AudioRequestConfig "voz_pt-BR-AntonioNeuralpadrao")
         audiosRequest = AudiosRequest [audioRequest, audioRequest2]
     
     -- Envia o pedido de áudio e recebe a resposta
     TIO.putStrLn "Enviando pedido de áudio ao GuidoLang..."
-    audiosInfo <- glCall GLAudiosInfoTest audiosRequest
+    -- audiosInfo <- glCall GLAudiosInfoTest audiosRequest
+    audiosInfo <- glCall GLAudiosInfo audiosRequest
     
     let audiosInfo' = audiosInfo :: AudiosInfo
 

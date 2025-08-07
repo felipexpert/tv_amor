@@ -5,7 +5,7 @@ from typing import List
 
 from utils.audios_info import AudioInfo, AudioRequest
 
-from utils.utils import print_err
+from utils.utils import print_alt
 
 def main_2():
     # print("Iniciando processamento de áudio...")
@@ -35,7 +35,7 @@ def main():
     lista: List[AudioRequest] = [AudioRequest(**item) for item in entrada]
     audio_infos_test = list(map(audio_request_to_audio_info, lista))
     
-    print_err("Parâmetros recebidos:", entrada)
+    print_alt("Parâmetros recebidos:", entrada)
     
     # Serializar a saída como JSON e imprimir no stdout
     json.dump([info.model_dump() for info in audio_infos_test], sys.stdout)

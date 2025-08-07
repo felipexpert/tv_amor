@@ -1,65 +1,104 @@
-# ModelGL/main_audios_info.py
-
-import asyncio
 import sys
+import io
 import json
-import uuid
-import os
+import asyncio
+from typing import List
 from pathlib import Path
-from edge_tts import Communicate
+
 from pydub import AudioSegment
+import edge_tts
 
-EXTENSAO = "wav"
+from utils.audios_info import AudioRequest, AudioInfo
+from utils.utils import print_alt
+from pydantic import BaseModel
+from utils.utils import load_config
+from utils.config import Config
 
-def load_config():
-    root_dir = Path(__file__).resolve().parents[1]  # diretório pai de ModelGL
-    config_path = root_dir / "config.json"
-    with open(config_path, "r", encoding="utf-8") as f:
-        return json.load(f)
 
-async def gerar_audio(texto, nome_arquivo, voz="pt-BR-AntonioNeural"):
-    communicate = Communicate(texto, voice=voz)
-    with open(nome_arquivo, "wb") as f:
+async def gerar_audio(texto: str, caminho_wav: Path, voz: str) -> int:
+    """
+    Gera o áudio em .wav com a voz fornecida.
+    Salva no caminho especificado e retorna a duração em milissegundos.
+    """
+    caminho_temp_mp3 = caminho_wav.with_suffix(".temp.mp3")
+
+    # Gera MP3 temporário com edge-tts
+    communicate = edge_tts.Communicate(texto, voice=voz)
+    with open(caminho_temp_mp3, "wb") as f:
         async for chunk in communicate.stream():
             if chunk["type"] == "audio":
                 f.write(chunk["data"])
 
-async def processar_requisicoes(audio_requests, working_dir: Path):
-    resultados = []
+    # Converte MP3 para WAV
+    audio = AudioSegment.from_file(caminho_temp_mp3, format="mp3")
+    audio.export(caminho_wav, format="wav")
 
+    # Remove arquivo temporário
+    caminho_temp_mp3.unlink(missing_ok=True)
+
+    return int(audio.duration_seconds * 1000)
+
+
+async def processar_audio_requests(requests: List[AudioRequest], working_dir: Path) -> List[AudioInfo]:
     working_dir.mkdir(parents=True, exist_ok=True)
+    audio_infos: List[AudioInfo] = []
 
-    for i, req in enumerate(audio_requests):
-        texto = req["arText"]
-        voz = req["arConfig"]["arcVoice"]
-        nome_arquivo = f"{i+1:05d}.{EXTENSAO}"
-        caminho_completo = working_dir / nome_arquivo
+    for i, req in enumerate(requests):
+        texto: str = req.arText
+        voz: str = req.arConfig.arcVoice
+        # voz = req.arConfig.get("arcVoice", "pt-BR-AntonioNeural")
 
-        await gerar_audio(texto, caminho_completo, voz)
+        nome_arquivo = f"{i+1:05}.wav"
+        caminho_arquivo = working_dir / nome_arquivo
 
-        audio = AudioSegment.from_file(caminho_completo)
-        dur_ms = int(audio.duration_seconds * 1000)
+        print_alt(f"🎤 Gerando {nome_arquivo} com voz {voz}...")
 
-        resultados.append({
-            "aiFilePath": str(caminho_completo),
-            "aiDuration": dur_ms
-        })
+        duracao_ms = await gerar_audio(texto, caminho_arquivo, voz)
 
-    return resultados
+        audio_info = AudioInfo(
+            aiFilePath=str(caminho_arquivo),
+            aiDuration=duracao_ms,
+            aiText=texto
+        )
+        audio_infos.append(audio_info)
 
-async def main():
-    input_json = sys.stdin.read()
+    return audio_infos
+
+
+async def main_async_bkp():
+
     try:
-        audio_requests = json.loads(input_json)
+        entrada_json = json.load(sys.stdin)
+        audio_requests = [AudioRequest(**item) for item in entrada_json]
 
+        print_alt("🔧 Carregando configuração...")
         config = load_config()
-        working_dir = Path(config["workingDir"])
+        working_dir = Path(config.workingDir)
 
-        resultado = await processar_requisicoes(audio_requests, working_dir)
-        print(json.dumps(resultado))
+        print_alt(f"📂 Diretório de trabalho: {working_dir.resolve()}")
+
+        audio_infos = await processar_audio_requests(audio_requests, working_dir)
+
+        # json.dump([info.model_dump() for info in audio_infos], sys.stdout, ensure_ascii=False)
+        
+        # Serializar a saída como JSON e imprimir no stdout
+        json.dump([info.model_dump() for info in audio_infos], sys.stdout)
+
     except Exception as e:
-        print(json.dumps({"error": str(e)}))
+        print_alt(f"❌ Erro: {e}")
         sys.exit(1)
 
+
+def main_():
+    sys.stdin = io.TextIOWrapper(sys.stdin.buffer, encoding="utf-8")
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8")
+    
+    asyncio.run(main_async())
+
+async def main_async():
+    audio_infos = await processar_audio_requests(audio_requests, working_dir)
+
+
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()

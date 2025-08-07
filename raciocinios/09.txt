@@ -1,0 +1,4 @@
+Beleza, temos um código para trabalhar encima
+
+Vamos criar função para gerar algo direto no python, por enquanto, aí conectamos com o "pneu"
+
