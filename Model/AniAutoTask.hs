@@ -14,13 +14,14 @@ import Model.EpisodeComplete
 import Model.AudiosInfo(AudioInfo(..), aiDuration, aiFilePath, AudiosInfo(..), AudiosRequest(..), AudioRequest(..), AudioRequestConfig(..))
 
 import Model.EpisodePersona (EPeNumber(..))
-import Model.Episode(CGesture(..))
+import Model.Episode(CGesture(..), Episode (Episode))
 import Model.EpisodePersona(EPeLabel(..))
 
 import Model.GuidoLangUtil (glCall, GLScript(GLAudiosInfo))
 
 import qualified Model.Episode as E
 import qualified Model.Episode as E
+import Model.EpisodeComplete (EpisodeComplete(ecEpisode))
 
 data AniAutoTask = AniAutoTask
     { aatActions :: [TPeAction]
@@ -203,7 +204,16 @@ episodeToTaskDialoguesIO ep = mapM dialoguePeToTaskDialogue (E.eDialoguePeList e
                         convertCommand (E.CPause duration) = CPause duration
 
 episodeCompleteToAniAutoTaskIO :: EpisodeComplete -> IO AniAutoTask
-episodeCompleteToAniAutoTaskIO ec = do
+episodeCompleteToAniAutoTaskIO episodeComplete = do
+    dialogues <- episodeToTaskDialoguesIO episode
+    return taskTest
+    where
+        episode :: Episode
+        episode = ecEpisode ec
+        taskTest = AniAutoTask [] 10000
+
+episodeCompleteToAniAutoTaskIO_ :: EpisodeComplete -> IO AniAutoTask
+episodeCompleteToAniAutoTaskIO_ ec = do
     -- começa pelos audios
     aInfos <- requestAudiosIO audiosRequest -- aqui você cria o AudiosRequest com base
     undefined
