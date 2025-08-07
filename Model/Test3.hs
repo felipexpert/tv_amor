@@ -37,5 +37,10 @@ testIO = do
     TU.putShowable audiosInfo'
 -}
 
+-- episodeCompleteToAniAutoTaskIO :: EpisodeComplete -> IO AniAutoTask
+
 testIO :: IO ()
 testIO = do
+    episodeCompleteToAniAutoTaskIO example
+    where 
+        example = 
