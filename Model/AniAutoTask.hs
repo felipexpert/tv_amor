@@ -202,7 +202,6 @@ episodeToTaskDialoguesIO ep = mapM dialoguePeToTaskDialogue (E.eDialoguePeList e
                             in CGesture gesture peLabel peNumber
                         convertCommand (E.CPause duration) = CPause duration
 
-{-
 episodeCompleteToAniAutoTaskIO :: EpisodeComplete -> IO AniAutoTask
 episodeCompleteToAniAutoTaskIO ec = do
     -- começa pelos audios
@@ -213,4 +212,3 @@ episodeCompleteToAniAutoTaskIO ec = do
         audiosRequest = undefined
         episode :: Episode
         episode = ecEpisode ec
--}
