@@ -23,6 +23,9 @@ import qualified Model.Test2 as Test2
 main_ :: IO ()
 main_ = do 
     setLocaleEncoding utf8
+    hSetEncoding stdout utf8
+    hSetEncoding stdin utf8
+    hSetEncoding stderr utf8
 
     TIO.putStrLn mensagem
     TIO.putStrLn "Fazendo comunicação com GuidoLang..."
@@ -38,4 +41,8 @@ main_ = do
 main :: IO ()
 main = do 
     setLocaleEncoding utf8
+    hSetEncoding stdout utf8
+    hSetEncoding stdin utf8
+    hSetEncoding stderr utf8
+    
     Test2.testIO
