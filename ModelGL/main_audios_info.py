@@ -89,7 +89,7 @@ async def main_async_bkp():
         sys.exit(1)
 
 
-def main_():
+def main():
     sys.stdin = io.TextIOWrapper(sys.stdin.buffer, encoding="utf-8")
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
     sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8")
@@ -97,8 +97,14 @@ def main_():
     asyncio.run(main_async())
 
 async def main_async():
-    audio_infos = await processar_audio_requests(audio_requests, working_dir)
-
+    audio_request_list = [
+        AudioRequest(arText="Olá, humanos!", arConfig={"arcVoice": "pt-BR-AntonioNeural"}),
+        AudioRequest(arText="Tudo bem?!", arConfig={"arcVoice": "pt-BR-AntonioNeural"})
+    ]
+    config = load_config()
+    audio_infos = await processar_audio_requests(audio_request_list, config.workingDir)
+    print_alt("🎧 Áudios gerados com sucesso!")
+    print_alt(audio_infos)
 
 if __name__ == "__main__":
     main()

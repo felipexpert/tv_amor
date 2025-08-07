@@ -1,5 +1,7 @@
 from pydantic import BaseModel
 
+from pathlib import Path
+
 class Config(BaseModel):
-    workingDir: str 
+    workingDir: Path 
     
