@@ -65,7 +65,7 @@ async def processar_audio_requests(requests: List[AudioRequest], working_dir: Pa
     return audio_infos
 
 
-async def main_async_bkp():
+async def main_async():
 
     try:
         entrada_json = json.load(sys.stdin)
@@ -96,7 +96,7 @@ def main():
     
     asyncio.run(main_async())
 
-async def main_async():
+async def main_async_bkp():
     audio_request_list = [
         AudioRequest(arText="Olá, humanos!", arConfig={"arcVoice": "pt-BR-AntonioNeural"}),
         AudioRequest(arText="Tudo bem?!", arConfig={"arcVoice": "pt-BR-AntonioNeural"})
