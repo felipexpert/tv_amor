@@ -18,6 +18,8 @@ import Model.GuidoLangUtil
 
 import qualified Model.EpisodeComplete as EC
 
+import qualified Model.AniAutoTask as AAT
+
 {-
 testIO :: IO ()
 testIO = do
@@ -41,6 +43,7 @@ testIO = do
 
 testIO :: IO ()
 testIO = do
-    episodeCompleteToAniAutoTaskIO example
+    task <- AAT.episodeCompleteToAniAutoTaskIO example
+    return ()
     where 
-        example = 
+        example = exampleEpisodeComplete

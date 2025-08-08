@@ -209,7 +209,7 @@ episodeCompleteToAniAutoTaskIO episodeComplete = do
     return taskTest
     where
         episode :: Episode
-        episode = ecEpisode ec
+        episode = ecEpisode episodeComplete
         taskTest = AniAutoTask [] 10000
 
 episodeCompleteToAniAutoTaskIO_ :: EpisodeComplete -> IO AniAutoTask

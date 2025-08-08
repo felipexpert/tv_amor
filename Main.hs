@@ -20,6 +20,8 @@ import Model.EpisodeComplete (EpisodeComplete(..))
 
 import qualified Model.Test2 as Test2
 
+import qualified Model.Test3 as Test3
+
 main_ :: IO ()
 main_ = do 
     setLocaleEncoding utf8
@@ -45,4 +47,4 @@ main = do
     -- hSetEncoding stdin utf8
     -- hSetEncoding stderr utf8
     
-    Test2.testIO
+    Test3.testIO
