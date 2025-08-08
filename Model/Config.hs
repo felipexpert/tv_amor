@@ -15,7 +15,9 @@ import qualified Data.ByteString.Lazy as B
 
 data Config = Config
     { workingDir :: FilePath
-
+    , backgroundDir :: FilePath
+    , musicsDir :: FilePath
+    , spritesDir :: FilePath
     }
     deriving (Show, Eq, Generic, FromJSON, ToJSON)
 
