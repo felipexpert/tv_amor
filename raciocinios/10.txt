@@ -7,3 +7,8 @@ Localiza o arquivo
 V testa
 
 1. Fazer o diretório ter tudo que precisa, o que mais falta?
+- background
+	V Fiz uma documentação de como configurar os arquivos de background e seus respectivos json, no README
+	Como obtenho isso?
+	
+- sprites

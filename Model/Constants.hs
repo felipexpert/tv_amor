@@ -9,3 +9,4 @@ import Data.Text
 -- tvAmorBaseDir :: FilePath
 -- tvAmorBaseDir = "C:\\Users\\Geppetto\\Desktop\\tv_amor"
 
+-- 

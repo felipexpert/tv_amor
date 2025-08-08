@@ -21,11 +21,12 @@ import Model.EpisodePersona(EPeLabel(..))
 import Model.GuidoLangUtil (glCall, GLScript(GLAudiosInfo))
 
 import qualified Model.Episode as E
-import qualified Model.Episode as E
+import qualified Model.EpisodeSetup as ES
 import Model.EpisodeComplete (EpisodeComplete(ecEpisode)) 
 
 import qualified Model.Config as C
 import qualified System.Directory as SD 
+import qualified Model.EpisodeSetup as ES
 
 data AniAutoTask = AniAutoTask
     { aatActions :: [TPeAction]
@@ -245,9 +246,10 @@ episodeCompleteToAniAutoTaskIO_ ec = do
 
 -- função para limpar o diretório de trabalho, para poder fazer o trabalho AniAutoTask
 -- encontra a configuração do path do diretório em `config.json`
-prepareWorkingDirIO :: C.Config -> IO ()
-prepareWorkingDirIO config = do
+prepareWorkingDirIO :: C.Config -> ES.EpisodeSetup -> E. IO ()
+prepareWorkingDirIO config episodeSetup = do
     cleanWorkingDirIO
+    saveBackgroundImageIO
     return ()
     where 
         cleanWorkingDirIO :: IO ()
@@ -259,3 +261,10 @@ prepareWorkingDirIO config = do
             SD.createDirectoryIfMissing True workingDir
             where
                 workingDir = C.workingDir config 
+        saveBackgroundImageIO :: IO ()
+        saveBackgroundImageIO = do
+            bgImage 
+            return ()
+            where 
+                bgImage = getBG episodeSetup
+                getBG = sBackgroundImage . bImagePath
