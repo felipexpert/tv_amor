@@ -149,23 +149,37 @@ processAudiosInfoIO audiosRequest = do
                 (AudiosRequest ars) = audiosRequest
 
 episodeToTaskDialoguesIO :: E.Episode -> IO [TDialoguePe]
-episodeToTaskDialoguesIO ep = mapM dialoguePeToTaskDialogue (E.eDialoguePeList ep)
+episodeToTaskDialoguesIO ep = do 
+    let -- edp = fmap dialoguePeToTaskDialogue (E.eDialoguePeList ep)
+        listOfEdp = fmap E.dContents (E.eDialoguePeList ep)
+        allTexts = concat listOfEdp
+        -- texts = E.dContents dialoguePeToTaskDialogue edp
+    allContentsWithAudio <- processDRichTextIO allTexts
+    let allTexts' = zip allTexts allContentsWithAudio
+        res = fmap (dialoguePeToTaskDialogue allTexts') (E.eDialoguePeList ep)
+    return res
     where
-        dialoguePeToTaskDialogue :: E.EDialoguePe -> IO TDialoguePe
-        dialoguePeToTaskDialogue edp = do
-            let peLabel = E.dPe edp
+        dialoguePeToTaskDialogue :: [(E.DRichText, DRichText)] -> E.EDialoguePe -> TDialoguePe
+        dialoguePeToTaskDialogue allContentsWithAudio edp = res
+            where
+                peLabel = E.dPe edp
                 peNumber :: EPeNumber
                 peNumber = E.episodePeNumber ep peLabel
-
-            contentsWithAudio <- processDRichText (E.dContents edp)
-            return $ TDialoguePe
-                { dPe = peLabel
-                , dPeNumber = peNumber
-                , dContents = contentsWithAudio
-                }
+                thisDialogueTexts = E.dContents edp
+                contentsWithAudioTuple = filter fromThisDialogue allContentsWithAudio
+                    where 
+                        fromThisDialogue :: (E.DRichText, DRichText) -> Bool
+                        fromThisDialogue (t, tAudio) = t `elem` thisDialogueTexts
+                contentsWithAudio = fmap snd contentsWithAudioTuple
+                -- contentsWithAudio <- processDRichTextIO (E.dContents edp)
+                res = TDialoguePe
+                    { dPe = peLabel
+                    , dPeNumber = peNumber
+                    , dContents = contentsWithAudio
+                    }
         
-        processDRichText :: [E.DRichText] -> IO [DRichText]
-        processDRichText texts = do
+        processDRichTextIO :: [E.DRichText] -> IO [DRichText]
+        processDRichTextIO texts = do
             audiosInfo <- processAudiosInfoIO audiosRequest
             let richTexts = richTextsWithAudioAndTimeInfo texts audiosInfo
             return richTexts

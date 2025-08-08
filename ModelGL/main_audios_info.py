@@ -77,6 +77,8 @@ async def main_async():
 
         print_alt(f"📂 Diretório de trabalho: {working_dir.resolve()}")
 
+        print_alt("audio_requests", audio_requests)
+
         audio_infos = await processar_audio_requests(audio_requests, working_dir)
 
         # json.dump([info.model_dump() for info in audio_infos], sys.stdout, ensure_ascii=False)
