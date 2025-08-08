@@ -46,8 +46,9 @@ testIO = do
 testIO :: IO ()
 testIO = do
     config <- C.loadConfigIO
-    AAT.prepareWorkingDirIO config
+    AAT.prepareWorkingDirIO config exampleSetup
     task <- AAT.episodeCompleteToAniAutoTaskIO example
     return ()
     where 
         example = EC.exampleEpisodeComplete
+        exampleSetup = EC.exampleEpisodeSetup example
