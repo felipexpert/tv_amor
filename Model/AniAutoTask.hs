@@ -31,6 +31,8 @@ import qualified Model.EpisodeSetup as ES
 data AniAutoTask = AniAutoTask
     { aatActions :: [TPeAction]
     , aatTotalDuration :: Int -- Duração total do episódio em milissegundos
+    -- Precisa por a imagem no tipo AniAutoTask (por que varia a extensão)
+    , aatBackgroundImage :: FilePath
     } 
     deriving (Show, Eq, Generic)
 
@@ -263,8 +265,12 @@ prepareWorkingDirIO config episodeSetup = do
                 workingDir = C.workingDir config 
         saveBackgroundImageIO :: IO ()
         saveBackgroundImageIO = do
-            bgImage 
+            -- Copiar a imagem `bgFullPath` para `workingDirBgFullPath`
+            SD.copyFile bgFullPath workingDirBgFullPath
             return ()
             where 
+                workingDirBgFullPath = C.workingDir </> bgImage
+                bgFullPath = bgBaseDir </> bgImage
+                bgBaseDir = C.backgroundDir config
                 bgImage = getBG episodeSetup
                 getBG = sBackgroundImage . bImagePath

@@ -6,9 +6,11 @@ Localiza o arquivo
 
 V testa
 
+*** Precisa por a imagem no tipo AniAutoTask (por que varia a extensão) ***
+
 1. Fazer o diretório ter tudo que precisa, o que mais falta?
 - background
 	V Fiz uma documentação de como configurar os arquivos de background e seus respectivos json, no README
 	Como obtenho isso?
-	
+		Você já tem o EpisodeSetup, você fez uma configuração com os caminhos, precisa por esses caminhos no config
 - sprites
