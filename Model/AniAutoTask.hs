@@ -4,6 +4,7 @@
 {-# HLINT ignore "Use newtype instead of data" #-}
 {-# HLINT ignore "Unused LANGUAGE pragma" #-}
 {-# HLINT ignore "Use when" #-}
+{-# HLINT ignore "Redundant bracket" #-}
 
 -- MyModule.hs
 module Model.AniAutoTask where
@@ -27,6 +28,8 @@ import Model.EpisodeComplete (EpisodeComplete(ecEpisode))
 import qualified Model.Config as C
 import qualified System.Directory as SD 
 import qualified Model.EpisodeSetup as ES
+
+import System.FilePath ((</>))
 
 data AniAutoTask = AniAutoTask
     { aatActions :: [TPeAction]
@@ -232,7 +235,17 @@ episodeCompleteToAniAutoTaskIO episodeComplete = do
     where
         episode :: Episode
         episode = ecEpisode episodeComplete
-        taskTest = AniAutoTask [] 10000
+        -- taskTest = AniAutoTask [] 10000
+        taskTest = AniAutoTask
+            { aatActions = [] -- temp
+            , aatTotalDuration = 10000 -- temp
+            , aatBackgroundImage = bg
+            }
+        episodeSetup = ecEpisodeSetup episodeComplete
+        bg :: FilePath
+        bg = getBG episodeSetup
+            where
+                getBG = ES.bImagePath . ES.sBackgroundImage
 
 episodeCompleteToAniAutoTaskIO_ :: EpisodeComplete -> IO AniAutoTask
 episodeCompleteToAniAutoTaskIO_ ec = do
@@ -248,7 +261,7 @@ episodeCompleteToAniAutoTaskIO_ ec = do
 
 -- função para limpar o diretório de trabalho, para poder fazer o trabalho AniAutoTask
 -- encontra a configuração do path do diretório em `config.json`
-prepareWorkingDirIO :: C.Config -> ES.EpisodeSetup -> E. IO ()
+prepareWorkingDirIO :: C.Config -> ES.EpisodeSetup -> IO ()
 prepareWorkingDirIO config episodeSetup = do
     cleanWorkingDirIO
     saveBackgroundImageIO
@@ -269,8 +282,13 @@ prepareWorkingDirIO config episodeSetup = do
             SD.copyFile bgFullPath workingDirBgFullPath
             return ()
             where 
-                workingDirBgFullPath = C.workingDir </> bgImage
+                workingDirBgFullPath :: FilePath
+                workingDirBgFullPath = (C.workingDir config) </> bgImage
+                bgFullPath :: FilePath
                 bgFullPath = bgBaseDir </> bgImage
+                bgBaseDir :: FilePath
                 bgBaseDir = C.backgroundDir config
+                bgImage :: FilePath
                 bgImage = getBG episodeSetup
-                getBG = sBackgroundImage . bImagePath
+                getBG :: ES.EpisodeSetup -> FilePath
+                getBG = ES.bImagePath . ES.sBackgroundImage
