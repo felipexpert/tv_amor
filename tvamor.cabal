@@ -25,5 +25,7 @@ executable tv_amor-exe
         bytestring,
         unordered-containers,
         process,
-        aeson
+        aeson,
+        filepath,
+        directory
     default-language:    Haskell2010

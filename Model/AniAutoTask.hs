@@ -3,6 +3,7 @@
 {-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 {-# HLINT ignore "Use newtype instead of data" #-}
 {-# HLINT ignore "Unused LANGUAGE pragma" #-}
+{-# HLINT ignore "Use when" #-}
 
 -- MyModule.hs
 module Model.AniAutoTask where
@@ -21,7 +22,10 @@ import Model.GuidoLangUtil (glCall, GLScript(GLAudiosInfo))
 
 import qualified Model.Episode as E
 import qualified Model.Episode as E
-import Model.EpisodeComplete (EpisodeComplete(ecEpisode))
+import Model.EpisodeComplete (EpisodeComplete(ecEpisode)) 
+
+import qualified Model.Config as C
+import qualified System.Directory as SD
 
 data AniAutoTask = AniAutoTask
     { aatActions :: [TPeAction]
@@ -128,6 +132,7 @@ dialogueToActions dialogue = generateActions' (dContents dialogue)
                 actions = [a | Just a <- actionOpts] -- filtra as ações válidas
 
 -- funções de IO
+
 
 -- depois coloca `processAudiosInfoIO` no lugar certo
 -- se quiser por uma validação se o texto voltou com os indexes correspondentes corretos, faz
@@ -236,3 +241,16 @@ episodeCompleteToAniAutoTaskIO_ ec = do
         audiosRequest = undefined
         episode :: Episode
         episode = ecEpisode ec
+
+
+-- função para limpar o diretório de trabalho, para poder fazer o trabalho AniAutoTask
+-- encontra a configuração do path do diretório em `config.json`
+prepareWorkingDirIO :: C.Config -> IO ()
+prepareWorkingDirIO config = do
+    exists <- SD.doesDirectoryExist workingDir
+    if exists
+        then removePathForcibly workingDir
+        else return ()
+    createDirectoryIfMissing True workingDir
+    where
+        workingDir = C.workingDir config
