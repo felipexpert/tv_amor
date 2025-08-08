@@ -18,7 +18,9 @@ import Model.GuidoLangUtil
 
 import qualified Model.EpisodeComplete as EC
 
-import qualified Model.AniAutoTask as AAT
+import qualified Model.AniAutoTask as AAT 
+
+import qualified Model.Config as C
 
 {-
 testIO :: IO ()
@@ -43,6 +45,8 @@ testIO = do
 
 testIO :: IO ()
 testIO = do
+    config <- C.loadConfigIO
+    AAT.prepareWorkingDirIO config
     task <- AAT.episodeCompleteToAniAutoTaskIO example
     return ()
     where 

@@ -25,7 +25,7 @@ import qualified Model.Episode as E
 import Model.EpisodeComplete (EpisodeComplete(ecEpisode)) 
 
 import qualified Model.Config as C
-import qualified System.Directory as SD
+import qualified System.Directory as SD 
 
 data AniAutoTask = AniAutoTask
     { aatActions :: [TPeAction]
@@ -249,8 +249,8 @@ prepareWorkingDirIO :: C.Config -> IO ()
 prepareWorkingDirIO config = do
     exists <- SD.doesDirectoryExist workingDir
     if exists
-        then removePathForcibly workingDir
+        then SD.removePathForcibly workingDir
         else return ()
-    createDirectoryIfMissing True workingDir
+    SD.createDirectoryIfMissing True workingDir
     where
         workingDir = C.workingDir config

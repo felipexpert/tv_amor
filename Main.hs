@@ -48,3 +48,4 @@ main = do
     -- hSetEncoding stderr utf8
     
     Test3.testIO
+
