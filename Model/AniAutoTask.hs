@@ -247,10 +247,15 @@ episodeCompleteToAniAutoTaskIO_ ec = do
 -- encontra a configuração do path do diretório em `config.json`
 prepareWorkingDirIO :: C.Config -> IO ()
 prepareWorkingDirIO config = do
-    exists <- SD.doesDirectoryExist workingDir
-    if exists
-        then SD.removePathForcibly workingDir
-        else return ()
-    SD.createDirectoryIfMissing True workingDir
-    where
-        workingDir = C.workingDir config
+    cleanWorkingDirIO
+    return ()
+    where 
+        cleanWorkingDirIO :: IO ()
+        cleanWorkingDirIO = do
+            exists <- SD.doesDirectoryExist workingDir
+            if exists
+                then SD.removePathForcibly workingDir
+                else return ()
+            SD.createDirectoryIfMissing True workingDir
+            where
+                workingDir = C.workingDir config 

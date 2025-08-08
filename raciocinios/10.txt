@@ -1,0 +1,9 @@
+V Você estava fazendo a limpeza no diretório ficar automática
+
+Localiza o arquivo
+	AniAutoTask.hs em 248
+	prepareWorkingDirIO
+
+V testa
+
+1. Fazer o diretório ter tudo que precisa, o que mais falta?
