@@ -11,7 +11,7 @@ import qualified Data.Text as T
 import Data.Text (Text)
 import GHC.Generics (Generic) 
 import Model.EpisodeComplete
-import Model.AudiosInfo(AudioInfo(..), aiDuration, aiFilePath, AudiosInfo(..), AudiosRequest(..), AudioRequest(..), AudioRequestConfig(..))
+import Model.AudiosInfo(AudioInfo(..), aiDuration, aiFilePath, AudiosInfo(..), AudiosRequest(..), AudioRequest(..), AudioRequestConfig(..), requestAudiosIO)
 
 import Model.EpisodePersona (EPeNumber(..))
 import Model.Episode(CGesture(..), Episode (Episode))

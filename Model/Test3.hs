@@ -46,4 +46,4 @@ testIO = do
     task <- AAT.episodeCompleteToAniAutoTaskIO example
     return ()
     where 
-        example = exampleEpisodeComplete
+        example = EC.exampleEpisodeComplete
