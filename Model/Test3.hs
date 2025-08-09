@@ -51,4 +51,4 @@ testIO = do
     return ()
     where 
         example = EC.exampleEpisodeComplete
-        exampleSetup = EC.exampleEpisodeSetup example
+        exampleSetup = EC.ecEpisodeSetup example

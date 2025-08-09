@@ -5,6 +5,7 @@
 {-# HLINT ignore "Unused LANGUAGE pragma" #-}
 {-# HLINT ignore "Use when" #-}
 {-# HLINT ignore "Redundant bracket" #-}
+{-# HLINT ignore "Use uncurry" #-}
 
 -- MyModule.hs
 module Model.AniAutoTask where
@@ -292,3 +293,22 @@ prepareWorkingDirIO config episodeSetup = do
                 bgImage = getBG episodeSetup
                 getBG :: ES.EpisodeSetup -> FilePath
                 getBG = ES.bImagePath . ES.sBackgroundImage
+        saveSpritesIO :: IO ()
+        saveSpritesIO = do 
+            forM_ paths $ \(originDirFile,workingDirFile) ->
+                SD.copyFile originDirFile workingDirFile
+            where
+                spritesList ::[ES.SSprite]
+                spritesList = ES.sSprites episodeSetup
+                -- o diretório de origin e onde será copiado (originFile,copyFile)
+                paths :: [(FilePath, FilePaths)]
+                paths = fmap ES.sPsdPath spritesList
+                    where
+                        mapper sprite = (originDirFile, workingDirFile)
+                            where
+                                file = ES.sPsdPath sprite
+                                originDirFile = originBaseDir </> file
+                                    where
+                                        originBaseDir :: FilePath
+                                        originBaseDir = C.spritesDir config
+                                workingDirFile = (C.workingDir config) </> file
