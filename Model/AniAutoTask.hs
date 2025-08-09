@@ -265,15 +265,17 @@ buildAniAutoTask episodeComplete = AniAutoTask
 -}
 
 
-episodeCompleteToAniAutoTaskIO :: EpisodeComplete -> IO AniAutoTask
-episodeCompleteToAniAutoTaskIO episodeComplete = do
+episodeCompleteToAniAutoTaskIO :: EpisodeComplete -> C.Config -> IO AniAutoTask
+episodeCompleteToAniAutoTaskIO episodeComplete config = do
     dialogues <- episodeToTaskDialoguesIO episode
     let (actions, totalDuration) = dialoguesToActions dialogues
-    return AniAutoTask
-        { aatActions = actions
-        , aatTotalDuration = totalDuration
-        , aatBackgroundImage = bg
-        } 
+    let aat = AniAutoTask
+            { aatActions = actions
+            , aatTotalDuration = totalDuration
+            , aatBackgroundImage = bg
+            } 
+    saveAniAutoTaskIO aat config
+    return aat
     where
         episode :: Episode
         episode = ecEpisode episodeComplete
