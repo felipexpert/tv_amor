@@ -18,3 +18,7 @@ data EPeNumber
     = EPeNum1
     | EPeNum2
     deriving (Show, Eq, Ord, Generic)
+
+ePeNumberToInt :: EPeNumber -> Int
+ePeNumberToInt EPeNum1 = 1
+ePeNumberToInt EPeNum2 = 2

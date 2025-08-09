@@ -17,6 +17,7 @@ import Model.EpisodeComplete
 import Model.AudiosInfo(AudioInfo(..), aiDuration, aiFilePath, AudiosInfo(..), AudiosRequest(..), AudioRequest(..), AudioRequestConfig(..), requestAudiosIO)
 
 import Model.EpisodePersona (EPeNumber(..))
+import qualified Model.EpisodePersona as EP
 import Model.Episode(CGesture(..), Episode (Episode))
 import Model.EpisodePersona(EPeLabel(..))
 
@@ -33,6 +34,7 @@ import qualified Model.EpisodeSetup as ES
 import System.FilePath ((</>))
 
 import Control.Monad (forM_)
+import qualified Model.TextUtil as TU
 
 data AniAutoTask = AniAutoTask
     { aatActions :: [TPeAction]
@@ -310,9 +312,18 @@ prepareWorkingDirIO config episodeSetup = do
                         mapper :: ES.SSprite -> (FilePath, FilePath)
                         mapper sprite = (originDirFile, workingDirFile)
                             where
-                                file = ES.sPsdPath sprite
-                                originDirFile = originBaseDir </> file
+                                originDirFile = originBaseDir </> originFile
                                     where
                                         originBaseDir :: FilePath
                                         originBaseDir = C.spritesDir config
-                                workingDirFile = (C.workingDir config) </> file
+                                workingDirFile = (C.workingDir config) </> newFile
+                                    where
+                                        spriteNumber :: EP.EPeNumber
+                                        spriteNumber = ES.sNumber sprite
+                                        spriteNumber' :: Int
+                                        spriteNumber' = EP.ePeNumberToInt spriteNumber
+                                        newFile = TU.changeFileNameKeepingExt originFile spriteNumber''
+                                            where
+                                                spriteNumber'' :: FilePath
+                                                spriteNumber'' = show spriteNumber'
+                                originFile = ES.sPsdPath sprite
