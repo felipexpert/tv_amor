@@ -48,3 +48,6 @@ Exemplo de {nome-sem-extensão}_config.json
     }
 }
 ```
+
+Dica especial, configure o code-runner
+no vault obsidian você explica como fazer

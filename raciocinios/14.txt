@@ -1,0 +1,3 @@
+Consegui fazer o carregamento do AniAutoTask!
+	- V Eu havia feito um script para abrir o CA4, vou encontrar este script
+	- 
