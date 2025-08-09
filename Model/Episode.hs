@@ -1,5 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DeriveAnyClass #-}
 
 -- MyModule.hs
 module Model.Episode where
@@ -11,6 +12,8 @@ import GHC.Generics (Generic)
 import Model.EpisodePersona (EPeLabel(..), EPeNumber(..))
 
 import qualified Data.List as List
+
+import Data.Aeson (ToJSON, FromJSON)
 
 
 -- O episódio completo (lista de blocos)
@@ -60,7 +63,7 @@ data CGesture
     = GWave
     | GThink1 -- detalhes como duração, podem variar, por isso tem EGThing1 e EGThink2, etc
     | GThink2
-    deriving (Show, Eq) 
+    deriving (Show, Eq, Generic, ToJSON)
 
 exampleEpisode :: Episode
 exampleEpisode = Episode

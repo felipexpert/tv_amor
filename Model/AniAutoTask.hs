@@ -1,5 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DeriveAnyClass #-}
 {-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 {-# HLINT ignore "Use newtype instead of data" #-}
 {-# HLINT ignore "Unused LANGUAGE pragma" #-}
@@ -35,6 +36,7 @@ import System.FilePath ((</>))
 import Control.Monad (forM_)
 import qualified Model.TextUtil as TU
 
+import Data.Aeson (ToJSON, FromJSON)
 
 data AniAutoTask = AniAutoTask
     { aatActions :: [TPeAction]
@@ -42,13 +44,13 @@ data AniAutoTask = AniAutoTask
     -- Precisa por a imagem no tipo AniAutoTask (por que varia a extensão)
     , aatBackgroundImage :: FilePath
     } 
-    deriving (Show, Eq, Generic)
+    deriving (Show, Eq, Generic, ToJSON)
 
 data TPeAction = TPeAction
     { tpaNumber :: EPeNumber
     , tpaAction :: AAction
     }
-    deriving (Show, Eq, Generic)
+    deriving (Show, Eq, Generic, ToJSON)
 
 data AAction
     = ASpeech
@@ -59,7 +61,7 @@ data AAction
         { agGesture :: CGesture 
         , agStartTime :: Int -- Tempo de início do gesto 
         }
-    deriving (Show, Eq, Generic)
+    deriving (Show, Eq, Generic, ToJSON)
 
 -- você pode criar gestos compostos no CA4 e vincular aqui!
 
