@@ -1,0 +1,107 @@
+Prompt para ani_auto_task.py
+
+Por favor Assistente Digital, me ajude em criar a classe ani_auto_task no GL (GuidoLang)
+
+Este é um exemplo de classe py (GuidoLang), utilizando pydantic
+
+```
+
+from pydantic import BaseModel
+
+class AudioInfo(BaseModel):
+    aiFilePath: str
+    aiDuration: int
+    aiText: str
+
+class AudioRequestConfig(BaseModel):
+    arcVoice: str
+
+class AudioRequest(BaseModel):
+    arText: str
+    arConfig: AudioRequestConfig
+
+```
+
+Este é o tipo equivalente ao ani_auto_task, no haskell:
+
+```
+data AniAutoTask = AniAutoTask
+    { aatActions :: [TPeAction]
+    , aatTotalDuration :: Int -- Duração total do episódio em milissegundos
+    -- Precisa por a imagem no tipo AniAutoTask (por que varia a extensão)
+    , aatBackgroundImage :: FilePath
+    } 
+    deriving (Show, Eq, Generic, ToJSON)
+
+data TPeAction = TPeAction
+    { tpaNumber :: EPeNumber
+    , tpaAction :: AAction
+    }
+    deriving (Show, Eq, Generic, ToJSON)
+
+data AAction
+    = ASpeech
+        { asAudioWav :: FilePath -- Caminho do arquivo de áudio
+        , asStartTime :: Int -- Tempo de início da fala
+        }
+    | AGesture
+        { agGesture :: CGesture 
+        , agStartTime :: Int -- Tempo de início do gesto 
+        }
+    deriving (Show, Eq, Generic, ToJSON)
+```
+
+E este é o json gerado a partir deste AniAutoTask do Haskell, é este json que precisa ser carregado no ani_auto_task no GL (GuidoLang)
+
+```
+
+{
+    "aatActions": [
+        {
+            "tpaAction": {
+                "asAudioWav": "C:\\tv_amor_working_dir\\00001.wav",
+                "asStartTime": 0,
+                "tag": "ASpeech"
+            },
+            "tpaNumber": "EPeNum1"
+        },
+        {
+            "tpaAction": {
+                "agGesture": "GWave",
+                "agStartTime": 1968,
+                "tag": "AGesture"
+            },
+            "tpaNumber": "EPeNum1"
+        },
+        {
+            "tpaAction": {
+                "agGesture": "GWave",
+                "agStartTime": 1968,
+                "tag": "AGesture"
+            },
+            "tpaNumber": "EPeNum1"
+        },
+        {
+            "tpaAction": {
+                "asAudioWav": "C:\\tv_amor_working_dir\\00002.wav",
+                "asStartTime": 1968,
+                "tag": "ASpeech"
+            },
+            "tpaNumber": "EPeNum1"
+        },
+        {
+            "tpaAction": {
+                "asAudioWav": "C:\\tv_amor_working_dir\\00003.wav",
+                "asStartTime": 0,
+                "tag": "ASpeech"
+            },
+            "tpaNumber": "EPeNum2"
+        }
+    ],
+    "aatBackgroundImage": "01_escritorio.png",
+    "aatTotalDuration": 7536
+}
+
+```
+
+Com estas informações crie a classe ani_auto_task e as classes relacionadas, esse arquivo será ani_auto_task.py
