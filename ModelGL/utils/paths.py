@@ -15,7 +15,6 @@ class Paths:
     IMG_CA4_BTN_THANK_YOU:str = cp(IMAGES_DIR, "02_ca4_btn_thank_you.jpg")
     # END   - PyAutoGUI images - END
     
-    CONFIG_JSON_PATH: str = cp(BASE_DIR, "config.json")
     
     ANI_AUTO_TASK_JSON: str = cp(workingDir, "ani_auto_task.json")
     
