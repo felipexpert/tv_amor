@@ -1,1 +1,1 @@
-PyAutoGUI!
+Foco criação AniAutoTask

@@ -29,12 +29,12 @@ import Model.EpisodeComplete (EpisodeComplete(ecEpisode))
 
 import qualified Model.Config as C
 import qualified System.Directory as SD 
-import qualified Model.EpisodeSetup as ES
 
 import System.FilePath ((</>))
 
 import Control.Monad (forM_)
 import qualified Model.TextUtil as TU
+
 
 data AniAutoTask = AniAutoTask
     { aatActions :: [TPeAction]
@@ -233,22 +233,48 @@ episodeToTaskDialoguesIO ep = do
                             in CGesture gesture peLabel peNumber
                         convertCommand (E.CPause duration) = CPause duration
 
+{-
+
+TDialoguePe ???
+
+dialoguesToActions ??? 
+
+?? dialogueToActions :: TDialoguePe -> ([TPeAction], Int)
+
+buildAniAutoTask :: EpisodeComplete -> AniAutoTask
+buildAniAutoTask episodeComplete = AniAutoTask
+    { aatActions = actions
+    , aatTotalDuration = undefined
+    , aatBackgroundImage = bg
+    } 
+    where
+        (actions, totalDuration) = dialogueToActions
+        episode = ecEpisode episodeComplete
+        setup = ecEpisodeSetup episodeComplete
+        bg :: FilePath
+        bg = getBG setup
+            where
+                getBG = ES.bImagePath . ES.sBackgroundImage
+
+-}
+
+
 episodeCompleteToAniAutoTaskIO :: EpisodeComplete -> IO AniAutoTask
 episodeCompleteToAniAutoTaskIO episodeComplete = do
     dialogues <- episodeToTaskDialoguesIO episode
-    return taskTest
+    let (actions, totalDuration) = dialoguesToActions dialogues
+    return AniAutoTask
+        { aatActions = actions
+        , aatTotalDuration = totalDuration
+        , aatBackgroundImage = bg
+        } 
     where
         episode :: Episode
         episode = ecEpisode episodeComplete
-        -- taskTest = AniAutoTask [] 10000
-        taskTest = AniAutoTask
-            { aatActions = [] -- temp
-            , aatTotalDuration = 10000 -- temp
-            , aatBackgroundImage = bg
-            }
-        episodeSetup = ecEpisodeSetup episodeComplete
+        setup :: ES.EpisodeSetup
+        setup = ecEpisodeSetup episodeComplete
         bg :: FilePath
-        bg = getBG episodeSetup
+        bg = getBG setup
             where
                 getBG = ES.bImagePath . ES.sBackgroundImage
 
