@@ -3,7 +3,7 @@ import sys
 
 from pathlib import Path
 
-from utils.config import load_config, Config
+from utils.paths import Paths
 
 def print_err(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
@@ -16,15 +16,3 @@ def print_alt(*args, **kwargs):
     """
     # invocando print_err
     print_err(*args, **kwargs)
-
-# def load_config() -> Config:
-#     return Config(workingDir="C:\\tv_amor_working_dir")
-
-def load_config() -> Config:
-    return load_config()
-    # root_dir = Path(__file__).resolve().parents[1]  # diretório pai de ModelGL
-    # config_path = root_dir / "config.json"
-    # config_path = Path("C:\\tv_amor_working_dir")
-    # with open(config_path, "r", encoding="utf-8") as f:
-    #     configDict = json.load(f)
-    #     Config(**configDict)

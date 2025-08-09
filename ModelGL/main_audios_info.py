@@ -11,7 +11,7 @@ import edge_tts
 from utils.audios_info import AudioRequest, AudioInfo
 from utils.utils import print_alt
 from pydantic import BaseModel
-from utils.utils import load_config
+from utils.load_config import load_config
 from utils.config import Config
 
 

@@ -1,7 +1,9 @@
 from pydantic import BaseModel, Field
 from typing import List, Literal, Union
 
-from utils.config import load_config, Config
+from utils.config import Config
+
+from utils.load_config import load_config
 
 from utils.ani_auto_task import AniAutoTask
 
@@ -14,7 +16,7 @@ if __name__ == "__main__":
 
     # Exemplo: carregar o JSON gerado pelo Haskell
     # json_path = Path("ani_auto_task.json")
-    json_path = workingDir
+    json_path = workingDir / 
     ani_auto_task_data = json.loads(json_path.read_text(encoding="utf-8"))
 
     ani_task = AniAutoTask(**ani_auto_task_data)

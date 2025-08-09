@@ -1,7 +1,9 @@
 from pydantic import BaseModel, Field
 from typing import List, Literal, Union
 
-from utils.config import load_config, Config
+from utils.config import Config
+
+from utils.load_config import load_config
 
 # ===== AAction =====
 class ASpeech(BaseModel):

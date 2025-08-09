@@ -9,7 +9,7 @@ from pathlib import Path
 from edge_tts import Communicate
 from pydub import AudioSegment
 
-from utils.utils import load_config
+from utils.load_config import load_config
 
 EXTENSAO = "wav"
 

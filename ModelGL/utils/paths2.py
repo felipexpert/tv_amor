@@ -1,16 +1,16 @@
 from pathlib import Path
+from typing import List, Union
 
 
-def cp(*paths: str) -> str:
+def cp(*paths: Union[Path, str]) -> str:
     """
     cp - concat paths
-    Recebe vários paths em str, onde o primeiro é a base,
-    e concatena todos usando Path, retornando o resultado como string.
     """
     if not paths:
         raise ValueError("É necessário pelo menos um path para base")
 
     base = Path(paths[0])
     for p in paths[1:]:
-        base /= p
+        p2 = Path(p)
+        base /= p2
     return str(base)
