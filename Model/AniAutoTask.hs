@@ -32,6 +32,8 @@ import qualified Model.EpisodeSetup as ES
 
 import System.FilePath ((</>))
 
+import Control.Monad (forM_)
+
 data AniAutoTask = AniAutoTask
     { aatActions :: [TPeAction]
     , aatTotalDuration :: Int -- Duração total do episódio em milissegundos
@@ -266,6 +268,7 @@ prepareWorkingDirIO :: C.Config -> ES.EpisodeSetup -> IO ()
 prepareWorkingDirIO config episodeSetup = do
     cleanWorkingDirIO
     saveBackgroundImageIO
+    saveSpritesIO
     return ()
     where 
         cleanWorkingDirIO :: IO ()
@@ -301,9 +304,10 @@ prepareWorkingDirIO config episodeSetup = do
                 spritesList ::[ES.SSprite]
                 spritesList = ES.sSprites episodeSetup
                 -- o diretório de origin e onde será copiado (originFile,copyFile)
-                paths :: [(FilePath, FilePaths)]
-                paths = fmap ES.sPsdPath spritesList
+                paths :: [(FilePath, FilePath)]
+                paths = fmap mapper spritesList
                     where
+                        mapper :: ES.SSprite -> (FilePath, FilePath)
                         mapper sprite = (originDirFile, workingDirFile)
                             where
                                 file = ES.sPsdPath sprite
