@@ -27,5 +27,6 @@ executable tv_amor-exe
         process,
         aeson,
         filepath,
-        directory
+        directory,
+        aeson-pretty
     default-language:    Haskell2010

@@ -36,7 +36,11 @@ import System.FilePath ((</>))
 import Control.Monad (forM_)
 import qualified Model.TextUtil as TU
 
-import Data.Aeson (ToJSON, FromJSON)
+import Data.Aeson (ToJSON, FromJSON, encode)
+
+import qualified Data.ByteString.Lazy as BL
+
+import qualified Data.Aeson.Encode.Pretty as Pretty
 
 data AniAutoTask = AniAutoTask
     { aatActions :: [TPeAction]
@@ -355,3 +359,12 @@ prepareWorkingDirIO config episodeSetup = do
                                                 spriteNumber'' :: FilePath
                                                 spriteNumber'' = show spriteNumber'
                                 originFile = ES.sPsdPath sprite
+
+saveAniAutoTaskIO :: AniAutoTask -> C.Config -> IO ()
+saveAniAutoTaskIO task c = savePrettyIO filePath task 
+    where
+        filePath :: FilePath
+        filePath = (C.workingDir c) </> "ani_auto_task.json"
+
+savePrettyIO :: ToJSON a => FilePath -> a -> IO ()
+savePrettyIO path value = BL.writeFile path (Pretty.encodePretty value)
