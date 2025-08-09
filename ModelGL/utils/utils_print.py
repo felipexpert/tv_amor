@@ -1,9 +1,5 @@
-import json
+
 import sys
-
-from pathlib import Path
-
-from utils.paths import Paths
 
 def print_err(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)

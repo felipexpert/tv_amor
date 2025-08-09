@@ -1,8 +1,4 @@
-import subprocess
-import time
-
 import socket
-import time
 
 def verificar_internet() -> bool:
     """

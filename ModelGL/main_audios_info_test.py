@@ -3,9 +3,8 @@ import sys
 import json
 from typing import List
 
-from utils.audios_info import AudioInfo, AudioRequest
-
-from utils.utils import print_alt
+from utils.utils_print import print_alt
+from utils.classes.audios_info import AudioInfo, AudioRequest
 
 def main_2():
     # print("Iniciando processamento de áudio...")

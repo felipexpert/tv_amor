@@ -1,6 +1,6 @@
 import pyautogui
 
-import utils.paths as p
+import utils.utils_paths_config as p
 
 def wait_for_img(img_path: str):
     """

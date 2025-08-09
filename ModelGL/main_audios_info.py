@@ -8,11 +8,10 @@ from pathlib import Path
 from pydub import AudioSegment
 import edge_tts
 
-from utils.audios_info import AudioRequest, AudioInfo
-from utils.utils import print_alt
-from pydantic import BaseModel
-from utils.load_config import load_config
-from utils.config import Config
+from utils.utils_paths_config import load_config
+from utils.utils_print import print_alt
+from utils.classes.audios_info import AudioInfo, AudioRequest
+
 
 
 async def gerar_audio(texto: str, caminho_wav: Path, voz: str) -> int:

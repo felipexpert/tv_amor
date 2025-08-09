@@ -1,10 +1,7 @@
 import sys
 import json
 
-import utils.test as t
-
 def main():
-    print(t.test)
     
     entrada = json.load(sys.stdin)
     
