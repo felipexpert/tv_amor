@@ -24,7 +24,7 @@ def load_config() -> Config:
         if debug: print_alt("configDict", config_dict)
         return Config(**config_dict)
 
-workingDir: Path = load_config()
+workingDir: Path = load_config().workingDir
 
 def cp(*paths: Union[Path, str]) -> str:
     """
