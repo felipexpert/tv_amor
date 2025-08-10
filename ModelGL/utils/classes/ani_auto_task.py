@@ -25,10 +25,15 @@ class TPeAction(BaseModel):
     tpaNumber: str  # Ex.: "EPeNum1"
     tpaAction: AAction
 
+# ===== AniAutoTask =====
+class TPersona(BaseModel):
+    pNumber: str
+    pX: int
+    pY: int
 
 # ===== AniAutoTask =====
 class AniAutoTask(BaseModel):
     aatActions: List[TPeAction]
     aatTotalDuration: int
     aatBackgroundImage: str
-    aatPeQtd: int
+    aatPersonas: List[TPersona]

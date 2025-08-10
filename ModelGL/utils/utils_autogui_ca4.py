@@ -47,7 +47,7 @@ def add_personas(aat: AniAutoTask):
         click_img_s(Paths.IMG_CA4_BACK_STAGE)
 
 def flip_persona_1_if_needed(aat: AniAutoTask):
-    if aat.aatPeQtd > 1:
+    if len(aat.aatPersonas) > 1:
         pyautogui.sleep(1)
         click_img_s(Paths.IMG_CA4_FIND_PERSONA_1)
         pyautogui.sleep(0.5)

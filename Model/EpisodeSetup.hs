@@ -37,10 +37,23 @@ data BSpritePositions
         , pFor2Sprite2 :: PSprite }
     deriving (Show, Eq, Generic)
 
+bSpritePositionsList :: BSpritePositions -> [PSpriteNumbered]
+bSpritePositionsList (SPositionsFor1 sprite) =
+    [ PSpriteNumbered sprite EPeNum1 ]
+bSpritePositionsList (SPositionsFor2 sprite1 sprite2) =
+    [ PSpriteNumbered sprite1 EPeNum1
+    , PSpriteNumbered sprite2 EPeNum2]
+
 data PSprite = PSprite
     { sX :: Int -- Posição X do sprite no fundo
     , sY :: Int -- Posição Y do sprite no fundo
     } deriving (Show, Eq, Generic)
+
+data PSpriteNumbered = PSpriteNumbered
+    { snSprite :: PSprite
+    , snNumber :: EPeNumber 
+    } deriving (Show, Eq, Generic)
+
 
 exampleEpisodeSetup :: EpisodeSetup
 exampleEpisodeSetup = EpisodeSetup

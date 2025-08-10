@@ -49,8 +49,15 @@ data AniAutoTask = AniAutoTask
     , aatTotalDuration :: Int -- Duração total do episódio em milissegundos
     -- Precisa por a imagem no tipo AniAutoTask (por que varia a extensão)
     , aatBackgroundImage :: FilePath
-    , aatPeQtd :: Int
+    , aatPersonas :: [TPersona]
     } 
+    deriving (Show, Eq, Generic, ToJSON)
+
+data TPersona = TPersona
+    { pNumber :: EPeNumber
+    , pX :: Int
+    , pY :: Int
+    }
     deriving (Show, Eq, Generic, ToJSON)
 
 data TPeAction = TPeAction
@@ -276,7 +283,7 @@ episodeCompleteToAniAutoTaskIO episodeComplete config = do
             { aatActions = actions
             , aatTotalDuration = totalDuration
             , aatBackgroundImage = bg
-            , aatPeQtd = peQtd
+            , aatPersonas = personas
             } 
     saveAniAutoTaskIO aat config
     return aat
@@ -289,8 +296,21 @@ episodeCompleteToAniAutoTaskIO episodeComplete config = do
         bg = getBG setup
             where
                 getBG = ES.bImagePath . ES.sBackgroundImage
-        peQtd :: Int
-        peQtd = List.length (E.ePes episode)
+        personas :: [TPersona]
+        personas = fmap mapper sprites
+            where
+                mapper :: ES.PSpriteNumbered -> TPersona
+                mapper (ES.PSpriteNumbered (ES.PSprite x y) n) = TPersona 
+                    { pNumber = n
+                    , pX = x
+                    , pY = y
+                    }
+                sprites :: [ES.PSpriteNumbered]
+                sprites = ES.bSpritePositionsList positions
+                    where
+                        positions = getPositions setup
+                getPositions :: ES.EpisodeSetup -> ES.BSpritePositions
+                getPositions = ES.bSpritePositions . ES.sBackgroundImage
 
 episodeCompleteToAniAutoTaskIO_ :: EpisodeComplete -> IO AniAutoTask
 episodeCompleteToAniAutoTaskIO_ ec = do
