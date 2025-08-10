@@ -1,0 +1,6 @@
+
+
+# ===== TPeAction =====
+class TPeAction(BaseModel):
+    tpaNumber: str  # Ex.: "EPeNum1"
+    tpaAction: AAction

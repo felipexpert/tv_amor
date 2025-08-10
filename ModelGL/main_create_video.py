@@ -22,6 +22,7 @@ def run_sequence_ca4_opened(aat: AniAutoTask):
     focus_or_open_ca4()
     add_personas(aat)
     add_background(aat)
+    place_personas(aat)
     flip_persona_1_if_needed(aat)
 
 def step(aat: AniAutoTask):

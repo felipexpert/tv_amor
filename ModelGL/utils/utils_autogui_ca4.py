@@ -4,6 +4,7 @@ from typing import Union
 
 import pyautogui
 
+from ModelGL.utils.utils_autogui_ca4_details import persona_number_ca4_selector
 from utils.utils_conexao import assegura_offline
 from utils.utils_print import print_alt
 from utils.classes.ani_auto_task import AniAutoTask
@@ -29,7 +30,6 @@ def start_ca4():
 def working_dir_file(file: Union[str,Path]) -> str:
    return str(Path(Paths.AAT_WORKING_DIR) / (Path(str(file))))
 
-
 def add_personas(aat: AniAutoTask):
     # Vai clicar no botão para adicionar personagem
     # de acordo com o número de personagens, faz esta ação
@@ -47,11 +47,17 @@ def add_personas(aat: AniAutoTask):
         # Depois que ele adiciona, tem que voltar para a tela anterior
         click_img_s(Paths.IMG_CA4_BACK_STAGE)
 
+def place_personas(aat: AniAutoTask):
+    # Itera cada TPersona
+    for persona in aat.aatPersonas:
+         
+
 def flip_persona_1_if_needed(aat: AniAutoTask):
     personasQtd = len(aat.aatPersonas)
     if personasQtd > 1:
-        pyautogui.sleep(1)
-        click_img_s(Paths.IMG_CA4_FIND_PERSONA_1)
+        persona_number_ca4_selector("EPeNum1")
+        # pyautogui.sleep(1)
+        # click_img_s(Paths.IMG_CA4_FIND_PERSONA_1)
         pyautogui.sleep(0.5)
         pyautogui.keyDown('alt')
         pyautogui.sleep(0.5)
