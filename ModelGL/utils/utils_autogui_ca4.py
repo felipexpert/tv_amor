@@ -33,7 +33,8 @@ def working_dir_file(file: Union[str,Path]) -> str:
 def add_personas(aat: AniAutoTask):
     # Vai clicar no botão para adicionar personagem
     # de acordo com o número de personagens, faz esta ação
-    for pe_number in range(1, (aat.aatPeQtd + 1)):
+    personasQtd = len(aat.aatPersonas)
+    for pe_number in range(1, (personasQtd + 1)):
         pyautogui.sleep(2)
         click_img_s(Paths.IMG_CA4_CREATE_G3_FREE_BONE_ACTOR)
         # psd_path:str = str(Path(Paths.AAT_WORKING_DIR) / Path(f"{pe_number}.psd"))
@@ -47,7 +48,8 @@ def add_personas(aat: AniAutoTask):
         click_img_s(Paths.IMG_CA4_BACK_STAGE)
 
 def flip_persona_1_if_needed(aat: AniAutoTask):
-    if len(aat.aatPersonas) > 1:
+    personasQtd = len(aat.aatPersonas)
+    if personasQtd > 1:
         pyautogui.sleep(1)
         click_img_s(Paths.IMG_CA4_FIND_PERSONA_1)
         pyautogui.sleep(0.5)
