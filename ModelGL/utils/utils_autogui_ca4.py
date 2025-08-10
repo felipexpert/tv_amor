@@ -37,7 +37,7 @@ def add_personas(aat: AniAutoTask):
         pyautogui.sleep(2)
         click_img_s(Paths.IMG_CA4_CREATE_G3_FREE_BONE_ACTOR)
         # psd_path:str = str(Path(Paths.AAT_WORKING_DIR) / Path(f"{pe_number}.psd"))
-        psd_path:str = working_dir_file(f"{pe_number}.psd")
+        psd_path:str = working_dir_file(f"persona_{pe_number}.psd")
         pyautogui.sleep(1)
         pyautogui.write(psd_path)
         pyautogui.sleep(0.5)
