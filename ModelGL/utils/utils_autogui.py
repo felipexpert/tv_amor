@@ -1,6 +1,7 @@
 import pyautogui
 
 import utils.utils_paths_config as p
+import pygetwindow as gw
 
 def wait_for_img(img_path: str):
     """
@@ -39,3 +40,26 @@ def wait_s(func):
 
 @wait_s
 def click_img_s(img_path: str): click_img(img_path)
+
+def focar_janela_ca4():
+    focar_janela('Cartoon Animator 4')
+
+def focar_janela(windowsTitle: str):
+    # Lista todas janelas abertas e procura pela janela do Cartoon Animator 4 pelo título
+    janelas = gw.getWindowsWithTitle(windowsTitle)
+
+    if not janelas:
+        print("Janela do CA4 não encontrada!")
+        return False
+
+    janela_ca4 = janelas[0]
+
+    # Se a janela estiver minimizada, restaura
+    if janela_ca4.isMinimized:
+        janela_ca4.restore()
+
+    # Foca a janela para trazê-la para frente
+    janela_ca4.activate()
+
+    # Pequena pausa para garantir que a janela está ativa
+    pyautogui.sleep(1)
