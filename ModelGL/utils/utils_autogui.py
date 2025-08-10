@@ -18,12 +18,22 @@ def wait_for_img(img_path: str):
             pass
         pyautogui.sleep(1)  # Sleep for a while before checking again
 
-def click_img(img_path: str):
+# Clica em uma parte da tela para tirar seleções
+def click_to_deselect():
+    click_point(1395, 532) 
+
+def click_point(x:int, y:int):
+    pos = pyautogui.Point(x, y)
+    pyautogui.click(pos)
+    print(f'Clicou em X="{x}" Y="{y}"')
+
+def click_img(img_path: str, offset_x:int = 0, offset_y:int = 0):
     """
     Clicks on the center of the image if it is found on the screen.
     """
     print(f'Vai clicar na imagem "{p.basename(img_path)}"')
-    pos = pyautogui.locateCenterOnScreen(img_path, confidence=0.9)
+    pos_center = pyautogui.locateCenterOnScreen(img_path, confidence=0.9)
+    pos = pyautogui.Point(pos_center.x + offset_x, pos_center.y + offset_y)
     if pos is not None:
         pyautogui.click(pos)
         print(f'Clicou "{p.basename(img_path)}"')
@@ -40,7 +50,7 @@ def wait_s(func):
     return wrapper
 
 @wait_s
-def click_img_s(img_path: str): click_img(img_path)
+def click_img_s(img_path: str, offset_x:int = 0, offset_y:int = 0): click_img(img_path, offset_x, offset_y)
 
 def focus_window_ca4() -> bool:
     return focus_window('Cartoon Animator 4')

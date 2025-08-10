@@ -9,7 +9,7 @@ def persona_number_ca4_selector(personaNumber: EPeNumber):
         match personaNumber:
                 case EPeNumber.EPeNum1:
                         file_path = Paths.IMG_CA4_FIND_PERSONA_1
-                case EPeNumber.EPeNum1:
+                case EPeNumber.EPeNum2:
                         file_path = Paths.IMG_CA4_FIND_PERSONA_2
         pyautogui.sleep(1)
         click_img_s(file_path)

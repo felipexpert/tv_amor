@@ -7,8 +7,8 @@ import pyautogui
 from utils.utils_autogui_ca4_details import persona_number_ca4_selector
 from utils.utils_conexao import assegura_offline
 from utils.utils_print import print_alt
-from utils.classes.ani_auto_task import AniAutoTask, EPeNumber
-from utils.utils_autogui import click_img_s, focus_window_ca4, wait_for_img
+from utils.classes.ani_auto_task import AniAutoTask, EPeNumber, TPersona
+from utils.utils_autogui import click_img_s, click_point, click_to_deselect, focus_window_ca4, wait_for_img
 from utils.utils_paths_config import Paths
 
 def open_ca4():
@@ -50,7 +50,37 @@ def add_personas(aat: AniAutoTask):
 def place_personas(aat: AniAutoTask):
     # Itera cada TPersona
     for persona in aat.aatPersonas:
-        pass
+        persona: TPersona = persona
+        pNumber: EPeNumber = persona.pNumber
+        posX: int = persona.pX
+        posY: int = persona.pY
+        pyautogui.sleep(0.5)
+        click_to_deselect()
+        pyautogui.sleep(0.5)
+        persona_number_ca4_selector(pNumber)
+
+        # Posição X
+        # eu coloquei um offset_x 31, porque o campo está um pouco deslocado em relação à label
+        pyautogui.sleep(0.5)
+        click_img_s(Paths.IMG_CA4_POS_X, 31)
+        pyautogui.sleep(0.5)
+        pyautogui.hotkey('ctrl', 'a')
+        pyautogui.sleep(0.5)
+        pyautogui.write(str(posX))
+        pyautogui.sleep(0.5)
+        pyautogui.press("enter")
+
+        # Posição Y
+        pyautogui.sleep(0.5)
+        click_img_s(Paths.IMG_CA4_POS_Y, 31)
+        pyautogui.sleep(0.5)
+        pyautogui.hotkey('ctrl', 'a')
+        pyautogui.sleep(0.5)
+        pyautogui.write(str(posY))
+        pyautogui.sleep(0.5)
+        pyautogui.press("enter")
+        
+
          
 
 def flip_persona_1_if_needed(aat: AniAutoTask):
