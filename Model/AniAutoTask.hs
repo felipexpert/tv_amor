@@ -42,11 +42,14 @@ import qualified Data.ByteString.Lazy as BL
 
 import qualified Data.Aeson.Encode.Pretty as Pretty
 
+import qualified Data.List as List
+
 data AniAutoTask = AniAutoTask
     { aatActions :: [TPeAction]
     , aatTotalDuration :: Int -- Duração total do episódio em milissegundos
     -- Precisa por a imagem no tipo AniAutoTask (por que varia a extensão)
     , aatBackgroundImage :: FilePath
+    , aatPeQtd :: Int
     } 
     deriving (Show, Eq, Generic, ToJSON)
 
@@ -273,6 +276,7 @@ episodeCompleteToAniAutoTaskIO episodeComplete config = do
             { aatActions = actions
             , aatTotalDuration = totalDuration
             , aatBackgroundImage = bg
+            , aatPeQtd = peQtd
             } 
     saveAniAutoTaskIO aat config
     return aat
@@ -285,6 +289,8 @@ episodeCompleteToAniAutoTaskIO episodeComplete config = do
         bg = getBG setup
             where
                 getBG = ES.bImagePath . ES.sBackgroundImage
+        peQtd :: Int
+        peQtd = List.length (E.ePes episode)
 
 episodeCompleteToAniAutoTaskIO_ :: EpisodeComplete -> IO AniAutoTask
 episodeCompleteToAniAutoTaskIO_ ec = do

@@ -31,3 +31,4 @@ class AniAutoTask(BaseModel):
     aatActions: List[TPeAction]
     aatTotalDuration: int
     aatBackgroundImage: str
+    aatPeQtd: int
