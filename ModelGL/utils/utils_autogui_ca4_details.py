@@ -13,3 +13,7 @@ def persona_number_ca4_selector(personaNumber: EPeNumber):
                         file_path = Paths.IMG_CA4_FIND_PERSONA_2
         pyautogui.sleep(1)
         click_img_s(file_path)
+
+def millisecondsToFrames(milliseconds):
+    fps = 30
+    return (milliseconds * fps) // 1000 + 1

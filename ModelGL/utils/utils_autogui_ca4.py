@@ -4,10 +4,10 @@ from typing import Union
 
 import pyautogui
 
-from utils.utils_autogui_ca4_details import persona_number_ca4_selector
+from utils.utils_autogui_ca4_details import millisecondsToFrames, persona_number_ca4_selector
 from utils.utils_conexao import assegura_offline
 from utils.utils_print import print_alt
-from utils.classes.ani_auto_task import AniAutoTask, EPeNumber, TPersona
+from utils.classes.ani_auto_task import ASpeech, AniAutoTask, EPeNumber, TPersona
 from utils.utils_autogui import click_img_s, click_point, click_to_deselect, focus_window_ca4, wait_for_img
 from utils.utils_paths_config import Paths
 
@@ -121,3 +121,27 @@ def focus_or_open_ca4():
     if not janela_encontrada:
         print_alt("O Cartoon Animator 4 não está disponível, vamos carregar o programa...")
         start_ca4()
+
+def set_video_total_duration(aat: AniAutoTask):
+    # Obter os frames
+    duration = aat.aatTotalDuration
+    durationFrames = millisecondsToFrames(duration)
+    
+    # focalizar o campo
+    pyautogui.sleep(0.5)
+    pyautogui.hotkey('ctrl', 'shift', 'p')
+    pyautogui.sleep(0.5)
+    pyautogui.press('tab')
+    pyautogui.sleep(0.5)
+    pyautogui.write(str(durationFrames))
+    pyautogui.sleep(0.5)
+    pyautogui.press("enter")
+    pyautogui.sleep(0.5)
+    pyautogui.press('esc')
+    pyautogui.sleep(0.5)
+
+def put_personas_speeches(aat: AniAutoTask):
+    pass
+
+def add_persona_speech(pNumber:EPeNumber, speech: ASpeech):
+    click_to_deselect()
