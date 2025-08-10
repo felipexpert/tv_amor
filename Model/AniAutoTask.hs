@@ -365,7 +365,7 @@ prepareWorkingDirIO config episodeSetup = do
                                         newFile = TU.changeFileNameKeepingExt originFile spriteNumber''
                                             where
                                                 spriteNumber'' :: FilePath
-                                                spriteNumber'' = show spriteNumber'
+                                                spriteNumber'' = "persona_" <> (show spriteNumber')
                                 originFile = ES.sPsdPath sprite
 
 saveAniAutoTaskIO :: AniAutoTask -> C.Config -> IO ()
