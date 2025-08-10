@@ -1,6 +1,5 @@
 
 # ===== AAction =====
-from enum import Enum
 from typing import List, Literal, Union
 from pydantic import BaseModel
 
@@ -10,35 +9,25 @@ class ASpeech(BaseModel):
     asAudioWav: str
     asStartTime: int
 
-# ===== EPeNumber =====
-class CGesture(Enum):
-    GWave = "GWave"
-    GThink1 = "GThink1"
-    GThink2 = "GThink2"
 
 class AGesture(BaseModel):
     tag: Literal["AGesture"]
-    agGesture: CGesture
+    agGesture: str
     agStartTime: int
 
 
 # Discriminated union para AAction
 AAction = Union[ASpeech, AGesture]
 
-# ===== EPeNumber =====
-class EPeNumber(Enum):
-    EPeNum1 = "EPeNum1"
-    EPeNum2 = "EPeNum2"
 
 # ===== TPeAction =====
 class TPeAction(BaseModel):
-    tpaNumber: EPeNumber
+    tpaNumber: str  # Ex.: "EPeNum1"
     tpaAction: AAction
-
 
 # ===== AniAutoTask =====
 class TPersona(BaseModel):
-    pNumber: EPeNumber 
+    pNumber: str
     pX: int
     pY: int
 
