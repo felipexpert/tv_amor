@@ -47,6 +47,9 @@ class Paths:
     IMG_CA4_START:str = cp(IMAGES_DIR, "01_ca4_start.jpg")
     IMG_CA4_BTN_THANK_YOU:str = cp(IMAGES_DIR, "02_ca4_btn_thank_you.jpg")
     IMG_CA4_CREATE_G3_FREE_BONE_ACTOR:str = cp(IMAGES_DIR, "03_ca4_create_g3_free_bone_actor.jpg")
+    IMG_CA4_BACK_STAGE:str = cp(IMAGES_DIR, "04_ca4_back_stage.jpg")
+    IMG_CA4_CREATE_MEDIA:str = cp(IMAGES_DIR, "05_ca4_create_media.jpg")
+    IMG_CA4_BACKGROUND:str = cp(IMAGES_DIR, "06_ca4_background.jpg")
     # END   - PyAutoGUI images - END
     
     # AAT é ani_auto_task

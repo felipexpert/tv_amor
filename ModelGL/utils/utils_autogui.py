@@ -42,11 +42,11 @@ def wait_s(func):
 @wait_s
 def click_img_s(img_path: str): click_img(img_path)
 
-def focar_janela_ca4() -> bool:
-    return focar_janela('Cartoon Animator 4')
+def focus_window_ca4() -> bool:
+    return focus_window('Cartoon Animator 4')
 
 # Retorna True se a janela foi encontrada, ou False se não foi
-def focar_janela(windowsTitle: str) -> bool:
+def focus_window(windowsTitle: str) -> bool:
     # Lista todas janelas abertas e procura pela janela do Cartoon Animator 4 pelo título
     janelas = gw.getWindowsWithTitle(windowsTitle)
 
