@@ -46,6 +46,23 @@ def add_personas(aat: AniAutoTask):
         # Depois que ele adiciona, tem que voltar para a tela anterior
         click_img_s(Paths.IMG_CA4_BACK_STAGE)
 
+def flip_persona_1_if_needed(aat: AniAutoTask):
+    if aat.aatPeQtd > 1:
+        pyautogui.sleep(1)
+        click_img_s(Paths.IMG_CA4_FIND_PERSONA_1)
+        pyautogui.sleep(0.5)
+        pyautogui.keyDown('alt')
+        pyautogui.sleep(0.5)
+        pyautogui.press('e')
+        pyautogui.sleep(0.5)
+        pyautogui.press('f')
+        pyautogui.sleep(0.5)
+        pyautogui.press('h')
+        pyautogui.sleep(0.5)
+        pyautogui.keyUp('alt')
+        pyautogui.sleep(0.5)
+
+
 def add_background(aat: AniAutoTask):
     pyautogui.sleep(2)
     click_img_s(Paths.IMG_CA4_CREATE_MEDIA)
