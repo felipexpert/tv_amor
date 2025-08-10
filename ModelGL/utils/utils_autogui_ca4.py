@@ -4,10 +4,10 @@ from typing import Union
 
 import pyautogui
 
-from ModelGL.utils.utils_autogui_ca4_details import persona_number_ca4_selector
+from utils.utils_autogui_ca4_details import persona_number_ca4_selector
 from utils.utils_conexao import assegura_offline
 from utils.utils_print import print_alt
-from utils.classes.ani_auto_task import AniAutoTask
+from utils.classes.ani_auto_task import AniAutoTask, EPeNumber
 from utils.utils_autogui import click_img_s, focus_window_ca4, wait_for_img
 from utils.utils_paths_config import Paths
 
@@ -50,12 +50,13 @@ def add_personas(aat: AniAutoTask):
 def place_personas(aat: AniAutoTask):
     # Itera cada TPersona
     for persona in aat.aatPersonas:
+        pass
          
 
 def flip_persona_1_if_needed(aat: AniAutoTask):
     personasQtd = len(aat.aatPersonas)
     if personasQtd > 1:
-        persona_number_ca4_selector("EPeNum1")
+        persona_number_ca4_selector(EPeNumber.EPeNum1)
         # pyautogui.sleep(1)
         # click_img_s(Paths.IMG_CA4_FIND_PERSONA_1)
         pyautogui.sleep(0.5)
