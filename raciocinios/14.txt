@@ -13,3 +13,13 @@ Vamos racionalizar o básico primeiro
 Continuando...
 
 1. Conseguir o path completo para os arquivos
+
+1920x1080 horizontal
+1080x1920 vertical
+
+V Entender porque o comando completo deu excessão
+
+Flipar horizontalmente o personagem 1
+
+Vamos fazer o posicionamento
+- como eu começo com isso?

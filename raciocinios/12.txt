@@ -2,4 +2,8 @@ Fazer a leitura AAT no GL
 	- trabalhar no outro PC (com a parte que fez agora lá também)
 		V Encontrar Pasta compartilhada
 		V copiar o diretório com tudo gerado certinho
-		Atualizar a versão do projeto
+		V Atualizar a versão do projeto
+		V Encontrar a classe ani_auto_task.py ou criar 
+
+Encontrar um código que faça leitura das configurações
+- Por onde posso começar

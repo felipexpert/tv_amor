@@ -18,9 +18,11 @@ def run_sequence(aat: AniAutoTask):
     start_ca4()
 
     # Vai clicar no botão para adicionar personagem
-    click_img_s(Paths.IMG_CA4_CREATE_G3_FREE_BONE_ACTOR)
+    # click_img_s(Paths.IMG_CA4_CREATE_G3_FREE_BONE_ACTOR)
 
     add_personas(aat)
+
+    add_background(aat)
 
 def step(aat: AniAutoTask):
     focus_or_open_ca4()
@@ -31,8 +33,10 @@ def step(aat: AniAutoTask):
 
 def main():
     aat: AniAutoTask = load_ani_auto_task()
-    # run_sequence()
-    step(aat)
+
+    run_sequence(aat)
+
+    # step(aat)
     # pass 
 
 
