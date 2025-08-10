@@ -7,5 +7,9 @@ Comandos CA4
 
 Vamos racionalizar o básico primeiro 
 
-- anote os primeiras atividades que faz
+- anote as primeiras atividades que faz
 	Faça as atividades manualmente
+	
+Continuando...
+
+1. Conseguir o path completo para os arquivos

@@ -46,10 +46,12 @@ class Paths:
     # START - PyAutoGUI images - START
     IMG_CA4_START:str = cp(IMAGES_DIR, "01_ca4_start.jpg")
     IMG_CA4_BTN_THANK_YOU:str = cp(IMAGES_DIR, "02_ca4_btn_thank_you.jpg")
+    IMG_CA4_CREATE_G3_FREE_BONE_ACTOR:str = cp(IMAGES_DIR, "03_ca4_create_g3_free_bone_actor.jpg")
     # END   - PyAutoGUI images - END
     
-    
-    ANI_AUTO_TASK_JSON: str = cp(workingDir, "ani_auto_task.json")
+    # AAT é ani_auto_task
+    AAT_WORKING_DIR: str = str(workingDir)
+    ANI_AUTO_TASK_JSON: str = cp(AAT_WORKING_DIR, "ani_auto_task.json")
     
     
     
