@@ -4,6 +4,24 @@ from utils.utils_print import print_alt
 import utils.utils_paths_config as p
 import pygetwindow as gw
 
+def contains_img(img_path: str):
+    try:
+        # Tenta localizar a imagem na tela
+        pyautogui.locateOnScreen(img_path, confidence=0.9)
+        # Se a linha acima não lançar uma exceção, a imagem foi encontrada
+        print_alt(f'Procura pela imagem "{img_path}": IMAGEM ENCONTRADA')
+        return True
+    except pyautogui.ImageNotFoundException:
+        # Se a exceção for lançada, a imagem não foi encontrada
+        print_alt(f'Procura pela imagem "{img_path}": IMAGEM NÃO ENCONTRADA')
+        return False
+
+# def contains_img(img_path: str):
+#     loc = pyautogui.locateOnScreen(img_path, confidence=0.9)
+#     # se loc for None, não tem na tela, se for outra coisa, tem
+#     return (False if loc is None else True)
+
+
 def wait_for_img(img_path: str):
     """
     Waits for an image to appear on the screen.
@@ -20,7 +38,7 @@ def wait_for_img(img_path: str):
 
 # Clica em uma parte da tela para tirar seleções
 def click_to_deselect():
-    click_point(1395, 532) 
+    click_point(1377, 446) 
 
 def click_point(x:int, y:int):
     pos = pyautogui.Point(x, y)

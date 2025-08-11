@@ -1,10 +1,11 @@
 
 import pyautogui
 from utils.classes.ani_auto_task import EPeNumber
-from utils.utils_autogui import click_img_s
+from utils.utils_autogui import click_img_s, click_to_deselect
 from utils.utils_paths_config import Paths
 
 def persona_number_ca4_selector(personaNumber: EPeNumber):
+        click_to_deselect()
         file_path:str = ""
         match personaNumber:
                 case EPeNumber.EPeNum1:
@@ -14,6 +15,6 @@ def persona_number_ca4_selector(personaNumber: EPeNumber):
         pyautogui.sleep(1)
         click_img_s(file_path)
 
-def millisecondsToFrames(milliseconds):
+def milliseconds_to_frames(milliseconds):
     fps = 30
     return (milliseconds * fps) // 1000 + 1

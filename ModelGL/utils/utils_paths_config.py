@@ -54,6 +54,8 @@ class Paths:
     IMG_CA4_FIND_PERSONA_2:str = cp(IMAGES_DIR, "07_ca4_find_persona_2.jpg")
     IMG_CA4_POS_X:str = cp(IMAGES_DIR, "08_ca4_pos_x.jpg")
     IMG_CA4_POS_Y:str = cp(IMAGES_DIR, "08_ca4_pos_y.jpg")
+    IMG_CA4_TIMELINE:str = cp(IMAGES_DIR, "09_ca4_timeline.jpg")
+    IMG_CA4_TIMELINE_PLAYHEAD:str = cp(IMAGES_DIR, "10_ca4_timeline_playhead.jpg")
     # END   - PyAutoGUI images - END
     
     # AAT é ani_auto_task

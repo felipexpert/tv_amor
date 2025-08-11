@@ -4,11 +4,11 @@ from typing import Union
 
 import pyautogui
 
-from utils.utils_autogui_ca4_details import millisecondsToFrames, persona_number_ca4_selector
+from utils.utils_autogui_ca4_details import milliseconds_to_frames, persona_number_ca4_selector
 from utils.utils_conexao import assegura_offline
 from utils.utils_print import print_alt
 from utils.classes.ani_auto_task import ASpeech, AniAutoTask, EPeNumber, TPersona
-from utils.utils_autogui import click_img_s, click_point, click_to_deselect, focus_window_ca4, wait_for_img
+from utils.utils_autogui import click_img_s, click_point, click_to_deselect, contains_img, focus_window_ca4, wait_for_img
 from utils.utils_paths_config import Paths
 
 def open_ca4():
@@ -55,14 +55,12 @@ def place_personas(aat: AniAutoTask):
         posX: int = persona.pX
         posY: int = persona.pY
         pyautogui.sleep(0.5)
-        click_to_deselect()
-        pyautogui.sleep(0.5)
         persona_number_ca4_selector(pNumber)
 
         # Posição X
         # eu coloquei um offset_x 31, porque o campo está um pouco deslocado em relação à label
         pyautogui.sleep(0.5)
-        click_img_s(Paths.IMG_CA4_POS_X, 31)
+        click_img_s(Paths.IMG_CA4_POS_X, offset_x=31)
         pyautogui.sleep(0.5)
         pyautogui.hotkey('ctrl', 'a')
         pyautogui.sleep(0.5)
@@ -125,7 +123,7 @@ def focus_or_open_ca4():
 def set_video_total_duration(aat: AniAutoTask):
     # Obter os frames
     duration = aat.aatTotalDuration
-    durationFrames = millisecondsToFrames(duration)
+    durationFrames = milliseconds_to_frames(duration)
     
     # focalizar o campo
     pyautogui.sleep(0.5)
@@ -144,4 +142,21 @@ def put_personas_speeches(aat: AniAutoTask):
     pass
 
 def add_persona_speech(pNumber:EPeNumber, speech: ASpeech):
-    click_to_deselect()
+
+    # select persona
+    persona_number_ca4_selector(pNumber)
+
+    #set time
+    click_img_s(Paths.IMG_CA4_TIMELINE_PLAYHEAD, offset_x=31)
+    pyautogui.hotkey('ctrl', 'a')
+    pyautogui.sleep(0.5)
+    time_frame = milliseconds_to_frames(speech.asStartTime)
+    pyautogui.write(str(time_frame))
+    pyautogui.sleep(0.5)
+    pyautogui.press("enter")
+
+
+def display_timeline_if_hidden():
+    # mostra a timeline, APENAS se ela não estiver visível
+    if not contains_img(Paths.IMG_CA4_TIMELINE):
+        pyautogui.press('f3')
