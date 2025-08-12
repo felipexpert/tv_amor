@@ -38,14 +38,14 @@ def wait_for_img(img_path: str):
 
 # Clica em uma parte da tela para tirar seleções
 def click_to_deselect():
-    click_point(1377, 446) 
+    click_point(1467, 72) 
 
 def click_point(x:int, y:int):
     pos = pyautogui.Point(x, y)
     pyautogui.click(pos)
     print(f'Clicou em X="{x}" Y="{y}"')
 
-def click_img(img_path: str, offset_x:int = 0, offset_y:int = 0, confidence = 0.9):
+def click_img(img_path: str, offset_x:int = 0, offset_y:int = 0, confidence = 0.9, double_click=False):
     """
     Clicks on the center of the image if it is found on the screen.
     """
@@ -53,7 +53,10 @@ def click_img(img_path: str, offset_x:int = 0, offset_y:int = 0, confidence = 0.
     pos_center = pyautogui.locateCenterOnScreen(img_path, confidence=confidence)
     pos = pyautogui.Point(pos_center.x + offset_x, pos_center.y + offset_y)
     if pos is not None:
-        pyautogui.click(pos)
+        if double_click:
+            pyautogui.doubleClick(pos)
+        else:
+            pyautogui.click(pos)
         print(f'Clicou "{p.basename(img_path)}"')
     else:
         print(f'Botão "{p.basename(img_path)}" não encontrado na tela')
@@ -68,7 +71,7 @@ def wait_s(func):
     return wrapper
 
 @wait_s
-def click_img_s(img_path: str, offset_x:int = 0, offset_y:int = 0, confidence=0.9): click_img(img_path, offset_x, offset_y, confidence)
+def click_img_s(img_path: str, offset_x:int = 0, offset_y:int = 0, confidence=0.9, double_click=False): click_img(img_path, offset_x, offset_y, confidence, double_click)
 
 def focus_window_ca4() -> bool:
     return focus_window('Cartoon Animator 4')

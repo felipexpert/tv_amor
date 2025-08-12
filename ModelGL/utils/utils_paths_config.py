@@ -51,8 +51,26 @@ class Paths:
     IMG_CA4_CREATE_MEDIA:str = cp(IMAGES_DIR, "05_ca4_create_media.jpg")
     IMG_CA4_BACKGROUND:str = cp(IMAGES_DIR, "06_ca4_background.jpg")
     IMG_CA4_G3_ACTOR:str = cp(IMAGES_DIR, "07_ca4_find_g3_actor.jpg")
-    IMG_CA4_FIND_PERSONA_1:str = cp(IMAGES_DIR, "07_ca4_find_persona_1.jpg")
-    IMG_CA4_FIND_PERSONA_2:str = cp(IMAGES_DIR, "07_ca4_find_persona_2.jpg")
+    IMG_CA4_CONTENT_MANAGER:str = cp(IMAGES_DIR, "07_ca4_content_manager.jpg")
+    IMG_CA4_CONTENT_MANAGER_2:str = cp(IMAGES_DIR, "07_ca4_content_manager_2.jpg")
+    IMG_CA4_BUTTON_ACTOR:str = cp(IMAGES_DIR, "07_ca4_button_actor.jpg")
+    IMG_CA4_BUTTON_ACTOR_2:str = cp(IMAGES_DIR, "07_ca4_button_actor_2.jpg")
+    IMG_CA4_MENU_VOLTAR:str = cp(IMAGES_DIR, "07_ca4_menu_voltar.jpg")
+    IMG_CA4_CHARACTER:str = cp(IMAGES_DIR, "07_ca4_character.jpg")
+    IMG_CA4_CHARACTER_G3:str = cp(IMAGES_DIR, "07_ca4_character_g3.jpg")
+    IMG_CA4_CHARACTER_G3_HUMAN:str = cp(IMAGES_DIR, "07_ca4_character_g3_human.jpg")
+    IMG_CA4_CHARACTER_G3_HUMAN_G3_S:str = cp(IMAGES_DIR, "07_ca4_character_g3_human_g3_s.jpg")
+
+    # comandinhos para colocar o PSD customizado, no ator correto
+    IMG_CA4_COMPOSER:str = cp(IMAGES_DIR, "07_ca4_composer.jpg")
+    IMG_CA4_IMPORT_PSD_ASSETS:str = cp(IMAGES_DIR, "07_ca4_import_psd_assets.jpg")
+    IMG_CA4_PSD_LOADING_OPTIONS_OK:str = cp(IMAGES_DIR, "07_ca4_psd_loading_options_ok.jpg")
+    IMG_CA4_PSD_LOADING_OPTIONS_OK_2:str = cp(IMAGES_DIR, "07_ca4_psd_loading_options_ok_2.jpg")
+    IMG_CA4_PSD_LOADING_OPTIONS_CLOSE:str = cp(IMAGES_DIR, "07_ca4_psd_loading_options_close.jpg")
+    # comandinhos para colocar o PSD customizado, no ator correto
+
+    # IMG_CA4_FIND_PERSONA_1:str = cp(IMAGES_DIR, "07_ca4_find_persona_1.jpg")
+    # IMG_CA4_FIND_PERSONA_2:str = cp(IMAGES_DIR, "07_ca4_find_persona_2.jpg")
     IMG_CA4_POS_X:str = cp(IMAGES_DIR, "08_ca4_pos_x.jpg")
     IMG_CA4_POS_Y:str = cp(IMAGES_DIR, "08_ca4_pos_y.jpg")
     IMG_CA4_TIMELINE:str = cp(IMAGES_DIR, "09_ca4_timeline.jpg")

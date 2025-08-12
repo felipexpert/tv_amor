@@ -32,8 +32,7 @@ def run_sequence_ca4_opened(aat: AniAutoTask, config: Config):
 
 def step(aat: AniAutoTask, config: Config):
     focus_or_open_ca4()
-    display_timeline_if_hidden()
-    add_all_speeches(aat, config)
+    add_personas(aat)
 
     
 
@@ -47,9 +46,9 @@ def main():
 
     # run_sequence(aat, config)
 
-    run_sequence_ca4_opened(aat, config)
+    # run_sequence_ca4_opened(aat, config)
 
-    # step(aat, config)
+    step(aat, config)
     
     # pass 
 

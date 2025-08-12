@@ -33,6 +33,73 @@ def working_dir_file(file: Union[str,Path]) -> str:
    return str(Path(Paths.AAT_WORKING_DIR) / (Path(str(file))))
 
 def add_personas(aat: AniAutoTask):
+    # IMPORTANTE: Precisa configurar o "Change View Mode" (esta opção aparece quando clica com o botão direito em
+    # uma parte da "Content Manager"), para ficar itens quadradinhos e preenchendo a horizontal
+
+    # Vai clicar no botão para adicionar personagem
+    # de acordo com o número de personagens, faz esta ação
+    personasQtd = len(aat.aatPersonas)
+    for pe_number in range(1, (personasQtd + 1)):
+        # primeiramente, precisamos adicionar o actor correto do CA4
+        # comece vendo se está no content manager
+        if not contains_img(Paths.IMG_CA4_CONTENT_MANAGER):
+            click_img_s(Paths.IMG_CA4_CONTENT_MANAGER_2)
+        # deixa a aba "Actor" selecionada
+        if not contains_img(Paths.IMG_CA4_BUTTON_ACTOR):
+            click_img_s(Paths.IMG_CA4_BUTTON_ACTOR_2)
+        
+        # se o voltar estiver "pretinho" clica 4 vezes
+        if contains_img(Paths.IMG_CA4_MENU_VOLTAR):
+            click_img_s(Paths.IMG_CA4_MENU_VOLTAR)
+            pyautogui.sleep(0.5)
+            pyautogui.click()
+            pyautogui.sleep(0.5)
+            pyautogui.click()
+            pyautogui.sleep(0.5)
+            pyautogui.click()
+        
+        # cliques para apresentar os atores, e seleciona o ator correto
+        pyautogui.sleep(0.5)
+        click_img_s(Paths.IMG_CA4_CHARACTER, double_click=True)
+        pyautogui.sleep(0.5)
+        click_img_s(Paths.IMG_CA4_CHARACTER_G3, double_click=True)
+        pyautogui.sleep(0.5)
+        click_img_s(Paths.IMG_CA4_CHARACTER_G3_HUMAN, double_click=True)
+        pyautogui.sleep(0.5)
+        click_img_s(Paths.IMG_CA4_CHARACTER_G3_HUMAN_G3_S, double_click=True)
+
+        # espera o character carregar
+        pyautogui.sleep(5)
+
+        # coloca o PSD correto
+        click_img_s(Paths.IMG_CA4_COMPOSER)
+        pyautogui.sleep(3)
+        click_img_s(Paths.IMG_CA4_IMPORT_PSD_ASSETS)
+        pyautogui.sleep(1)
+        psd_path:str = working_dir_file(f"persona_{pe_number}.psd")
+        pyautogui.write(psd_path)
+        pyautogui.sleep(0.5)
+        pyautogui.press("enter")
+        pyautogui.sleep(3)
+        click_to_deselect()
+        if contains_img(Paths.IMG_CA4_PSD_LOADING_OPTIONS_OK):
+            click_img_s(Paths.IMG_CA4_PSD_LOADING_OPTIONS_OK)
+        else:
+            click_img_s(Paths.IMG_CA4_PSD_LOADING_OPTIONS_OK_2)
+        pyautogui.sleep(5)
+        click_to_deselect()
+        click_img_s(Paths.IMG_CA4_PSD_LOADING_OPTIONS_CLOSE)
+        click_to_deselect()
+        pyautogui.sleep(2)
+        
+        # volta
+        click_img_s(Paths.IMG_CA4_BACK_STAGE)
+
+
+        
+
+
+def add_personas_bkp(aat: AniAutoTask):
     # Vai clicar no botão para adicionar personagem
     # de acordo com o número de personagens, faz esta ação
     personasQtd = len(aat.aatPersonas)
