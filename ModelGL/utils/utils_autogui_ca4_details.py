@@ -7,6 +7,20 @@ from utils.utils_paths_config import Paths
 def persona_number_ca4_selector(personaNumber: EPeNumber):
         click_to_deselect()
         file_path:str = ""
+        pyautogui.sleep(0.5)
+        click_img_s(Paths.IMG_CA4_G3_ACTOR)
+        match personaNumber:
+                case EPeNumber.EPeNum1:
+                        pyautogui.press('down')
+                case EPeNumber.EPeNum2:
+                        pyautogui.press('down')
+                        pyautogui.sleep(0.5)
+                        pyautogui.press('down')
+        pyautogui.sleep(1)
+
+def persona_number_ca4_selector_bkp(personaNumber: EPeNumber):
+        click_to_deselect()
+        file_path:str = ""
         match personaNumber:
                 case EPeNumber.EPeNum1:
                         file_path = Paths.IMG_CA4_FIND_PERSONA_1

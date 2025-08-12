@@ -45,12 +45,12 @@ def click_point(x:int, y:int):
     pyautogui.click(pos)
     print(f'Clicou em X="{x}" Y="{y}"')
 
-def click_img(img_path: str, offset_x:int = 0, offset_y:int = 0):
+def click_img(img_path: str, offset_x:int = 0, offset_y:int = 0, confidence = 0.9):
     """
     Clicks on the center of the image if it is found on the screen.
     """
     print(f'Vai clicar na imagem "{p.basename(img_path)}"')
-    pos_center = pyautogui.locateCenterOnScreen(img_path, confidence=0.9)
+    pos_center = pyautogui.locateCenterOnScreen(img_path, confidence=confidence)
     pos = pyautogui.Point(pos_center.x + offset_x, pos_center.y + offset_y)
     if pos is not None:
         pyautogui.click(pos)
@@ -68,7 +68,7 @@ def wait_s(func):
     return wrapper
 
 @wait_s
-def click_img_s(img_path: str, offset_x:int = 0, offset_y:int = 0): click_img(img_path, offset_x, offset_y)
+def click_img_s(img_path: str, offset_x:int = 0, offset_y:int = 0, confidence=0.9): click_img(img_path, offset_x, offset_y, confidence)
 
 def focus_window_ca4() -> bool:
     return focus_window('Cartoon Animator 4')

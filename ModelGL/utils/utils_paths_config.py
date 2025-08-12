@@ -50,6 +50,7 @@ class Paths:
     IMG_CA4_BACK_STAGE:str = cp(IMAGES_DIR, "04_ca4_back_stage.jpg")
     IMG_CA4_CREATE_MEDIA:str = cp(IMAGES_DIR, "05_ca4_create_media.jpg")
     IMG_CA4_BACKGROUND:str = cp(IMAGES_DIR, "06_ca4_background.jpg")
+    IMG_CA4_G3_ACTOR:str = cp(IMAGES_DIR, "07_ca4_find_g3_actor.jpg")
     IMG_CA4_FIND_PERSONA_1:str = cp(IMAGES_DIR, "07_ca4_find_persona_1.jpg")
     IMG_CA4_FIND_PERSONA_2:str = cp(IMAGES_DIR, "07_ca4_find_persona_2.jpg")
     IMG_CA4_POS_X:str = cp(IMAGES_DIR, "08_ca4_pos_x.jpg")
