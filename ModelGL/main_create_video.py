@@ -46,7 +46,7 @@ def main():
 
     # run_sequence(aat, config)
 
-    # run_sequence_ca4_opened(aat, config)
+    run_sequence_ca4_opened(aat, config)
 
     step(aat, config)
     
