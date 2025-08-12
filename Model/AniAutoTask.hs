@@ -7,6 +7,7 @@
 {-# HLINT ignore "Use when" #-}
 {-# HLINT ignore "Redundant bracket" #-}
 {-# HLINT ignore "Use uncurry" #-}
+{-# HLINT ignore "Use catMaybes" #-}
 
 -- MyModule.hs
 module Model.AniAutoTask where
@@ -119,6 +120,17 @@ data RCCommand
 -- ***** END   - tipo intermediário entre EDialoguePe e AudioInfo e duration - END   *****
 
 -- aqui concatenamos os trechos de fala de cada personagem, e somamos o tempo total
+
+dialoguesToActions :: [TDialoguePe] -> ([TPeAction], Int)
+dialoguesToActions dialogues = go dialogues 0 [] 
+    where
+        go :: [TDialoguePe] -> Int -> [TPeAction] -> ([TPeAction], Int)
+        go [] currentTime acc = (reverse acc, currentTime)
+        go (d:ds) currentTime acc =
+            let (actions, endTime) = dialogueToActions currentTime d
+            in go ds endTime (reverse actions ++ acc)
+
+{-
 dialoguesToActions :: [TDialoguePe] -> ([TPeAction], Int)
 dialoguesToActions dialogues = (actions, totalTime)
     where
@@ -128,16 +140,16 @@ dialoguesToActions dialogues = (actions, totalTime)
         actions = concatMap fst actionsAndTimes
         totalTime :: Int
         totalTime = sum $ map snd actionsAndTimes
-
+-}
 
 -- cada trecho em que um personagem fala, gera um conjunto de ações, e o total de tempo
-dialogueToActions :: TDialoguePe -> ([TPeAction], Int)
-dialogueToActions dialogue = generateActions' (dContents dialogue)
+dialogueToActions :: Int -> TDialoguePe -> ([TPeAction], Int)
+dialogueToActions startTime dialogue = generateActions' (dContents dialogue)
     where
         peNumber :: EPeNumber
         peNumber = dPeNumber dialogue
         generateActions :: [DRichText] -> ([Maybe TPeAction], Int)
-        generateActions ts = go ts 0 []
+        generateActions ts = go ts startTime []
             where
                 go [] total acc = (reverse acc, total)
                 go (t:ts) currentTime acc = go ts nextTime (actionOpt : acc)
