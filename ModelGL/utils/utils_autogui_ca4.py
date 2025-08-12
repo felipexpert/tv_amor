@@ -1,13 +1,15 @@
 from pathlib import Path
 import subprocess
-from typing import Union
+from typing import List, Union
 
 import pyautogui
 
+from utils.utils_ani_auto_task import get_aat_action_speechs
+from utils.classes.config import Config
 from utils.utils_autogui_ca4_details import milliseconds_to_frames, persona_number_ca4_selector
 from utils.utils_conexao import assegura_offline
 from utils.utils_print import print_alt
-from utils.classes.ani_auto_task import ASpeech, AniAutoTask, EPeNumber, TPersona
+from utils.classes.ani_auto_task import ASpeech, AniAutoTask, EPeNumber, TPeAction, TPersona
 from utils.utils_autogui import click_img_s, click_point, click_to_deselect, contains_img, focus_window_ca4, wait_for_img
 from utils.utils_paths_config import Paths
 
@@ -141,7 +143,14 @@ def set_video_total_duration(aat: AniAutoTask):
 def put_personas_speeches(aat: AniAutoTask):
     pass
 
-def add_persona_speech(pNumber:EPeNumber, speech: ASpeech):
+def add_all_speeches(aat: AniAutoTask, config: Config):
+    action_speechs:List[TPeAction] = get_aat_action_speechs(aat)
+
+    for action_speech in action_speechs:
+        action_speech:TPeAction = action_speech
+        add_persona_speech(action_speech.tpaNumber, action_speech.tpaAction, config)
+
+def add_persona_speech(pNumber:EPeNumber, speech: ASpeech, config: Config):
 
     # select persona
     persona_number_ca4_selector(pNumber)
@@ -154,6 +163,18 @@ def add_persona_speech(pNumber:EPeNumber, speech: ASpeech):
     pyautogui.write(str(time_frame))
     pyautogui.sleep(0.5)
     pyautogui.press("enter")
+    pyautogui.sleep(0.5)
+
+    # insert audio file
+    click_img_s(Paths.IMG_CA4_CREATE_SCRIPT)
+    pyautogui.sleep(0.5)
+    click_img_s(Paths.IMG_CA4_WAVE_FILE)
+    pyautogui.sleep(0.5)
+    audio_path: Path = config.workingDir / Path(speech.asAudioWav)
+    pyautogui.write(str(audio_path))
+    pyautogui.sleep(0.5)
+    pyautogui.press("enter")
+    pyautogui.sleep(1)
 
 
 def display_timeline_if_hidden():

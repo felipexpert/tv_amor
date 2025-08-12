@@ -56,6 +56,8 @@ class Paths:
     IMG_CA4_POS_Y:str = cp(IMAGES_DIR, "08_ca4_pos_y.jpg")
     IMG_CA4_TIMELINE:str = cp(IMAGES_DIR, "09_ca4_timeline.jpg")
     IMG_CA4_TIMELINE_PLAYHEAD:str = cp(IMAGES_DIR, "10_ca4_timeline_playhead.jpg")
+    IMG_CA4_CREATE_SCRIPT:str = cp(IMAGES_DIR, "11_ca4_create_script.jpg")
+    IMG_CA4_WAVE_FILE:str = cp(IMAGES_DIR, "11_ca4_wave_file.jpg")
     # END   - PyAutoGUI images - END
     
     # AAT é ani_auto_task
