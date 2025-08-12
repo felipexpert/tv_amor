@@ -12,9 +12,17 @@ class ASpeech(BaseModel):
 
 # ===== EPeNumber =====
 class CGesture(Enum):
-    GWave = "GWave"
-    GThink1 = "GThink1"
-    GThink2 = "GThink2"
+    GHi = "GHi"
+    GStandShort = "GStandShort"
+    GStandLong = "GStandLong"
+    GThinkShort = "GThinkShort"
+    GThinkLong = "GThinkLong"
+    GTalkShort = "GTalkShort"
+    GTalkLong = "GTalkLong"
+    GWorry = "GWorry"
+    GShakeLeg = "GShakeLeg"
+    GExcited = "GExcited"
+    GDance = "GDance"
 
 class AGesture(BaseModel):
     tag: Literal["AGesture"]

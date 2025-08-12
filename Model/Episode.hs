@@ -60,9 +60,17 @@ data RCCommand
     deriving (Show, Eq)
 
 data CGesture
-    = GWave
-    | GThink1 -- detalhes como duração, podem variar, por isso tem EGThing1 e EGThink2, etc
-    | GThink2
+    = GHi
+    | GStandShort
+    | GStandLong
+    | GThinkShort
+    | GThinkLong
+    | GTalkShort
+    | GTalkLong
+    | GWorry
+    | GShakeLeg
+    | GExcited
+    | GDance
     deriving (Show, Eq, Generic, ToJSON)
 
 exampleEpisode :: Episode
@@ -77,8 +85,8 @@ exampleEpisode = Episode
                 { dPe = EPeLabel "pe_felipe"
                 , dContents =
                     [ RPlainText "Olá Gisele"
-                    , RCommand (CGesture GWave (EPeLabel "pe_felipe"))
-                    , RCommand (CGesture GWave (EPeLabel "pe_gisele"))
+                    , RCommand (CGesture GHi (EPeLabel "pe_felipe"))
+                    , RCommand (CGesture GHi (EPeLabel "pe_gisele"))
                     , RCommand (CPause 500)
                     , RPlainText "Tudo bem por aí?"
                     ]
