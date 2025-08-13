@@ -78,6 +78,12 @@ class Paths:
     IMG_CA4_CREATE_SCRIPT:str = cp(IMAGES_DIR, "11_ca4_create_script.jpg")
     IMG_CA4_WAVE_FILE:str = cp(IMAGES_DIR, "11_ca4_wave_file.jpg")
     IMG_CA4_PAUSE_TIMELINE:str = cp(IMAGES_DIR, "12_ca4_pause_timeline.jpg")
+    IMG_CA4_RENDER_SETTINGS_FORMAT:str = cp(IMAGES_DIR, "13_ca4_render_settings_format.jpg")
+    IMG_CA4_RENDER_SETTINGS_FIELD_REFERENCE:str = cp(IMAGES_DIR, "14_ca4_render_settings_field_reference.jpg")
+    
+    IMG_CA4_RENDER_SETTINGS_EXPORT:str = cp(IMAGES_DIR, "14_ca4_render_settings_export.jpg")
+    IMG_CA4_VIDEO_EXPORT_COMPLETE:str = cp(IMAGES_DIR, "15_ca4_video_export_complete.jpg")
+    IMG_CA4_WATCH_VIDEO_NOW_NO_BUTTON:str = cp(IMAGES_DIR, "15_ca4_watch_video_now_no_button.jpg")
     # END   - PyAutoGUI images - END
     
     # AAT é ani_auto_task

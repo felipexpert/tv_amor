@@ -3,6 +3,7 @@ import subprocess
 import sys
 from typing import Dict, List, Union
 
+from PIL import Image
 import pyautogui
 import pyperclip
 
@@ -171,6 +172,77 @@ def flip_persona_1_if_needed(aat: AniAutoTask):
         pyautogui.keyUp('alt')
         pyautogui.sleep(0.5)
 
+def render_video():
+    # Abrir o menu e colocar MP4
+    render_video_open_menu_and_set_MP4()
+
+    # Export
+    click_img_s(Paths.IMG_CA4_RENDER_SETTINGS_EXPORT)
+    pyautogui.sleep(1)
+    video_file_path:str = str(Path(Paths.AAT_WORKING_DIR) / Path('video.mp4')) # path completa do vídeo a ser exportado
+    pyautogui.write(video_file_path)
+    pyautogui.sleep(0.5)
+    pyautogui.press('enter')
+    wait_for_img(Paths.IMG_CA4_VIDEO_EXPORT_COMPLETE)
+    click_img_s(Paths.IMG_CA4_WATCH_VIDEO_NOW_NO_BUTTON)
+    pyautogui.sleep(0.5)
+    pyautogui.press('esc')
+
+
+def prepare_render_video_configs(aat: AniAutoTask):
+    bg_width, bg_height = get_background_size(aat)
+    
+    # Abrir o menu e colocar MP4
+    render_video_open_menu_and_set_MP4()
+
+    # set export configs
+    press_key_n_times('tab', 2)
+    pyautogui.press('7')
+    pyautogui.sleep(0.5)
+    press_key_n_times('tab', 2)
+    pyautogui.press('7')
+    pyautogui.sleep(0.5)
+    press_key_n_times('tab', 3)
+    pyautogui.press('space')
+    pyautogui.sleep(0.5)
+    pyautogui.press('tab')
+    pyautogui.sleep(0.5)
+    pyautogui.write(str(bg_height))
+    pyautogui.sleep(0.5)
+    pyautogui.press('enter')
+    pyautogui.sleep(0.5)
+    pyautogui.press('tab')
+    pyautogui.sleep(0.5)
+    pyautogui.write(str(bg_width))
+    pyautogui.sleep(0.5)
+    pyautogui.press('enter')
+    pyautogui.sleep(0.5)
+    click_to_deselect()
+    pyautogui.sleep(0.5)
+    pyautogui.press('esc')
+    pyautogui.sleep(0.5)
+
+def render_video_open_menu_and_set_MP4():
+    pyautogui.sleep(0.5)
+    pyautogui.keyDown('alt')
+    pyautogui.sleep(0.5)
+    pyautogui.press('r')
+    pyautogui.sleep(0.5)
+    pyautogui.press('v')
+    pyautogui.sleep(0.5)
+    pyautogui.keyUp('alt')
+    pyautogui.sleep(0.5)
+
+    # certifica que a janela está "scrolada" no começo
+    click_img_s(Paths.IMG_CA4_RENDER_SETTINGS_FIELD_REFERENCE)
+    press_key_n_times('up', 15)
+
+    # mudar o tipo do vídeo para MP4
+    click_img_s(Paths.IMG_CA4_RENDER_SETTINGS_FORMAT, offset_x=65)
+    pyautogui.sleep(0.5)
+    press_key_n_times('down', 2)
+    pyautogui.press('enter')
+
 
 def add_background(aat: AniAutoTask):
     pyautogui.sleep(2)
@@ -183,6 +255,22 @@ def add_background(aat: AniAutoTask):
     pyautogui.write(bg_path)
     pyautogui.sleep(0.5)
     pyautogui.press("enter")
+
+def get_image_size(path: Path) -> tuple[int, int]:
+    """Retorna (width, height) da imagem no caminho informado."""
+    with Image.open(path) as img:
+        return img.width, img.height
+
+def get_background_size(aat: AniAutoTask) -> tuple[int, int]:
+    bg_path_str = working_dir_file(aat.aatBackgroundImage)
+
+    caminho = Path(bg_path_str)
+
+    if not caminho.exists():
+        print_alt(f"Arquivo não encontrado: {caminho}")
+        return
+
+    return get_image_size(caminho)
 
 def focus_or_open_ca4():
     # pyautogui.sleep(2)  # Sleep for a while before checking again
