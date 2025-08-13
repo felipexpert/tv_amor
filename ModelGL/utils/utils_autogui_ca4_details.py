@@ -29,6 +29,6 @@ def persona_number_ca4_selector_bkp(personaNumber: EPeNumber):
         pyautogui.sleep(1)
         click_img_s(file_path)
 
-def milliseconds_to_frames(milliseconds):
+def milliseconds_to_frames(milliseconds:int) -> int:
     fps = 30
     return (milliseconds * fps) // 1000 + 1

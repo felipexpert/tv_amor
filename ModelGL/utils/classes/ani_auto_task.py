@@ -19,10 +19,13 @@ class CGesture(Enum):
     GThinkLong = "GThinkLong"
     GTalkShort = "GTalkShort"
     GTalkLong = "GTalkLong"
-    GWorry = "GWorry"
-    GShakeLeg = "GShakeLeg"
+    GWorryShort = "GWorryShort"
+    GWorryLong = "GWorryLong"
+    GShakeLegShort = "GShakeLegShort"
+    GShakeLegLong = "GShakeLegLong"
     GExcited = "GExcited"
     GDance = "GDance"
+    GDefault = "GDefault"
 
 class AGesture(BaseModel):
     tag: Literal["AGesture"]

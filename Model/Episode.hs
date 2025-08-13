@@ -67,10 +67,13 @@ data CGesture
     | GThinkLong
     | GTalkShort
     | GTalkLong
-    | GWorry
-    | GShakeLeg
+    | GWorryShort
+    | GWorryLong
+    | GShakeLegShort
+    | GShakeLegLong
     | GExcited
     | GDance
+    | GDefault
     deriving (Show, Eq, Generic, ToJSON)
 
 exampleEpisode :: Episode

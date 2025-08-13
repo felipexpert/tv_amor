@@ -1,15 +1,16 @@
 from pathlib import Path
 import subprocess
-from typing import List, Union
+from typing import Dict, List, Union
 
 import pyautogui
+import pyperclip
 
 from utils.utils_ani_auto_task import get_aat_action_speechs
 from utils.classes.config import Config
 from utils.utils_autogui_ca4_details import milliseconds_to_frames, persona_number_ca4_selector
 from utils.utils_conexao import assegura_offline
 from utils.utils_print import print_alt
-from utils.classes.ani_auto_task import ASpeech, AniAutoTask, EPeNumber, TPeAction, TPersona
+from utils.classes.ani_auto_task import AAction, AGesture, ASpeech, AniAutoTask, CGesture, EPeNumber, TPeAction, TPersona
 from utils.utils_autogui import click_img_s, click_point, click_to_deselect, contains_img, focus_window_ca4, wait_for_img
 from utils.utils_paths_config import Paths
 
@@ -31,6 +32,7 @@ def start_ca4():
 
 def working_dir_file(file: Union[str,Path]) -> str:
    return str(Path(Paths.AAT_WORKING_DIR) / (Path(str(file))))
+
 
 def add_personas(aat: AniAutoTask):
     # IMPORTANTE: Precisa configurar o "Change View Mode" (esta opção aparece quando clica com o botão direito em
@@ -207,8 +209,108 @@ def set_video_total_duration(aat: AniAutoTask):
     pyautogui.press('esc')
     pyautogui.sleep(0.5)
 
-def put_personas_speeches(aat: AniAutoTask):
-    pass
+def add_personas_gestures(aat: AniAutoTask):
+    def make_person_gestures_dict():
+        person_gestures_dict:Dict[str,List[AGesture]] = {}
+        for action in aat.aatActions:
+            pe_number: EPeNumber = action.tpaNumber
+            action: AAction = action.tpaAction
+            if action.tag != "AGesture":
+                continue # é um speech, pode ir para a próxima ação
+            gesture: AGesture = action # converte para AGesture
+
+            if pe_number in person_gestures_dict:
+                actions:List[AGesture] = person_gestures_dict.get(pe_number)
+                actions.append(gesture)
+            else:
+                actions.update({pe_number: [ gesture ]})
+        return person_gestures_dict
+
+    person_gestures_dict:Dict[str,List[AGesture]] = make_person_gestures_dict()
+    for pe_number, gestures in person_gestures_dict.items():
+        add_persona_gestures(pe_number, gestures)
+
+
+def add_persona_gestures(pe_number: EPeNumber, gestures: List[AGesture]):
+    # select persona
+    persona_number_ca4_selector(pe_number)
+
+# Você já vai ter selecionado o persona
+def add_gesture(gestures: List[AGesture]):
+    for gesture in gestures:
+        gesture: AGesture = gesture
+        set_time_position_in_millis(gesture.agStartTime)
+        g: CGesture = gesture
+        match g:
+            case CGesture.GHi:
+                press_key_n_times('up', 3)
+                pyautogui.press('enter')
+            case CGesture.GStandShort:
+                pass
+            case CGesture.GStandLong:
+                pass
+            case CGesture.GThinkShort:
+                pass
+            case CGesture.GThinkLong:
+                pass
+            case CGesture.GTalkShort:
+                pass
+            case CGesture.GTalkLong:
+                pass
+            case CGesture.GWorry:
+                pass
+            case CGesture.GShakeLeg:
+                pass
+            case CGesture.GExcited:
+                pass
+            case CGesture.GDance:
+                pass
+
+def press_key_n_times(key:str, times:int):
+    for _ in range(0, times):
+        pyautogui.sleep(0.5)
+        pyautogui.press(key)
+    pyautogui.sleep(0.5)
+
+
+def natural_standing_pesonas(aat: AniAutoTask):
+    for persona in aat.aatPersonas:
+        natural_standing_pesona(aat, persona.pNumber)
+    pyautogui.sleep(0.5)
+    set_time_position_in_millis(0) # volta o temporizador para o começo (não era necessario)
+    pyautogui.sleep(0.5)
+
+def natural_standing_pesona(aat: AniAutoTask, pNumber:EPeNumber):
+
+    total_time = aat.aatTotalDuration
+    total_time_frames = milliseconds_to_frames(total_time)
+
+    # select persona
+    persona_number_ca4_selector(pNumber)
+
+    # Começa do início
+    set_time_position_in_millis(0)
+
+    curr_frame = 1 # Os frames começam do 1
+
+    while total_time_frames > curr_frame:
+        click_to_deselect()
+        pyautogui.sleep(0.5)
+        pyautogui.press('a')
+        pyautogui.sleep(0.5)
+        pyautogui.press('down')
+        pyautogui.sleep(0.5)
+        pyautogui.press('down')
+        pyautogui.sleep(0.5)
+        pyautogui.press('enter')
+        pyautogui.sleep(0.5)
+        # aguardando ele posicionar a agulha de tempo
+        pyautogui.sleep(4) 
+        # obten os frames
+        curr_frame = get_time_position_in_frames()
+
+
+        
 
 def add_all_speeches(aat: AniAutoTask, config: Config):
     action_speechs:List[TPeAction] = get_aat_action_speechs(aat)
@@ -223,14 +325,15 @@ def add_persona_speech(pNumber:EPeNumber, speech: ASpeech, config: Config):
     persona_number_ca4_selector(pNumber)
 
     #set time
-    click_img_s(Paths.IMG_CA4_TIMELINE_PLAYHEAD, offset_x=31)
-    pyautogui.hotkey('ctrl', 'a')
-    pyautogui.sleep(0.5)
-    time_frame = milliseconds_to_frames(speech.asStartTime)
-    pyautogui.write(str(time_frame))
-    pyautogui.sleep(0.5)
-    pyautogui.press("enter")
-    pyautogui.sleep(0.5)
+    set_time_position_in_millis(speech.asStartTime)
+    # click_img_s(Paths.IMG_CA4_TIMELINE_PLAYHEAD, offset_x=31)
+    # pyautogui.hotkey('ctrl', 'a')
+    # pyautogui.sleep(0.5)
+    # time_frame = milliseconds_to_frames(speech.asStartTime)
+    # pyautogui.write(str(time_frame))
+    # pyautogui.sleep(0.5)
+    # pyautogui.press("enter")
+    # pyautogui.sleep(0.5)
 
     # insert audio file
     click_img_s(Paths.IMG_CA4_CREATE_SCRIPT)
@@ -242,6 +345,25 @@ def add_persona_speech(pNumber:EPeNumber, speech: ASpeech, config: Config):
     pyautogui.sleep(0.5)
     pyautogui.press("enter")
     pyautogui.sleep(1)
+
+def set_time_position_in_millis(milliseconds:int):
+    click_img_s(Paths.IMG_CA4_TIMELINE_PLAYHEAD, offset_x=31)
+    pyautogui.hotkey('ctrl', 'a')
+    pyautogui.sleep(0.5)
+    time_frame = milliseconds_to_frames(milliseconds)
+    pyautogui.write(str(time_frame))
+    pyautogui.sleep(0.5)
+    pyautogui.press("enter")
+    pyautogui.sleep(0.5)
+
+def get_time_position_in_frames() -> int:
+    click_img_s(Paths.IMG_CA4_TIMELINE_PLAYHEAD, offset_x=31)
+    pyautogui.hotkey('ctrl', 'a')
+    pyautogui.sleep(0.5)
+    pyautogui.hotkey('ctrl', 'c')
+    pyautogui.sleep(0.5)
+    frames:int = int(pyperclip.paste().strip())
+    return frames
 
 
 def display_timeline_if_hidden():
