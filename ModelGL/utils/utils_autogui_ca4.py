@@ -179,8 +179,8 @@ def render_video():
     # Export
     click_img_s(Paths.IMG_CA4_RENDER_SETTINGS_EXPORT)
     pyautogui.sleep(1)
-    video_file_path:str = str(Path(Paths.AAT_WORKING_DIR) / Path('video.mp4')) # path completa do vídeo a ser exportado
-    pyautogui.write(video_file_path)
+    video_file_temp_path:str = str(Path(Paths.AAT_WORKING_DIR) / Path('video_temp.mp4')) # video temp
+    pyautogui.write(video_file_temp_path)
     pyautogui.sleep(0.5)
     pyautogui.press('enter')
     wait_for_img(Paths.IMG_CA4_VIDEO_EXPORT_COMPLETE)
@@ -188,6 +188,29 @@ def render_video():
     pyautogui.sleep(0.5)
     pyautogui.press('esc')
 
+    compact_video(video_file_temp_path)
+
+def compact_video(video_file_temp_path:str):
+    print(f"compactando o vídeo '{video_file_temp_path}'...")
+
+    video_file_path:str = str(Path(Paths.AAT_WORKING_DIR) / Path('video.mp4')) # video pronto
+
+
+        # Executa ffmpeg
+    subprocess.run([
+        "ffmpeg", "-y",
+        "-i", video_file_temp_path,
+        "-vcodec", "libx264",
+        "-crf", "20",
+        "-preset", "slow",
+        "-acodec", "aac", "-b:a", "192k",
+        video_file_path
+    ], check=True)
+
+    # Remove video temporário
+    Path(video_file_temp_path).unlink()
+
+    print(f"Vídeo compactado e salvo em: {video_file_path}")
 
 def prepare_render_video_configs(aat: AniAutoTask):
     bg_width, bg_height = get_background_size(aat)
