@@ -30,7 +30,7 @@ gesture_durations = {
 }
 
 # Função para pegar a duração (com buffer opcional)
-def get_gesture_duration_in_frames(gesture: CGesture, buffer: int = 3) -> int:
+def get_gesture_duration_in_frames(gesture: CGesture, buffer: int = 1) -> int:
     base_duration = gesture_durations.get(gesture, 70)  # default 70 se não encontrar
     return base_duration + buffer
 

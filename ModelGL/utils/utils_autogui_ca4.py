@@ -1,5 +1,6 @@
 from pathlib import Path
 import subprocess
+import sys
 from typing import Dict, List, Union
 
 import pyautogui
@@ -44,15 +45,15 @@ def add_personas(aat: AniAutoTask):
     for pe_number in range(1, (personasQtd + 1)):
         # primeiramente, precisamos adicionar o actor correto do CA4
         # comece vendo se está no content manager
-        if not contains_img(Paths.IMG_CA4_CONTENT_MANAGER, confidence=0.96):
+        if not contains_img(Paths.IMG_CA4_CONTENT_MANAGER, confidence=0.90):
             click_img_s(Paths.IMG_CA4_CONTENT_MANAGER_2)
         # deixa a aba "Actor" selecionada
-        if not contains_img(Paths.IMG_CA4_BUTTON_ACTOR, confidence=0.96):
-            click_img_s(Paths.IMG_CA4_BUTTON_ACTOR_2, confidence=0.96)
+        if not contains_img(Paths.IMG_CA4_BUTTON_ACTOR, confidence=0.90):
+            click_img_s(Paths.IMG_CA4_BUTTON_ACTOR_2, confidence=0.90)
         
         # se o voltar estiver "pretinho" clica 4 vezes
-        if contains_img(Paths.IMG_CA4_MENU_VOLTAR, confidence=0.96):
-            click_img_s(Paths.IMG_CA4_MENU_VOLTAR, confidence=0.96)
+        if contains_img(Paths.IMG_CA4_MENU_VOLTAR, confidence=0.90):
+            click_img_s(Paths.IMG_CA4_MENU_VOLTAR, confidence=0.90)
             pyautogui.sleep(0.5)
             pyautogui.click()
             pyautogui.sleep(0.5)
@@ -211,7 +212,7 @@ def set_video_total_duration(aat: AniAutoTask):
 
 def add_personas_gestures(aat: AniAutoTask):
     def make_person_gestures_dict():
-        person_gestures_dict:Dict[str,List[AGesture]] = {}
+        person_gestures_dict:Dict[EPeNumber,List[AGesture]] = {}
         for action in aat.aatActions:
             pe_number: EPeNumber = action.tpaNumber
             action: AAction = action.tpaAction
@@ -226,12 +227,16 @@ def add_personas_gestures(aat: AniAutoTask):
                 person_gestures_dict.update({pe_number: [ gesture ]})
         return person_gestures_dict
 
-    person_gestures_dict:Dict[str,List[AGesture]] = make_person_gestures_dict()
+    person_gestures_dict:Dict[EPeNumber,List[AGesture]] = make_person_gestures_dict()
+
+    print('person_gestures_dict', person_gestures_dict)
+
     for pe_number, gestures in person_gestures_dict.items():
         add_persona_gestures(pe_number, gestures, aat.aatTotalDuration)
 
 
 def add_persona_gestures(pe_number: EPeNumber, gestures: List[AGesture], total_duration_millis: int):
+    print(f"Vai fazer a persona {str(pe_number)}")
     # select persona
     persona_number_ca4_selector(pe_number)
     pyautogui.sleep(0.5)
@@ -241,58 +246,156 @@ def add_persona_gestures(pe_number: EPeNumber, gestures: List[AGesture], total_d
 def add_gestures(gestures_initial: List[AGesture], total_duration_millis: int):
     gestures: List[AGesture] = make_gestures_complete(gestures_initial, total_duration_millis)
 
-    def gesture_conclude():
-        pyautogui.press('enter')
-        if contains_img(Paths.IMG_CA4_PAUSE_TIMELINE, confidence=0.96):
-            click_img(Paths.IMG_CA4_PAUSE_TIMELINE)
-        click_to_deselect()
 
     for gesture in gestures:
         gesture: AGesture = gesture
-        set_time_position_in_millis(gesture.agStartTime)
+        
         gesture_enum: CGesture = gesture.agGesture
-        #prepare
-        click_to_deselect()
-        pyautogui.sleep(0.5)
-        pyautogui.press('a')
-        pyautogui.sleep(0.5)
+        # prepare
+        # click_to_deselect()
+        # pyautogui.sleep(0.5)
+        # pyautogui.press('a')
+        # pyautogui.sleep(0.5)
+        time_frames = milliseconds_to_frames(gesture.agStartTime)
         match gesture_enum:
             case CGesture.GHi:
+                start_inserting_action(time_frames)
                 press_key_n_times('up', 3)
                 gesture_conclude()
             case CGesture.GStandShort:
-                pass
+                start_inserting_action(time_frames)
+                press_key_n_times('down', 3)
+                gesture_conclude()
+                time_frames += 28 - 1 # duração menos o "overlap"
+                start_inserting_action(time_frames)
+                press_key_n_times('down', 5)
+                gesture_conclude()
             case CGesture.GStandLong:
-                pass
+                start_inserting_action(time_frames)
+                press_key_n_times('down', 3)
+                gesture_conclude()
+                time_frames += 28 - 1 # duração menos o "overlap"
+                start_inserting_action(time_frames)
+                press_key_n_times('down', 4)
+                gesture_conclude()
+                time_frames += 41 - 1 # duração menos o "overlap"
+                start_inserting_action(time_frames)
+                press_key_n_times('down', 5)
+                gesture_conclude()
             case CGesture.GThinkShort:
-                pass
+                start_inserting_action(time_frames)
+                press_key_n_times('down', 17)
+                gesture_conclude()
+                time_frames += 13 - 1 # duração menos o "overlap"
+                start_inserting_action(time_frames)
+                press_key_n_times('down', 19)
+                gesture_conclude()
             case CGesture.GThinkLong:
-                pass
+                start_inserting_action(time_frames)
+                press_key_n_times('down', 17)
+                gesture_conclude()
+                time_frames += 13 - 1 # duração menos o "overlap"
+                start_inserting_action(time_frames)
+                press_key_n_times('down', 18)
+                gesture_conclude()
+                time_frames += 18 - 1 # duração menos o "overlap"
+                start_inserting_action(time_frames)
+                press_key_n_times('down', 19)
+                gesture_conclude()
             case CGesture.GTalkShort:
-                pass
+                start_inserting_action(time_frames)
+                press_key_n_times('down', 6)
+                gesture_conclude()
+                time_frames += 12 - 1 # duração menos o "overlap"
+                start_inserting_action(time_frames)
+                press_key_n_times('down', 8)
+                gesture_conclude()
             case CGesture.GTalkLong:
-                pass
+                start_inserting_action(time_frames)
+                press_key_n_times('down', 6)
+                gesture_conclude()
+                time_frames += 12 - 1 # duração menos o "overlap"
+                start_inserting_action(time_frames)
+                press_key_n_times('down', 7)
+                gesture_conclude()
+                time_frames += 38 - 1 # duração menos o "overlap"
+                start_inserting_action(time_frames)
+                press_key_n_times('down', 8)
+                gesture_conclude()
             case CGesture.GWorryShort:
-                pass
+                start_inserting_action(time_frames)
+                press_key_n_times('down', 14)
+                gesture_conclude()
+                time_frames += 19 - 1 # duração menos o "overlap"
+                start_inserting_action(time_frames)
+                press_key_n_times('down', 16)
+                gesture_conclude()
             case CGesture.GWorryLong:
-                pass
+                start_inserting_action(time_frames)
+                press_key_n_times('down', 14)
+                gesture_conclude()
+                time_frames += 19 - 1 # duração menos o "overlap"
+                start_inserting_action(time_frames)
+                press_key_n_times('down', 15)
+                gesture_conclude()
+                time_frames += 29 - 1 # duração menos o "overlap"
+                start_inserting_action(time_frames)
+                press_key_n_times('down', 16)
+                gesture_conclude()
             case CGesture.GShakeLegShort:
+                start_inserting_action(time_frames)
+                press_key_n_times('up', 15)
+                gesture_conclude()
+                time_frames += 10 - 1 # duração menos o "overlap"
+                start_inserting_action(time_frames)
+                press_key_n_times('up', 13)
+                gesture_conclude()
                 pass
             case CGesture.GShakeLegLong:
-                pass
+                start_inserting_action(time_frames)
+                press_key_n_times('up', 15)
+                gesture_conclude()
+                time_frames += 10 - 1 # duração menos o "overlap"
+                start_inserting_action(time_frames)
+                press_key_n_times('up', 14)
+                gesture_conclude()
+                time_frames += 27 - 1 # duração menos o "overlap"
+                start_inserting_action(time_frames)
+                press_key_n_times('up', 13)
+                gesture_conclude()
             case CGesture.GExcited:
-                pass
+                start_inserting_action(time_frames)
+                press_key_n_times('up', 16)
+                gesture_conclude()
             case CGesture.GDance:
-                pass
+                start_inserting_action(time_frames)
+                press_key_n_times('up', 2)
+                gesture_conclude()
             case CGesture.GDefault:
+                start_inserting_action(time_frames)
                 press_key_n_times('down', 2)
                 gesture_conclude()
 
+def start_inserting_action(time_frames:int):
+    set_time_position_in_frames(time_frames)
+    click_to_deselect()
+    pyautogui.sleep(0.2)
+    pyautogui.press('a')
+    pyautogui.sleep(0.2)
+
 def press_key_n_times(key:str, times:int):
     for _ in range(0, times):
-        pyautogui.sleep(0.5)
+        pyautogui.sleep(0.1)
         pyautogui.press(key)
     pyautogui.sleep(0.5)
+
+def gesture_conclude():
+    pyautogui.press('enter')
+    ensure_paused_after_timeline_action()
+    # pyautogui.press('space')
+    # if contains_img(Paths.IMG_CA4_PAUSE_TIMELINE, confidence=0.90):
+    #     click_img(Paths.IMG_CA4_PAUSE_TIMELINE)
+    click_to_deselect()
 
 
 def natural_standing_pesonas_bkp(aat: AniAutoTask):
@@ -340,6 +443,9 @@ def add_all_speeches(aat: AniAutoTask, config: Config):
     for action_speech in action_speechs:
         action_speech:TPeAction = action_speech
         add_persona_speech(action_speech.tpaNumber, action_speech.tpaAction, config)
+    
+    set_time_position_in_millis(0) # volta a timeline no começo
+    click_to_deselect()
 
 def add_persona_speech(pNumber:EPeNumber, speech: ASpeech, config: Config):
 
@@ -366,14 +472,34 @@ def add_persona_speech(pNumber:EPeNumber, speech: ASpeech, config: Config):
     pyautogui.write(str(audio_path))
     pyautogui.sleep(0.5)
     pyautogui.press("enter")
-    pyautogui.sleep(1)
+    ensure_paused_after_timeline_action()
+    # pyautogui.press("space")
+    # if contains_img(Paths.IMG_CA4_PAUSE_TIMELINE):
+    #     click_img_s(Paths.IMG_CA4_PAUSE_TIMELINE)
+    pyautogui.sleep(0.5)
+
+def ensure_paused_after_timeline_action():
+    pyautogui.press("space")
+    if contains_img(Paths.IMG_CA4_PAUSE_TIMELINE):
+        pyautogui.sleep(0.5)
+        if contains_img(Paths.IMG_CA4_PAUSE_TIMELINE):
+            click_img_s(Paths.IMG_CA4_PAUSE_TIMELINE)
+
+def set_time_position_in_frames(time_frames:int):
+    click_img_s(Paths.IMG_CA4_TIMELINE_PLAYHEAD, offset_x=31)
+    pyautogui.hotkey('ctrl', 'a')
+    pyautogui.sleep(0.5)
+    pyautogui.write(str(time_frames))
+    pyautogui.sleep(0.5)
+    pyautogui.press("enter")
+    pyautogui.sleep(0.5)
 
 def set_time_position_in_millis(milliseconds:int):
     click_img_s(Paths.IMG_CA4_TIMELINE_PLAYHEAD, offset_x=31)
     pyautogui.hotkey('ctrl', 'a')
     pyautogui.sleep(0.5)
-    time_frame = milliseconds_to_frames(milliseconds)
-    pyautogui.write(str(time_frame))
+    time_frames = milliseconds_to_frames(milliseconds)
+    pyautogui.write(str(time_frames))
     pyautogui.sleep(0.5)
     pyautogui.press("enter")
     pyautogui.sleep(0.5)

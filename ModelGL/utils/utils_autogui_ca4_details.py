@@ -8,7 +8,7 @@ def persona_number_ca4_selector(personaNumber: EPeNumber):
         click_to_deselect()
         file_path:str = ""
         pyautogui.sleep(0.5)
-        click_img_s(Paths.IMG_CA4_G3_ACTOR)
+        click_img_s(Paths.IMG_CA4_G3_ACTOR, confidence=0.90)
         match personaNumber:
                 case EPeNumber.EPeNum1:
                         pyautogui.press('down')
