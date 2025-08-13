@@ -5,13 +5,13 @@ from typing import Dict, List, Union
 import pyautogui
 import pyperclip
 
-from utils.utils_ani_auto_task import get_aat_action_speechs
+from utils.utils_ani_auto_task import get_aat_action_speechs, make_gestures_complete
 from utils.classes.config import Config
 from utils.utils_autogui_ca4_details import milliseconds_to_frames, persona_number_ca4_selector
 from utils.utils_conexao import assegura_offline
 from utils.utils_print import print_alt
 from utils.classes.ani_auto_task import AAction, AGesture, ASpeech, AniAutoTask, CGesture, EPeNumber, TPeAction, TPersona
-from utils.utils_autogui import click_img_s, click_point, click_to_deselect, contains_img, focus_window_ca4, wait_for_img
+from utils.utils_autogui import click_img, click_img_s, click_point, click_to_deselect, contains_img, focus_window_ca4, wait_for_img
 from utils.utils_paths_config import Paths
 
 def open_ca4():
@@ -44,15 +44,15 @@ def add_personas(aat: AniAutoTask):
     for pe_number in range(1, (personasQtd + 1)):
         # primeiramente, precisamos adicionar o actor correto do CA4
         # comece vendo se está no content manager
-        if not contains_img(Paths.IMG_CA4_CONTENT_MANAGER):
+        if not contains_img(Paths.IMG_CA4_CONTENT_MANAGER, confidence=0.96):
             click_img_s(Paths.IMG_CA4_CONTENT_MANAGER_2)
         # deixa a aba "Actor" selecionada
-        if not contains_img(Paths.IMG_CA4_BUTTON_ACTOR):
-            click_img_s(Paths.IMG_CA4_BUTTON_ACTOR_2)
+        if not contains_img(Paths.IMG_CA4_BUTTON_ACTOR, confidence=0.96):
+            click_img_s(Paths.IMG_CA4_BUTTON_ACTOR_2, confidence=0.96)
         
         # se o voltar estiver "pretinho" clica 4 vezes
-        if contains_img(Paths.IMG_CA4_MENU_VOLTAR):
-            click_img_s(Paths.IMG_CA4_MENU_VOLTAR)
+        if contains_img(Paths.IMG_CA4_MENU_VOLTAR, confidence=0.96):
+            click_img_s(Paths.IMG_CA4_MENU_VOLTAR, confidence=0.96)
             pyautogui.sleep(0.5)
             pyautogui.click()
             pyautogui.sleep(0.5)
@@ -223,28 +223,43 @@ def add_personas_gestures(aat: AniAutoTask):
                 actions:List[AGesture] = person_gestures_dict.get(pe_number)
                 actions.append(gesture)
             else:
-                actions.update({pe_number: [ gesture ]})
+                person_gestures_dict.update({pe_number: [ gesture ]})
         return person_gestures_dict
 
     person_gestures_dict:Dict[str,List[AGesture]] = make_person_gestures_dict()
     for pe_number, gestures in person_gestures_dict.items():
-        add_persona_gestures(pe_number, gestures)
+        add_persona_gestures(pe_number, gestures, aat.aatTotalDuration)
 
 
-def add_persona_gestures(pe_number: EPeNumber, gestures: List[AGesture]):
+def add_persona_gestures(pe_number: EPeNumber, gestures: List[AGesture], total_duration_millis: int):
     # select persona
     persona_number_ca4_selector(pe_number)
+    pyautogui.sleep(0.5)
+    add_gestures(gestures, total_duration_millis)
 
 # Você já vai ter selecionado o persona
-def add_gesture(gestures: List[AGesture]):
+def add_gestures(gestures_initial: List[AGesture], total_duration_millis: int):
+    gestures: List[AGesture] = make_gestures_complete(gestures_initial, total_duration_millis)
+
+    def gesture_conclude():
+        pyautogui.press('enter')
+        if contains_img(Paths.IMG_CA4_PAUSE_TIMELINE, confidence=0.96):
+            click_img(Paths.IMG_CA4_PAUSE_TIMELINE)
+        click_to_deselect()
+
     for gesture in gestures:
         gesture: AGesture = gesture
         set_time_position_in_millis(gesture.agStartTime)
-        g: CGesture = gesture
-        match g:
+        gesture_enum: CGesture = gesture.agGesture
+        #prepare
+        click_to_deselect()
+        pyautogui.sleep(0.5)
+        pyautogui.press('a')
+        pyautogui.sleep(0.5)
+        match gesture_enum:
             case CGesture.GHi:
                 press_key_n_times('up', 3)
-                pyautogui.press('enter')
+                gesture_conclude()
             case CGesture.GStandShort:
                 pass
             case CGesture.GStandLong:
@@ -257,14 +272,21 @@ def add_gesture(gestures: List[AGesture]):
                 pass
             case CGesture.GTalkLong:
                 pass
-            case CGesture.GWorry:
+            case CGesture.GWorryShort:
                 pass
-            case CGesture.GShakeLeg:
+            case CGesture.GWorryLong:
+                pass
+            case CGesture.GShakeLegShort:
+                pass
+            case CGesture.GShakeLegLong:
                 pass
             case CGesture.GExcited:
                 pass
             case CGesture.GDance:
                 pass
+            case CGesture.GDefault:
+                press_key_n_times('down', 2)
+                gesture_conclude()
 
 def press_key_n_times(key:str, times:int):
     for _ in range(0, times):
@@ -273,7 +295,7 @@ def press_key_n_times(key:str, times:int):
     pyautogui.sleep(0.5)
 
 
-def natural_standing_pesonas(aat: AniAutoTask):
+def natural_standing_pesonas_bkp(aat: AniAutoTask):
     for persona in aat.aatPersonas:
         natural_standing_pesona(aat, persona.pNumber)
     pyautogui.sleep(0.5)

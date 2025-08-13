@@ -77,6 +77,7 @@ class Paths:
     IMG_CA4_TIMELINE_PLAYHEAD:str = cp(IMAGES_DIR, "10_ca4_timeline_playhead.jpg")
     IMG_CA4_CREATE_SCRIPT:str = cp(IMAGES_DIR, "11_ca4_create_script.jpg")
     IMG_CA4_WAVE_FILE:str = cp(IMAGES_DIR, "11_ca4_wave_file.jpg")
+    IMG_CA4_PAUSE_TIMELINE:str = cp(IMAGES_DIR, "12_ca4_pause_timeline.jpg")
     # END   - PyAutoGUI images - END
     
     # AAT é ani_auto_task

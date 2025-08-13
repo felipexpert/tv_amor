@@ -4,10 +4,10 @@ from utils.utils_print import print_alt
 import utils.utils_paths_config as p
 import pygetwindow as gw
 
-def contains_img(img_path: str):
+def contains_img(img_path: str, confidence=0.9):
     try:
         # Tenta localizar a imagem na tela
-        pyautogui.locateOnScreen(img_path, confidence=0.9)
+        pyautogui.locateOnScreen(img_path, confidence)
         # Se a linha acima não lançar uma exceção, a imagem foi encontrada
         print_alt(f'Procura pela imagem "{img_path}": IMAGEM ENCONTRADA')
         return True
