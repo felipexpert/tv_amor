@@ -1,4 +1,12 @@
+from enum import Enum
+from typing import List
 from pydantic import BaseModel, Field
+
+available_voices:List[str]= [ 
+      "pt-BR-AntonioNeural"
+    , "pt-BR-FranciscaNeural"
+    , "pt-BR-ThalitaMultilingualNeural"
+    ]
 
 class AudioInfo(BaseModel):
     aiFilePath: str
