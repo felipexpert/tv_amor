@@ -43,10 +43,13 @@ async def main():
     # Exemplo de uso da função:
     
     # Texto que você quer narrar
-    texto_para_narrar = "Olá! Esta é a voz da Letícia. Estou feliz em te ajudar a organizar seus arquivos."
+    texto_para_narrar = "Olá! Este é o teste de voz. Estou feliz em te ajudar a organizar seus arquivos."
     
     # Nome da voz que você deseja usar
-    voz_escolhida = "pt-BR-LeticiaNeural"
+    # voz_escolhida = "pt-BR-AntonioNeural"
+    voz_escolhida = "pt-BR-ThiagoNeural"
+    # voz_escolhida = "pt-BR-FranciscaNeural"
+    # voz_escolhida = "pt-BR-ThalitaMultilingualNeural"
     
     await gerar_audio(texto_para_narrar, voz_escolhida)
 
