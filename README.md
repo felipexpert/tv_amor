@@ -15,6 +15,8 @@ pip install pydantic
 pip install edge-tts pydub
     -- E lembre-se: o pydub depende do ffmpeg instalado no sistema para converter áudios.
 
+pip install aiofiles librosa soundfile
+
 ## Estrutura de pastas
 tv_amor/
 ├── generated_content

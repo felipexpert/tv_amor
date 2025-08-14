@@ -1,0 +1,26 @@
+Fazer o planejamento do áudio
+
+### Parte 1
+
+Prompt
+
+Olá Assistente Digital. Ontem encontramos um caminho com edge_tts para gerarmos áudios
+
+Vamos utilizar o programa auxiliar para mudar o timbre?
+
+Crie uma classe que vai ter as instruções de variações
+
+```
+VoiceConfig
+	pitch
+	timbre_scale
+	rate
+	
+AudioResult
+	file_path:Path
+	duration_millis:int
+
+generate_audio(text:str, voiceConfig:VoiceConfig, file_path:Path) -> AudioResult
+```
+
+Depois crie um método main para eu testar este recurso
