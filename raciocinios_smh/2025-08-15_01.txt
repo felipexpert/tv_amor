@@ -1,0 +1,11 @@
+Foca firme em fazer a automação funcionar
+
+Fazer ler o tipo que eu baixei da tela de trabalhos
+
+IDEIA: Faz você mesmo
+
+- começa pelos tipos mais no início e vai afunilando
+
+___
+
+ShareMediaHistoryMdl.hs 204 - data Manual
