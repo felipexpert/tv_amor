@@ -29,7 +29,9 @@ def save_manual_savior(m: ManualGL):
     json_path = Path(Paths.SMH_AUTO_TASK_JSON_SAVIOR)
 
     # Monta a estrutura do JSON (mesma usada no load)
-    manual_data = m.model_dump()  # se estiver no Pydantic v2
+    # esse `mode="json"` é importante! Sem ele a Enum `SocialNetwork` estava 
+    # dando problema
+    manual_data = m.model_dump(mode="json")  # se estiver no Pydantic v2
     # manual_data = {"data": m.dict()}      # se estiver no Pydantic v1
 
     json_text = json.dumps(manual_data, indent=2, ensure_ascii=False)
