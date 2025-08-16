@@ -3,14 +3,14 @@ from typing import List, Optional
 from utils.utils_print import print_alt
 from utils_smh.classes.config_smh import ConfigSmh, Profile
 from utils_smh.classes.manual import Manual, ManualAccount, ManualAction, ManualWork, Store
-from utils_smh.classes.manual_gl import ChromeProfile, ManualGL, SocialNetwork, SocialNetworkWorks, Work
-from collections import defaultdict
+from utils_smh.classes.manual_for_gui import ChromeProfile, ManualForGUI, SocialNetwork, SocialNetworkWorks, Work
 
 from utils_smh.utils_config_smh import get_profile
 from utils_smh.utils_paths_config import Paths
 from returns.maybe import Maybe
 
-def manual_to_manual_gl(m: Manual, config:ConfigSmh) -> ManualGL:
+def manual_to_manual_for_gui(m: Manual, config:ConfigSmh) -> ManualForGUI:
+    debug = False
     chrome_profiles: list[ChromeProfile] = []
     for acc in m.mAccounts:
         store_opt:Optional[Store] = acc.maAutoShareStoreOpt
@@ -23,19 +23,18 @@ def manual_to_manual_gl(m: Manual, config:ConfigSmh) -> ManualGL:
         if profile_maybe:
             p:Profile = profile_maybe.unwrap()
             list_snworks:List[SocialNetworkWorks] = list_of_social_network_works(acc)
+            if debug: print("list_snworks", list_snworks)
             chrome_profile:ChromeProfile = ChromeProfile(storeId=store_id_opt, chromeProfile=p.chromeProfile, socialNetworks=list_snworks)
             chrome_profiles.append(chrome_profile)
         else:
             print_alt("ATENÇÃO: Não encontramos um profile para store_id_opt={store_id_opt}, em config_smh.json")
-    manual_gl:ManualGL = ManualGL(chromeProfiles=chrome_profiles)
+    manual_gl:ManualForGUI = ManualForGUI(chromeProfiles=chrome_profiles)
     return manual_gl
         
 
 def list_of_social_network_works(acc: ManualAccount) -> List[SocialNetworkWorks]:
     ig_works_works:List[Work] = []
-    ig_works:SocialNetworkWorks = SocialNetworkWorks(socialNetwork=SocialNetwork.SNInstagram, works=ig_works_works)
     tk_works_works:List[Work] = []
-    tk_works:SocialNetworkWorks = SocialNetworkWorks(socialNetwork=SocialNetwork.SNTiktok, works=tk_works_works)
     for manual_work in acc.maWorks:
         if manual_work.mwActionIgOpt:
             w = create_work(manual_work, manual_work.mwActionIgOpt)
@@ -43,6 +42,11 @@ def list_of_social_network_works(acc: ManualAccount) -> List[SocialNetworkWorks]
         if manual_work.mwActionTkOpt:
             w = create_work(manual_work, manual_work.mwActionTkOpt)
             tk_works_works.append(w)
+    # Eu precisei criar o `SocialNetworkWorks` depois do `ig_works_works` pronto,
+    # com os itens, porque ele não mantém o ponteiro, ele faz uma cópia dos itens
+    # da lista
+    ig_works:SocialNetworkWorks = SocialNetworkWorks(socialNetwork=SocialNetwork.SNInstagram, works=ig_works_works)
+    tk_works:SocialNetworkWorks = SocialNetworkWorks(socialNetwork=SocialNetwork.SNTiktok, works=tk_works_works)
     return [ig_works, tk_works]
 
 def create_work(manual_work:ManualWork, manual_action:ManualAction):

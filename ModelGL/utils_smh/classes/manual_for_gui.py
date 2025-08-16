@@ -23,5 +23,5 @@ class ChromeProfile(BaseModel):
     chromeProfile:str
     socialNetworks:List[SocialNetworkWorks]
 
-class ManualGL(BaseModel):
+class ManualForGUI(BaseModel):
     chromeProfiles:List[ChromeProfile]
