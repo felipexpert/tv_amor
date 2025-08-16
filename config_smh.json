@@ -1,3 +1,15 @@
 {
-    "workingDir": "C:\\Users\\MelhoresOfertas\\Documents\\envios\\000-all"
+    "workingDir": "C:\\Users\\MelhoresOfertas\\Documents\\envios\\000-all",
+    "profiles": [
+        {"storeId": "338", "storeLabel": "Ótica Look", "chromeProfile": "Profile 10"},
+        {"storeId": "455", "storeLabel": "Allianza Consultoria", "chromeProfile": "Profile 8"},
+        {"storeId": "182", "storeLabel": "Farmácia São José", "chromeProfile": "Profile 5"},
+        {"storeId": "457", "storeLabel": "Construtora Construcasa", "chromeProfile": "Profile 15"},
+        {"storeId": "454", "storeLabel": "Mega Sushi Temakeria", "chromeProfile": "Profile 20"},
+        {"storeId": "462", "storeLabel": "Espetinho e Cia", "chromeProfile": "Profile 31"},
+        {"storeId": "465", "storeLabel": "Atacadão dos Pisos", "chromeProfile": "Profile 33"},
+        {"storeId": "468", "storeLabel": "Central da Borracha", "chromeProfile": "Profile 38"},
+        {"storeId": "471", "storeLabel": "Sol Ração Liquida", "chromeProfile": "Profile 45"},
+        {"storeId": "official", "storeLabel": "Official", "chromeProfile": "???"}
+    ]
 }

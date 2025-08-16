@@ -1,9 +1,15 @@
+from pathlib import Path
 from typing import Optional
 from utils_smh.classes.manual import Manual, ManualAction
 from utils_smh.classes.manual_gl import ChromeProfile, ManualGL, SocialNetwork, SocialNetworkWorks, Work
 from collections import defaultdict
 
+from utils_smh.utils_paths_config import Paths
+
 def manual_to_manual_gl(m: Manual) -> ManualGL:
+    chrome_profiles: list[ChromeProfile] = []
+
+def manual_to_manual_gl_bkp(m: Manual) -> ManualGL:
     chrome_profiles: list[ChromeProfile] = []
 
     for account in m.mAccounts:
@@ -24,30 +30,20 @@ def manual_to_manual_gl(m: Manual) -> ManualGL:
                         Work(
                             smhId=action.maAccountOpt.maaSmhId,
                             messageOpt=action.maMessageOpt,
-                            mediaPath=work.mwFileCode
+                            mediaPath=media_path(work.mwFileCode)
                         )
                     )
 
                 # Caso: ação oficial
-                elif action.maAccountOfficialOpt:
-                    if action.maAccountOfficialOpt.maaSmhId == work.mwSmh.id:
-                        # É cópia de outro SMH → vai para pendentes
-                        pendentes_dict[rede].append(
-                            Work(
-                                smhId=action.maAccountOfficialOpt.maaSmhId,
-                                messageOpt=action.maMessageOpt,
-                                mediaPath=work.mwFileCode
-                            )
+                if action.maAccountOfficialOpt:
+                    # É cópia de outro SMH → vai para pendentes
+                    pendentes_dict[rede].append(
+                        Work(
+                            smhId=action.maAccountOfficialOpt.maaSmhId,
+                            messageOpt=action.maMessageOpt,
+                            mediaPath=media_path(work.mwFileCode)
                         )
-                    else:
-                        # Oficial original → entra direto
-                        redes_dict[rede].append(
-                            Work(
-                                smhId=action.maAccountOfficialOpt.maaSmhId,
-                                messageOpt=action.maMessageOpt,
-                                mediaPath=work.mwFileCode
-                            )
-                        )
+                    )
 
             # Processa Instagram e TikTok (nessa ordem)
             processar_acao(work.mwActionIgOpt, SocialNetwork.SNInstagram)
@@ -70,3 +66,6 @@ def manual_to_manual_gl(m: Manual) -> ManualGL:
         chrome_profiles.append(ChromeProfile(socialNetworks=social_networks))
 
     return ManualGL(chromeProfiles=chrome_profiles)
+
+def media_path(filecode:str) -> str:
+    return str(Path(Paths.SMH_WORKING_DIR) / Path(filecode))

@@ -17,11 +17,11 @@ def main():
     manual:Manual = load_manual()
     manual_gl:ManualGL = manual_to_manual_gl(manual)
     
-    print(manual_gl)
+    # print(manual_gl)
     
     # run_works(manual)
     
-    # chrome_work("Profile 10")
+    chrome_work("")
     # pyautogui.sleep(10)
     # chrome_work("Profile 15")
     # pyautogui.sleep(10)

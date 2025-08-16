@@ -16,6 +16,8 @@ class SocialNetworkWorks(BaseModel):
     works:List[Work]
 
 class ChromeProfile(BaseModel):
+    storeId:Optional[int]
+    chromeProfile:str
     socialNetworks:List[SocialNetworkWorks]
 
 class ManualGL(BaseModel):
