@@ -8,8 +8,11 @@ class Work(BaseModel):
     mediaPath:str
 
 class SocialNetwork(Enum):
+    SNWhatsAppGroup = "SNWhatsAppGroup"
+    SNFacebook = "SNFacebook"
     SNInstagram = "SNInstagram"
     SNTiktok = "SNTiktok"
+    SNYouTube = "SNYouTube"
 
 class SocialNetworkWorks(BaseModel):
     socialNetwork:SocialNetwork

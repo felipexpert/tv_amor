@@ -17,6 +17,8 @@ pip install edge-tts pydub
 
 pip install aiofiles librosa soundfile
 
+pip install returns
+
 ## Estrutura de pastas
 tv_amor/
 ├── generated_content
