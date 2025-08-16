@@ -5,9 +5,24 @@ from utils_smh.classes.config_smh import ConfigSmh, Profile
 from utils_smh.classes.manual import Manual, ManualAccount, ManualAction, ManualWork, Store
 from utils_smh.classes.manual_for_gui import ChromeProfile, ManualForGUI, SocialNetwork, SocialNetworkWorks, Work
 
+from utils_smh.classes.manual_savior import ManualGL
 from utils_smh.utils_config_smh import get_profile
 from utils_smh.utils_paths_config import Paths
 from returns.maybe import Maybe
+
+def subtract_works_done(m: ManualForGUI, ms: ManualGL):
+    for cp in m.chromeProfiles:
+        snworks:SocialNetworkWorks = cp.socialNetworks
+        snworks_works = snworks.works
+        # preciso percorrer a cópia da lista, porque vou tirar itens da lista
+        # então utilizo `snworks_works[:]` para percorrer esta cópia
+        for work in snworks_works[:]:
+            if is_work_already_done(work, ms):
+                snworks_works.remove(work)
+            
+
+def is_work_already_done(w:Work, ms:ManualGL) -> bool:
+    pass
 
 def manual_to_manual_for_gui(m: Manual, config:ConfigSmh) -> ManualForGUI:
     debug = False

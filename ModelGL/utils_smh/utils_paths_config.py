@@ -50,6 +50,7 @@ class Paths:
     # AAT é ani_auto_task
     SMH_WORKING_DIR: str = str(workingDir)
     SMH_AUTO_TASK_JSON: str = cp(SMH_WORKING_DIR, "manual.json")
+    SMH_AUTO_TASK_JSON_SAVIOR: str = cp(SMH_WORKING_DIR, "manual_savior.json")
 
 # Teste
 # print(Paths.BASE_DIR, type(Paths.BASE_DIR))
