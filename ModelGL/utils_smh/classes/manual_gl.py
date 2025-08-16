@@ -1,6 +1,6 @@
 from enum import Enum
 from typing import List, Optional
-from anthropic import BaseModel
+from pydantic import BaseModel
 
 class Work(BaseModel):
     smhId: int
