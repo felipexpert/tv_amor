@@ -23,6 +23,9 @@ def chrome_open_website(web_site:str):
     pyautogui.write(web_site)
     pyautogui.press("enter")
 
+def chrome_share_tiktok(smh_id:int, file_path: str, message: str, manual_savior:ManualGL):
+    pass
+
 def chrome_share_instagram(smh_id:int, file_path: str, message: str, manual_savior:ManualGL):
     wait_for_img_from_imgs([Paths.IMG_SMH_INSTAGRAM_LOGO, Paths.IMG_SMH_INSTAGRAM_LOGO_EXTENSO])
     pyautogui.sleep(0.5)
