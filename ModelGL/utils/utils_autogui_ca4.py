@@ -500,6 +500,12 @@ def press_key_n_times(key:str, times:int):
         pyautogui.press(key)
     pyautogui.sleep(0.5)
 
+def hot_key_n_times(keys:List[str], times:int):
+    for _ in range(0, times):
+        pyautogui.sleep(0.1)
+        pyautogui.hotkey(*keys)
+    pyautogui.sleep(0.5)
+
 def gesture_conclude():
     pyautogui.press('enter')
     ensure_paused_after_timeline_action()

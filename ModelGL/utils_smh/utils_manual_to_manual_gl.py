@@ -71,7 +71,7 @@ def create_work(manual_work:ManualWork, manual_action:ManualAction):
     return w
 
 def create_work2(smh_id:int, msg_opt:Optional[str], file_code) -> Work:
-    media_path:str = str(Path(Paths.BASE_DIR) / Path(file_code))
+    media_path:str = str(Path(Paths.SMH_WORKING_DIR) / Path(file_code))
     work:Work = Work(smhId=smh_id, messageOpt=msg_opt, mediaPath=media_path)
     return work
 

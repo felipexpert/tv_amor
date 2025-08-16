@@ -45,6 +45,15 @@ class Paths:
     IMAGES_DIR:str = cp(MODEL_GL_DIR, "images_smh")
     
     # START - PyAutoGUI images - START
+    IMG_SMH_INSTAGRAM_LOGO:str = cp(IMAGES_DIR, "01_smh_instagram_logo.jpg")
+    IMG_SMH_INSTAGRAM_LOGO_EXTENSO:str = cp(IMAGES_DIR, "01_smh_instagram_logo_extenso.jpg")
+    IMG_SMH_INSTAGRAM_NEW_POST:str = cp(IMAGES_DIR, "01_smh_instagram_new_post.jpg")
+    IMG_SMH_INSTAGRAM_NEW_POST_CUT_CONTENT:str = cp(IMAGES_DIR, "01_smh_instagram_new_post_cut_content.jpg")
+    IMG_SMH_INSTAGRAM_NEW_POST_CREATE_NEW_POST:str = cp(IMAGES_DIR, "01_smh_instagram_new_post_create_new_post.jpg")
+    IMG_SMH_INSTAGRAM_NEW_POST_CREATE_NEW_POST_REEL:str = cp(IMAGES_DIR, "01_smh_instagram_new_post_create_new_post_reel.jpg")
+    IMG_SMH_INSTAGRAM_NEW_POST_CREATE_NEW_POST_SHARE:str = cp(IMAGES_DIR, "01_smh_instagram_new_post_create_new_post_share.jpg")
+    IMG_SMH_INSTAGRAM_POST_SUCCEED:str = cp(IMAGES_DIR, "01_smh_instagram_post_succeed.jpg")
+    IMG_SMH_INSTAGRAM_POST_FAILED:str = cp(IMAGES_DIR, "01_smh_instagram_post_failed.jpg")
     # END   - PyAutoGUI images - END  
     
     # AAT é ani_auto_task
