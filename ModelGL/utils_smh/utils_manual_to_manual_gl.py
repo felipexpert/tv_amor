@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import List, Optional
+from typing import List, Optional, Tuple
 from utils.utils_print import print_alt
 from utils_smh.classes.config_smh import ConfigSmh, Profile
 from utils_smh.classes.manual import Manual, ManualAccount, ManualAction, ManualWork, Store
@@ -29,7 +29,7 @@ def manual_to_manual_for_gui(m: Manual, config:ConfigSmh) -> ManualForGUI:
     chrome_profiles: list[ChromeProfile] = []
     for acc in m.mAccounts:
         store_opt:Optional[Store] = acc.maAutoShareStoreOpt
-        if not store_opt: continue # por enquanto pula oficial, porque nao tem
+        # if not store_opt: continue # por enquanto pula oficial, porque nao tem
         # novo profile
         store_id_opt:Optional[int] = store_opt.id if store_opt else None
         profile_maybe:Maybe[Profile] = get_profile(config, store_id_opt)
@@ -46,29 +46,34 @@ def manual_to_manual_for_gui(m: Manual, config:ConfigSmh) -> ManualForGUI:
     manual_gl:ManualForGUI = ManualForGUI(chromeProfiles=chrome_profiles)
     return manual_gl
         
-
-def list_of_social_network_works(acc: ManualAccount) -> List[SocialNetworkWorks]:
+# Continua daqui - estou adicionando os oficiais que vem junto com os de cliente, para
+# depois concatenar com as atividades do profile do chrome para oficiais
+# comita antes de continuar, se ficar confuso, fica fácil de recuperar este ponto
+def list_of_social_network_works(acc: ManualAccount) -> Tuple[List[SocialNetworkWorks], List[SocialNetworkWorks]]:
     ig_works_works:List[Work] = []
     tk_works_works:List[Work] = []
     for manual_work in acc.maWorks:
         if manual_work.mwActionIgOpt:
-            w = create_work(manual_work, manual_work.mwActionIgOpt)
+            (w, w_official_opt) = create_work(manual_work, manual_work.mwActionIgOpt)
             ig_works_works.append(w)
         if manual_work.mwActionTkOpt:
-            w = create_work(manual_work, manual_work.mwActionTkOpt)
+            (w,w_official_opt) = create_work(manual_work, manual_work.mwActionTkOpt)
             tk_works_works.append(w)
     # Eu precisei criar o `SocialNetworkWorks` depois do `ig_works_works` pronto,
     # com os itens, porque ele não mantém o ponteiro, ele faz uma cópia dos itens
     # da lista
     ig_works:SocialNetworkWorks = SocialNetworkWorks(socialNetwork=SocialNetwork.SNInstagram, works=ig_works_works)
     tk_works:SocialNetworkWorks = SocialNetworkWorks(socialNetwork=SocialNetwork.SNTiktok, works=tk_works_works)
+    
     return [ig_works, tk_works]
 
-def create_work(manual_work:ManualWork, manual_action:ManualAction):
+def create_work(manual_work:ManualWork, manual_action:ManualAction) -> Tuple[Work, Optional[Work]]:
     msg_opt = manual_action.maMessageOpt
     smh_id = manual_action.maAccountOpt.maaSmhId if manual_action.maAccountOpt else manual_work.mwSmh.id
-    w = create_work2(smh_id, msg_opt, manual_work.mwFileCode)
-    return w
+    w:Work = create_work2(smh_id, msg_opt, manual_work.mwFileCode)
+    smh_id_official_opt:Optional[Work] = manual_action.maAccountOfficialOpt.maaSmhId if manual_action.maAccountOfficialOpt else None
+    w_official_opt:Work = create_work2(smh_id_official_opt, msg_opt, manual_work.mwFileCode) if smh_id_official_opt else None
+    return (w,w_official_opt)
 
 def create_work2(smh_id:int, msg_opt:Optional[str], file_code) -> Work:
     media_path:str = str(Path(Paths.SMH_WORKING_DIR) / Path(file_code))

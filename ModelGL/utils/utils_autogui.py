@@ -31,6 +31,7 @@ def wait_for_img(img_path: str, confidence=0.9):
     """
     print(f'Esperando a imagem "{p.basename(img_path)}"')
     while True:
+        print(f'Tentando encontrar a imagem "{p.basename(img_path)}"')
         # Wait for the Firefox window to appear
         try:
             if pyautogui.locateOnScreen(img_path, confidence):
@@ -39,10 +40,11 @@ def wait_for_img(img_path: str, confidence=0.9):
             pass
         pyautogui.sleep(1)  # Sleep for a while before checking again
 
-def wait_for_img_from_imgs(img_paths: List[str], confidence=0.9):
+def wait_for_img_from_imgs(img_paths: List[str], confidence=0.9) -> str:
     """
     Waits for any image from a list to appear on the screen.
     """
+    found:str = ""
     img_names = [p.basename(img_path) for img_path in img_paths]
     print(f'Esperando uma dessas imagens: {", ".join(img_names)}')
 
@@ -50,13 +52,16 @@ def wait_for_img_from_imgs(img_paths: List[str], confidence=0.9):
     while continue_loop:
         # Wait for the Firefox window to appear
         for img_path in img_paths:
+            print(f"Procurando pela imagem: {p.basename(img_path)}")
             try:
                 if pyautogui.locateOnScreen(img_path, confidence):
+                    found = img_path
                     continue_loop = False
                     break
             except pyautogui.ImageNotFoundException:
                 pass
         pyautogui.sleep(1)  # Sleep for a while before checking again
+    return found
 
 
 # Clica em uma parte da tela para tirar seleções
@@ -157,7 +162,7 @@ class WaitResult(Enum):
     FAILURE = "FAILURE"
     TIMEOUT = "TIMEOUT"
 
-def wait_for_images(success_img: str, error_img: str, timeout: int = 60, confidence: float = 0.9) -> WaitResult:
+def wait_for_images(success_img: str, error_img: str, timeout: int = 120, confidence: float = 0.9) -> WaitResult:
     """
     Espera até aparecer uma das duas imagens na tela.
     - success_img: caminho da imagem que indica sucesso

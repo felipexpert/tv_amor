@@ -10,6 +10,6 @@
         {"storeId": "465", "storeLabel": "Atacadão dos Pisos", "chromeProfile": "Profile 33"},
         {"storeId": "468", "storeLabel": "Central da Borracha", "chromeProfile": "Profile 38"},
         {"storeId": "471", "storeLabel": "Sol Ração Liquida", "chromeProfile": "Profile 45"},
-        {"storeId": "official", "storeLabel": "Official", "chromeProfile": "???"}
+        {"storeId": "official", "storeLabel": "Official", "chromeProfile": "Default"}
     ]
 }

@@ -45,19 +45,29 @@ class Paths:
     IMAGES_DIR:str = cp(MODEL_GL_DIR, "images_smh")
     
     # ### START - PyAutoGUI images - START
+    IMG_CHROME_RESTAURAR:str = cp(IMAGES_DIR, "00_chrome_restaurar_restaurar.jpg")
+    IMG_CHROME_RESTAURAR_RESTAURAR:str = cp(IMAGES_DIR, "00_chrome_restaurar_restaurar_restaurar.jpg")
     # INSTAGRAM
     IMG_SMH_INSTAGRAM_LOGO:str = cp(IMAGES_DIR, "01_smh_instagram_logo.jpg")
     IMG_SMH_INSTAGRAM_LOGO_EXTENSO:str = cp(IMAGES_DIR, "01_smh_instagram_logo_extenso.jpg")
     IMG_SMH_INSTAGRAM_NEW_POST:str = cp(IMAGES_DIR, "01_smh_instagram_new_post.jpg")
+    IMG_SMH_INSTAGRAM_NEW_POST_2:str = cp(IMAGES_DIR, "01_smh_instagram_new_post_2.jpg")
     IMG_SMH_INSTAGRAM_NEW_POST_CUT_CONTENT:str = cp(IMAGES_DIR, "01_smh_instagram_new_post_cut_content.jpg")
     IMG_SMH_INSTAGRAM_NEW_POST_CREATE_NEW_POST:str = cp(IMAGES_DIR, "01_smh_instagram_new_post_create_new_post.jpg")
     IMG_SMH_INSTAGRAM_NEW_POST_CREATE_NEW_POST_REEL:str = cp(IMAGES_DIR, "01_smh_instagram_new_post_create_new_post_reel.jpg")
+    # IMG_SMH_INSTAGRAM_NEW_POST_CREATE_NEW_POST_REEL:str = cp(IMAGES_DIR, "teste.png")
     IMG_SMH_INSTAGRAM_NEW_POST_CREATE_NEW_POST_SHARE:str = cp(IMAGES_DIR, "01_smh_instagram_new_post_create_new_post_share.jpg")
     IMG_SMH_INSTAGRAM_POST_SUCCEED:str = cp(IMAGES_DIR, "01_smh_instagram_post_succeed.jpg")
     IMG_SMH_INSTAGRAM_POST_FAILED:str = cp(IMAGES_DIR, "01_smh_instagram_post_failed.jpg")
 
     # TIKTOK
     IMG_SMH_TIKTOK_SELECT_VIDEO:str = cp(IMAGES_DIR, "02_01_smh_tiktok_select_video.jpg")
+    IMG_SMH_TIKTOK_SELECT_VIDEO_2:str = cp(IMAGES_DIR, "02_01_smh_tiktok_select_video_2.jpg")
+    IMG_SMH_TIKTOK_PUBLICAR:str = cp(IMAGES_DIR, "02_02_smh_tiktok_publicar.jpg")
+    IMG_SMH_TIKTOK_PUBLICAR_AGORA:str = cp(IMAGES_DIR, "02_02_smh_tiktok_publicar_agora.jpg")
+    IMG_SMH_TIKTOK_ENVIADO:str = cp(IMAGES_DIR, "02_01_smh_tiktok_enviado.jpg")
+    IMG_SMH_TIKTOK_VIDEO_PUBLICADO:str = cp(IMAGES_DIR, "02_03_smh_tiktok_video_publicado.jpg")
+    IMG_SMH_TIKTOK_VIDEO_PUBLICADO_2:str = cp(IMAGES_DIR, "02_03_smh_tiktok_video_publicado_2.jpg")
     # ### END   - PyAutoGUI images - END  
     
     # AAT é ani_auto_task

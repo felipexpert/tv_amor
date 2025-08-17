@@ -19,6 +19,9 @@ pip install aiofiles librosa soundfile
 
 pip install returns
 
+Talvez precise:
+pip install pyperclip
+
 ## Estrutura de pastas
 tv_amor/
 ├── generated_content
