@@ -4,6 +4,7 @@ import sys
 from typing import Dict, List, Union
 
 from PIL import Image
+import cv2
 import pyautogui
 import pyperclip
 
@@ -283,6 +284,17 @@ def get_image_size(path: Path) -> tuple[int, int]:
     """Retorna (width, height) da imagem no caminho informado."""
     with Image.open(path) as img:
         return img.width, img.height
+
+def get_video_size(path: Path) -> tuple[int, int]:
+    """Retorna (width, height) do vídeo no caminho informado."""
+    cap = cv2.VideoCapture(str(path))
+    if not cap.isOpened():
+        raise ValueError(f"Não foi possível abrir o vídeo: {path}")
+    
+    width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    cap.release()
+    return width, height
 
 def get_background_size(aat: AniAutoTask) -> tuple[int, int]:
     bg_path_str = working_dir_file(aat.aatBackgroundImage)

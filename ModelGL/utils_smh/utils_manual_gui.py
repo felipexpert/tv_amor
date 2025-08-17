@@ -1,16 +1,19 @@
 
+from enum import Enum
+import os
 from pathlib import Path
 import subprocess
 
 import pyautogui
 import pyperclip
 from utils.utils_autogui import WaitResult, click_img_from_imgs_s, click_img_s, contains_img, wait_for_images, wait_for_img, wait_for_img_from_imgs
-from utils.utils_autogui_ca4 import hot_key_n_times, press_key_n_times
+from utils.utils_autogui_ca4 import get_image_size, get_video_size, hot_key_n_times, press_key_n_times
 from utils_smh.classes.manual import Manual, ManualAction, ManualWork
 from utils_smh.classes.manual_savior import ManualGL
 from utils_smh.classes.social_network import SocialNetwork
 from utils_smh.util_load_save_manual_savior_json import save_manual_savior_work
 from utils_smh.utils_paths_config import Paths
+import utils.utils_paths_config as p
 
 def chrome_open_browser(profile:str):
     subprocess.Popen([
@@ -64,6 +67,7 @@ def chrome_share_tiktok(smh_id:int, file_path: str, message: str, manual_savior:
     pyautogui.sleep(2)
     has_publicar_agora_btn = contains_img(Paths.IMG_SMH_TIKTOK_PUBLICAR_AGORA)
     if has_publicar_agora_btn: click_img_s(Paths.IMG_SMH_TIKTOK_PUBLICAR_AGORA)
+    # press_key_n_times("pageup", 2)
     # wait_for_images([Paths.IMG_SMH_TIKTOK_VIDEO_PUBLICADO, Paths.IMG_SMH_TIKTOK_VIDEO_PUBLICADO_2])
     pyautogui.sleep(2)
     save_manual_savior_work(manual_savior, smh_id, SocialNetwork.SNTiktok)
@@ -75,12 +79,12 @@ def chrome_share_instagram(smh_id:int, file_path: str, message: str, manual_savi
     wait_for_img_from_imgs([Paths.IMG_SMH_INSTAGRAM_LOGO, Paths.IMG_SMH_INSTAGRAM_LOGO_EXTENSO])
     pyautogui.sleep(0.5)
     found:str = wait_for_img_from_imgs([Paths.IMG_SMH_INSTAGRAM_NEW_POST, Paths.IMG_SMH_INSTAGRAM_NEW_POST_2])
-    pyautogui.sleep(0.5)
     click_img_s(found)
+    pyautogui.sleep(1.5)
     pyautogui.press("tab")
     pyautogui.sleep(0.5)
     pyautogui.press("enter")
-    pyautogui.sleep(0.5)
+    pyautogui.sleep(1)
     pyautogui.press("tab")
     pyautogui.sleep(0.5)
     pyautogui.press("enter")
@@ -92,22 +96,35 @@ def chrome_share_instagram(smh_id:int, file_path: str, message: str, manual_savi
     pyautogui.press("enter")
     wait_for_img(Paths.IMG_SMH_INSTAGRAM_NEW_POST_CUT_CONTENT)
 
-    #primeiro arruma o posicionamento da mídia no Instagram
-    pyautogui.sleep(0.5)
-    press_key_n_times("tab", 3)
-    pyautogui.sleep(0.5)
-    pyautogui.press("enter")
-    pyautogui.sleep(0.5)
-    hot_key_n_times(["shift", "tab"], 4)
-    # press_key_n_times("tab", 5)
-    pyautogui.sleep(0.5)
-    pyautogui.press("space")
-    pyautogui.sleep(0.5)
+    is_square = is_for_sure_square_media(file_path)
 
-    # press_key_n_times("tab", 2)
-    pyautogui.hotkey("shift", "tab")
-    pyautogui.sleep(0.5)
-    pyautogui.press("enter")
+    if not is_square:
+        # primeiro arruma o posicionamento da mídia no Instagram, porque não é ou pode
+        # não ser mídia quadrada
+        pyautogui.sleep(0.5)
+        press_key_n_times("tab", 3)
+        pyautogui.sleep(0.5)
+        pyautogui.press("enter")
+        pyautogui.sleep(0.5)
+        hot_key_n_times(["shift", "tab"], 4)
+        # press_key_n_times("tab", 5)
+        pyautogui.sleep(0.5)
+        pyautogui.press("space")
+        pyautogui.sleep(0.5)
+
+        # press_key_n_times("tab", 2)
+        pyautogui.hotkey("shift", "tab")
+        pyautogui.sleep(0.5)
+        pyautogui.press("enter")
+        pyautogui.sleep(0.5)
+    else:
+        # é mídia quadrada, vai para a próxima tela
+        pyautogui.sleep(0.5)
+        press_key_n_times("tab", 2)
+        pyautogui.sleep(0.5)
+        pyautogui.press("enter")
+        pyautogui.sleep(0.5)
+
     press_key_n_times("tab", 2)
     pyautogui.press("enter")
     
@@ -132,7 +149,7 @@ def chrome_share_instagram(smh_id:int, file_path: str, message: str, manual_savi
             case WaitResult.SUCCESS:
                 save_manual_savior_work(manual_savior, smh_id, SocialNetwork.SNInstagram)
                 # pyautogui.press("esc")
-                pyautogui.press("f5")
+                # pyautogui.press("f5")
                 waiting = False
             case WaitResult.FAILURE:
                 # Vai tentar novamente
@@ -143,4 +160,42 @@ def chrome_share_instagram(smh_id:int, file_path: str, message: str, manual_savi
             case WaitResult.TIMEOUT:
                 print("Timeout! Erro desconhecido...")
                 waiting = False
-    
+
+def is_for_sure_square_media(file_path: str) -> bool:
+    debug = False
+    width:int = None
+    height:int = None
+    ft:FileType = get_file_type(file_path)
+    if debug: print(f"File is: {p.basename(file_path)}")
+    if debug: print(f"file_type is {ft}")
+    match(ft):
+        case FileType.VIDEO:
+            w,h = get_video_size(file_path)
+            width:int = w
+            height:int = h
+        case FileType.IMAGE:
+            w,h = get_image_size(file_path)
+            width:int = w
+            height:int = h
+        case FileType.UNKNOWN:
+            return False
+    return width == height
+
+class FileType(Enum):
+    VIDEO = "VIDEO"
+    IMAGE = "IMAGE"
+    UNKNOWN = "UNKNOWN"            
+
+def get_file_type(file_path: str) -> FileType:
+    debug = False
+    ext:str = get_file_extension(file_path)
+    if debug: print(f"extensão: {ext}")
+    match ext:
+        case "mp4" | "avi": return FileType.VIDEO
+        case "jpg" | "jpeg" | "png" | "webp" | "jfif" | "jif" | "gif" | "svg": return FileType.IMAGE
+        case _: return FileType.UNKNOWN
+      
+def get_file_extension(file_path: str) -> str:
+    ext:str = os.path.splitext(file_path)[1]  # retorna ".mp4"
+    ext_lower:str = ext.lower()[1:] # apenas letras
+    return ext_lower
