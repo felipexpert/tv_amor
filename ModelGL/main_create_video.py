@@ -8,7 +8,7 @@ from utils.classes.config import Config
 from utils.utils_load_ani_auto_task_json import load_ani_auto_task
 from utils.classes.ani_auto_task import ASpeech, AniAutoTask, EPeNumber, TPeAction
 from utils.utils_print import print_alt
-from utils.utils_autogui_ca4 import add_all_speeches, add_background, add_personas, add_personas_gestures, display_timeline_if_hidden, flip_persona_1_if_needed, focus_or_open_ca4, place_personas, prepare_render_video_configs, render_video, set_video_total_duration, start_ca4
+from utils.utils_autogui_ca4 import add_all_speeches, add_background, add_personas, add_personas_gestures, compact_video, display_timeline_if_hidden, flip_persona_1_if_needed, focus_or_open_ca4, place_personas, prepare_render_video_configs, render_video, set_video_total_duration, start_ca4
 from utils.utils_paths_config import Paths, load_config
 
 
@@ -34,8 +34,12 @@ def run_sequence_ca4_opened(aat: AniAutoTask, config: Config):
     render_video()
 
 def step(aat: AniAutoTask, config: Config):
-    focus_or_open_ca4()
-    render_video()
+    # focus_or_open_ca4()
+    # render_video()
+
+    video_file_temp_path:str = str(Path(Paths.AAT_WORKING_DIR) / Path('video_temp.mp4')) # video temp
+    pyautogui.write(video_file_temp_path)
+    compact_video(video_file_temp_path)
 
     
 
