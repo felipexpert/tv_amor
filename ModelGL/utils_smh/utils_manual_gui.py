@@ -51,27 +51,52 @@ def chrome_share_tiktok(smh_id:int, file_path: str, message: str, manual_savior:
     pyautogui.hotkey("ctrl", "v")
     pyautogui.sleep(0.5)
     pyautogui.press("enter")
-    pyautogui.sleep(2)
+    pyautogui.sleep(2.5)
+    if contains_img(Paths.IMG_SMH_TIKTOK_QUESTAO_ATIVAR_VERIFICACOES):
+        click_img_s(Paths.IMG_SMH_TIKTOK_QUESTAO_ATIVAR_VERIFICACOES_ATIVAR)
+        pyautogui.sleep(0.5)
     press_key_n_times("pageup", 2)
     wait_for_img(Paths.IMG_SMH_TIKTOK_ENVIADO)
-    press_key_n_times("tab", 2)
+    click_img_s(Paths.IMG_SMH_TIKTOK_ENVIADO, offset_x=385, offset_y=259)
+    # press_key_n_times("tab", 2)
     pyautogui.hotkey("ctrl", "a")
     pyautogui.sleep(1)
     pyperclip.copy(message)
     pyautogui.hotkey("ctrl", "v")
-    pyautogui.sleep(3)
-    press_key_n_times("pagedown", 3)
-    pyautogui.sleep(0.5)
-    wait_for_img(Paths.IMG_SMH_TIKTOK_PUBLICAR)
-    click_img_s(Paths.IMG_SMH_TIKTOK_PUBLICAR)
     pyautogui.sleep(2)
-    has_publicar_agora_btn = contains_img(Paths.IMG_SMH_TIKTOK_PUBLICAR_AGORA)
-    if has_publicar_agora_btn: click_img_s(Paths.IMG_SMH_TIKTOK_PUBLICAR_AGORA)
+    def acao_de_publicar():
+        press_key_n_times("pagedown", 3)
+        pyautogui.sleep(0.5)
+        wait_for_img(Paths.IMG_SMH_TIKTOK_PUBLICAR)
+        click_img_s(Paths.IMG_SMH_TIKTOK_PUBLICAR)
+        pyautogui.sleep(2)
+        has_publicar_agora_btn = contains_img(Paths.IMG_SMH_TIKTOK_PUBLICAR_AGORA)
+        if has_publicar_agora_btn: click_img_s(Paths.IMG_SMH_TIKTOK_PUBLICAR_AGORA)
+    acao_de_publicar()
     # press_key_n_times("pageup", 2)
     # wait_for_images([Paths.IMG_SMH_TIKTOK_VIDEO_PUBLICADO, Paths.IMG_SMH_TIKTOK_VIDEO_PUBLICADO_2])
-    pyautogui.sleep(2)
-    save_manual_savior_work(manual_savior, smh_id, SocialNetwork.SNTiktok)
-    pyautogui.sleep(1)
+    pyautogui.sleep(3)
+    if contains_img(Paths.IMG_SMH_TIKTOK_ERRO_MSG_SAIR_DO_SITE):
+        # Deu erro, precisa clicar novamente para tentar novamente
+        click_img_from_imgs_s(Paths.IMG_SMH_TIKTOK_ERRO_MSG_SAIR_DO_SITE_BTN_CANCELAR)
+        pyautogui.sleep(1)
+        acao_de_publicar()
+        pyautogui.sleep(3) # espera 3 segundos para a próxima ação
+    url_atual = obtem_url_atual()
+    if "content" in url_atual:
+        save_manual_savior_work(manual_savior, smh_id, SocialNetwork.SNTiktok)
+        pyautogui.sleep(1)
+    else:
+        raise Exception("falha ao compartilhar no Tiktok")
+
+def obtem_url_atual() -> str:
+    # Combinação de teclas para selecionar a barra de endereço e copiar
+    pyautogui.hotkey('ctrl', 'l') 
+    pyautogui.hotkey('ctrl', 'c')
+
+    # Obtém o conteúdo do clipboard (área de transferência)
+    url = pyperclip.paste()
+    return url
 
 def chrome_share_instagram(smh_id:int, file_path: str, message: str, manual_savior:ManualGL):
     pyautogui.sleep(1)

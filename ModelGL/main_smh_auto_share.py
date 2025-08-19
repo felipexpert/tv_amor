@@ -54,11 +54,11 @@ def share_all(manual_for_gui:ManualForGUI, manual_savior:ManualGL):
             match snworks.socialNetwork:
                 case SocialNetwork.SNInstagram:
                     for w in snworks.works:
-                        share_instagram(w, manual_savior)
+                        # share_instagram(w, manual_savior)
+                        pass # por enquanto deixa o instagram descansar
                 case SocialNetwork.SNTiktok:
                     for w in snworks.works:
                         share_tiktok(w, manual_savior)
-                        pass
 
         # Após os trabalhos, fecha o Navegador Chrome
         pyautogui.hotkey("alt", "f4")
@@ -74,6 +74,7 @@ def share_tiktok(work:Work, manual_savior:ManualGL):
     pyautogui.sleep(1)
     pyautogui.hotkey("ctrl", "0") # restaura o zoom
     chrome_share_tiktok(work.smhId, file_path, message, manual_savior)
+
 
 def share_instagram(work:Work, manual_savior:ManualGL):
     print("Compartilhará no Instagram...")

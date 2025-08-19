@@ -68,11 +68,16 @@ class Paths:
     IMG_SMH_TIKTOK_ENVIADO:str = cp(IMAGES_DIR, "02_01_smh_tiktok_enviado.jpg")
     IMG_SMH_TIKTOK_VIDEO_PUBLICADO:str = cp(IMAGES_DIR, "02_03_smh_tiktok_video_publicado.jpg")
     IMG_SMH_TIKTOK_VIDEO_PUBLICADO_2:str = cp(IMAGES_DIR, "02_03_smh_tiktok_video_publicado_2.jpg")
+
+    IMG_SMH_TIKTOK_QUESTAO_ATIVAR_VERIFICACOES:str = cp(IMAGES_DIR, "02_04_smh_tiktok_questao_ativar_verificacoes.jpg")
+    IMG_SMH_TIKTOK_QUESTAO_ATIVAR_VERIFICACOES_ATIVAR:str = cp(IMAGES_DIR, "02_04_smh_tiktok_questao_ativar_verificacoes_ativar.jpg")
+    IMG_SMH_TIKTOK_ERRO_MSG_SAIR_DO_SITE:str = cp(IMAGES_DIR, "02_05_smh_tiktok_erro_msg_sair_do_site.jpg")
+    IMG_SMH_TIKTOK_ERRO_MSG_SAIR_DO_SITE_BTN_CANCELAR:str = cp(IMAGES_DIR, "02_05_smh_tiktok_erro_msg_sair_do_site_btn_cancelar.jpg")
     # ### END   - PyAutoGUI images - END  
     
-    # AAT é ani_auto_task
     SMH_WORKING_DIR: str = str(workingDir)
     SMH_AUTO_TASK_JSON: str = cp(SMH_WORKING_DIR, "manual.json")
+    SMH_AUTO_TASK_JSON_SAVIOR: str = cp(SMH_WORKING_DIR, "manual_savior.json")
     SMH_AUTO_TASK_JSON_SAVIOR: str = cp(SMH_WORKING_DIR, "manual_savior.json")
 
 # Teste
