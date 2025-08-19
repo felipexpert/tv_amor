@@ -1,0 +1,45 @@
+Prompt para concluir o projeto, com um bom alinhamento com as plataformas, em especial com o YouTube
+
+Eu estou concluindo um projeto, chamado "TV Amor por Livros", que consistirá em um canal (que estará principalmente no YouTube, mas também nas outras plataformas) com animações 2D feitas com Cartoon Animator 4, sobre livros
+
+Meu objetivo é gerar um bom resultado pelo próprio YouTube, para que esta seja a minha fonte de renda principal
+
+Quais as boas práticas, o que você sugere, para eu maximizar o máximo possível os resultados com este projeto "TV Amor por Livros"?
+
+Outra coisa, farei 100% com ITec (Itec é Inteligência Tecnológica, tipo o Gemini do Google), de ponta a ponta. Por exemplo, vou enviar um PDF de um livro que eu mesmo tenho vontade de ler ou já li, e a minha dinâmica com ITec transformará o PDF em um diálogo, estilo pod cast com 2 personagens falando. Será feito a organização dos vídeos (vídeos maiores, shorts, etc) e o upload e tudo mais. DESDE O INÍCIO, JÁ PENSAREMOS EM EVITAR PROBLEMAS COM OS DIREITOS AUTORÁIS. Eu já conclui uma parte muito importante, que transforma um script estruturado de um tipo que criei em Haskell, em vídeo no CA4, através de comandos com PyAutoGUI com GL (GL é GuidoLang, que é Python).
+
+Por favor, me ajude, eu quero fazer uma boa organização geral, para eu implementar tudo isto com alinhamento prático com a monetização do YouTube, para maximizar o meu retorno, além é claro, também auxiliar as pessoas com bons resumos de livros, de maneira divertida e que gere um aprendizado, uma cultura de gostar de livros!
+
+Mais detalhes
+- O "TV Amor por Livros" será para o Brasil, mas também em Inglês, para alcançar o público dos EUA, Canadá, Reino Unido, Austrália, Nova Zelândia, África do Sul, entre outros países que falam Inglês
+- Depois vai ter o blog com monetização via Google AdSense também, esse blog também será alimentado 100% por ITec, nessa mesma dinâmica que cria os roteiros e tudo mais dos livros para os vídeos JÁ PENSANDO NOS CUIDADOS COM OS DIREITOS AUTORAIS
+- Talvez seja interessante focar em livros com maior resultado na monetização do YouTube, por exemplo, livros de investimentos, finanças, empreendedorismo, etc. O 1º motivo é que eu acredito que o YouTube consegue por bons anúncios para itens que o próprio YouTube tem mais retorno em divulgar, e 2º motivo é que eu também tenho gosto por estes temas, e eu mesmo vou ver se o material está ficando ótimo, especialmente os primeiros
+- Tente pensar além do que eu já pensei, e que vai me ajudar nesta monetização, em especial do YouTube, mas também das outras plataformas como o Tiktok
+- Se precisar faça mais perguntas, vamos fazer isso com capricho!
+- Este é o tipo que já está sendo transformado em vídeo 2D, vou mostrar para você ter uma ideia:
+```
+exampleEpisode :: Episode
+exampleEpisode = Episode
+    { ePes = [EPeLabel "pe_felipe", EPeLabel "pe_gisele"]
+    , eDialoguePeList = exampleDialogues
+    }
+    where
+        exampleDialogues :: [EDialoguePe]
+        exampleDialogues =
+            [ EDialoguePe
+                { dPe = EPeLabel "pe_felipe"
+                , dContents =
+                    [ RPlainText "Olá Gisele"
+                    , RCommand (CGesture GHi (EPeLabel "pe_felipe"))
+                    , RCommand (CGesture GHi (EPeLabel "pe_gisele"))
+                    , RCommand (CPause 500)
+                    , RPlainText "Tudo bem por aí?"
+                    ]
+                }
+            , EDialoguePe
+                { dPe = EPeLabel "pe_gisele"
+                , dContents =
+                    [ RPlainText "Olá Felipe! Tudo ótimo!" ]
+                }
+            ]
+```
