@@ -54,8 +54,7 @@ def share_all(manual_for_gui:ManualForGUI, manual_savior:ManualGL):
             match snworks.socialNetwork:
                 case SocialNetwork.SNInstagram:
                     for w in snworks.works:
-                        # share_instagram(w, manual_savior)
-                        pass # por enquanto deixa o instagram descansar
+                        share_instagram(w, manual_savior)
                 case SocialNetwork.SNTiktok:
                     for w in snworks.works:
                         share_tiktok(w, manual_savior)
