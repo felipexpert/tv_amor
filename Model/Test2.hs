@@ -21,7 +21,6 @@ testIO = do
     let audioRequest = AudioRequest "Olá, humanos!" defaultAudioRequestConfig
         audioRequest2 = AudioRequest "Tudo bem?!" defaultAudioRequestConfig
         audiosRequest = AudiosRequest [audioRequest, audioRequest2]
-        defaultVoice = 
     
     -- Envia o pedido de áudio e recebe a resposta
     TIO.putStrLn "Enviando pedido de áudio ao GuidoLang..."
