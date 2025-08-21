@@ -41,9 +41,19 @@ data AudioRequest = AudioRequest
     } deriving (Show, Eq, Generic, ToJSON)
 
 data AudioRequestConfig = AudioRequestConfig
-    { arcVoice :: Text -- Voz a ser utilizada
-    -- vai ter mais campos para parâmetros do timbre da voz
+    { arcVoice :: Text -- Voz a ser utilizada, ex: pt-BR-AntonioNeural
+    , arcPitch :: Text -- "+0Hz", Exemplo: "+5Hz" para aumentar o tom
+    , arcRate :: Text -- "+0%", Exemplo: "+5Hz" para aumentar o tom
+    , arcTimbreScale :: Double -- Padrão 1.0, maior ou igual 0.5, menor ou igual 1.5, fator de variação do timbre
     } deriving (Show, Eq, Generic, ToJSON)
+
+defaultAudioRequestConfig :: AudioRequestConfig
+defaultAudioRequestConfig = AudioRequestConfig
+    { arcVoice = "pt-BR-AntonioNeural"
+    , arcPitch = "+0Hz"
+    , arcRate = "+0%"
+    , arcTimbreScale = 1.0
+    }
 
 -- Função para solicitar áudios ao GuidoLang 
 requestAudiosIO :: AudiosRequest -> IO AudiosInfo

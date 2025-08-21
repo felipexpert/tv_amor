@@ -1,0 +1,15 @@
+Dinâmica de áudio, configuração
+
+Ajustar AudioRequestConfig
+
+Quais parâmetros?
+	Encontre o arquivo GL que conseguiu fazer a proeza
+
+V TIPO DO HASKELL FEITO!
+
+Que tal fazer o procedimento de geração dos arquivos para o vídeo, passando estes novos parâmetros?
+	Aí você já faz os vídeos com os áudios variados
+	Aproveita e substitui o nome gisele e coloca Felipe nos 2
+
+
+

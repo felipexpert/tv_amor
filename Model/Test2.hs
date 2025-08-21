@@ -18,9 +18,10 @@ import Model.GuidoLangUtil
 
 testIO :: IO ()
 testIO = do
-    let audioRequest = AudioRequest "Olá, humanos!" (AudioRequestConfig "pt-BR-AntonioNeural")
-        audioRequest2 = AudioRequest "Tudo bem?!" (AudioRequestConfig "pt-BR-AntonioNeural")
+    let audioRequest = AudioRequest "Olá, humanos!" defaultAudioRequestConfig
+        audioRequest2 = AudioRequest "Tudo bem?!" defaultAudioRequestConfig
         audiosRequest = AudiosRequest [audioRequest, audioRequest2]
+        defaultVoice = 
     
     -- Envia o pedido de áudio e recebe a resposta
     TIO.putStrLn "Enviando pedido de áudio ao GuidoLang..."

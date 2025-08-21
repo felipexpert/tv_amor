@@ -240,7 +240,7 @@ episodeToTaskDialoguesIO ep = do
                         textToAudioRequest :: Text -> AudioRequest
                         textToAudioRequest text = AudioRequest
                             { arText = text
-                            , arConfig = AudioRequestConfig { arcVoice = "pt-BR-AntonioNeural" } -- aqui você pode definir a voz padrão ou outra lógica
+                            , arConfig =  defaultAudioRequestConfig -- aqui você pode definir a voz padrão ou outra lógica
                             }
                 
                 -- converte os rich texts do episodio para o formato rich texts com as informações de audios,
