@@ -80,6 +80,7 @@ class Paths:
     SMH_AUTO_TASK_JSON: str = cp(SMH_WORKING_DIR, "manual.json")
     SMH_AUTO_TASK_JSON_SAVIOR: str = cp(SMH_WORKING_DIR, "manual_savior.json")
     SMH_AUTO_TASK_JSON_SAVIOR: str = cp(SMH_WORKING_DIR, "manual_savior.json")
+    SMH_AUTO_TASK_TXT_ATENCAO: str = cp(SMH_WORKING_DIR, "atencao.txt")
 
 # Teste
 # print(Paths.BASE_DIR, type(Paths.BASE_DIR))

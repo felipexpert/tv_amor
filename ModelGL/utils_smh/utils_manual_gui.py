@@ -9,11 +9,12 @@ import pyautogui
 import pyperclip
 from utils.utils_autogui import WaitResult, click_img_from_imgs_s, click_img_s, contains_img, wait_for_images, wait_for_images2, wait_for_img, wait_for_img_from_imgs
 from utils.utils_autogui_ca4 import get_image_size, get_video_size, hot_key_n_times, press_key_n_times
+from utils.utils_print import log_str
 from utils_smh.classes.manual import Manual, ManualAction, ManualWork
 from utils_smh.classes.manual_savior import ManualGL
 from utils_smh.classes.social_network import SocialNetwork
-from utils_smh.util_load_save_manual_savior_json import save_manual_savior_work
-from utils_smh.utils_paths_config import Paths
+from utils_smh.util_load_save_manual_savior_json import log_atencao, save_manual_savior_work
+from utils_smh.utils_paths_config import Paths, basename
 import utils.utils_paths_config as p
 
 def chrome_open_browser(profile:str):
@@ -171,7 +172,7 @@ def chrome_share_instagram(smh_id:int, file_path: str, message: str, manual_savi
     waiting = True
     while waiting:
         wait_res:Tuple[WaitResult,str] = wait_for_images2([Paths.IMG_SMH_INSTAGRAM_POST_SUCCEED], [Paths.IMG_SMH_INSTAGRAM_POST_SELECT_OTHER_FILES, Paths.IMG_SMH_INSTAGRAM_POST_FAILED])
-        (wait_result,file_path) = wait_res
+        (wait_result,img_file_path) = wait_res
         match wait_result:
             case WaitResult.SUCCESS:
                 save_manual_savior_work(manual_savior, smh_id, SocialNetwork.SNInstagram)
@@ -179,11 +180,13 @@ def chrome_share_instagram(smh_id:int, file_path: str, message: str, manual_savi
                 # pyautogui.press("f5")
                 waiting = False
             case WaitResult.FAILURE:
-                if file_path == Paths.IMG_SMH_INSTAGRAM_POST_SELECT_OTHER_FILES:
+                if img_file_path == Paths.IMG_SMH_INSTAGRAM_POST_SELECT_OTHER_FILES:
                     print("Aconteceu o erro de pedir a mídia, mas normalmente ele faz, então vamos considerar SUCESSO")
                     save_manual_savior_work(manual_savior, smh_id, SocialNetwork.SNInstagram)
                     waiting = False
-                elif file_path == Paths.IMG_SMH_INSTAGRAM_POST_FAILED:
+                    filename = basename(file_path)
+                    log_atencao(f"Revisar compartilhamento no INSTAGRAM do SMH_ID {smh_id} arquivo {filename}")
+                elif img_file_path == Paths.IMG_SMH_INSTAGRAM_POST_FAILED:
                     # Vai tentar novamente
                     pyautogui.sleep(2)
                     pyautogui.press("tab")

@@ -1,6 +1,6 @@
 
 from typing import Optional
-from utils.utils_print import print_alt
+from utils.utils_print import log_str, print_alt
 from utils_smh.classes.manual_savior import ManualGL, ShareMediaHistoryWork
 from utils_smh.classes.social_network import SocialNetwork
 from utils_smh.utils_paths_config import Paths
@@ -67,3 +67,10 @@ def smh_work_contains_sn(w:ShareMediaHistoryWork, sn: SocialNetwork) -> bool:
     for sn2 in w.wDones:
         if sn2 == sn: return True
     return False
+
+import json
+
+def log_atencao(msg:str):
+    debug = True
+    if debug: print(f"Mensagem {msg}, caminho {Paths.SMH_AUTO_TASK_TXT_ATENCAO}")
+    log_str(msg, Paths.SMH_AUTO_TASK_TXT_ATENCAO)
