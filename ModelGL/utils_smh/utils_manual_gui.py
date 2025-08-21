@@ -3,10 +3,11 @@ from enum import Enum
 import os
 from pathlib import Path
 import subprocess
+from typing import Tuple
 
 import pyautogui
 import pyperclip
-from utils.utils_autogui import WaitResult, click_img_from_imgs_s, click_img_s, contains_img, wait_for_images, wait_for_img, wait_for_img_from_imgs
+from utils.utils_autogui import WaitResult, click_img_from_imgs_s, click_img_s, contains_img, wait_for_images, wait_for_images2, wait_for_img, wait_for_img_from_imgs
 from utils.utils_autogui_ca4 import get_image_size, get_video_size, hot_key_n_times, press_key_n_times
 from utils_smh.classes.manual import Manual, ManualAction, ManualWork
 from utils_smh.classes.manual_savior import ManualGL
@@ -169,7 +170,8 @@ def chrome_share_instagram(smh_id:int, file_path: str, message: str, manual_savi
     # verificação do resultado
     waiting = True
     while waiting:
-        wait_result:WaitResult = wait_for_images(Paths.IMG_SMH_INSTAGRAM_POST_SUCCEED, Paths.IMG_SMH_INSTAGRAM_POST_FAILED)
+        wait_res:Tuple[WaitResult,str] = wait_for_images2([Paths.IMG_SMH_INSTAGRAM_POST_SUCCEED], [Paths.IMG_SMH_INSTAGRAM_POST_SELECT_OTHER_FILES, Paths.IMG_SMH_INSTAGRAM_POST_FAILED])
+        (wait_result,file_path) = wait_res
         match wait_result:
             case WaitResult.SUCCESS:
                 save_manual_savior_work(manual_savior, smh_id, SocialNetwork.SNInstagram)
@@ -177,11 +179,18 @@ def chrome_share_instagram(smh_id:int, file_path: str, message: str, manual_savi
                 # pyautogui.press("f5")
                 waiting = False
             case WaitResult.FAILURE:
-                # Vai tentar novamente
-                pyautogui.sleep(2)
-                pyautogui.press("tab")
-                pyautogui.sleep(0.5)
-                pyautogui.press("enter")
+                if file_path == Paths.IMG_SMH_INSTAGRAM_POST_SELECT_OTHER_FILES:
+                    print("Aconteceu o erro de pedir a mídia, mas normalmente ele faz, então vamos considerar SUCESSO")
+                    save_manual_savior_work(manual_savior, smh_id, SocialNetwork.SNInstagram)
+                    waiting = False
+                elif file_path == Paths.IMG_SMH_INSTAGRAM_POST_FAILED:
+                    # Vai tentar novamente
+                    pyautogui.sleep(2)
+                    pyautogui.press("tab")
+                    pyautogui.sleep(0.5)
+                    pyautogui.press("enter")
+                else:
+                    print("OPÇÃO INEXISTENTE")
             case WaitResult.TIMEOUT:
                 print("Timeout! Erro desconhecido...")
                 waiting = False

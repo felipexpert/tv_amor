@@ -1,6 +1,6 @@
 from enum import Enum
 import time
-from typing import List
+from typing import List, Tuple
 import pyautogui
 
 from utils.utils_print import print_alt
@@ -163,33 +163,49 @@ class WaitResult(Enum):
     TIMEOUT = "TIMEOUT"
 
 def wait_for_images(success_img: str, error_img: str, timeout: int = 120, confidence: float = 0.9) -> WaitResult:
-    """
-    Espera até aparecer uma das duas imagens na tela.
-    - success_img: caminho da imagem que indica sucesso
-    - error_img: caminho da imagem que indica falha
-    - timeout: tempo máximo em segundos
-    - confidence: grau de tolerância (0.9 = 90%)
+    (waitResult, _) = wait_for_images2([success_img], [error_img], timeout, confidence)
+    return waitResult
 
-    Retorna WaitResult.SUCCESS, WaitResult.FAILURE ou WaitResult.TIMEOUT
+def wait_for_images2(success_imgs: List[str], error_imgs: List[str], timeout: int = 120, confidence: float = 0.9) -> Tuple[WaitResult,str]:
+    """
     """
     start = time.time()
+    imgs_tuple:List[(str,WaitResult)] = [(img, WaitResult.SUCCESS) for img in success_imgs] + [(img, WaitResult.FAILURE) for img in error_imgs]
     while True:
-        # tenta achar a imagem de sucesso
-        try:
-            if pyautogui.locateOnScreen(success_img, confidence=confidence):
-                return WaitResult.SUCCESS
-        except pyautogui.ImageNotFoundException:
-            pass
 
-        # tenta achar a imagem de falha
-        try:
-            if pyautogui.locateOnScreen(error_img, confidence=confidence) is not None:
-                return WaitResult.FAILURE
-        except pyautogui.ImageNotFoundException:
-            pass
+        for (img,waitResult) in imgs_tuple:
+            try:
+                if pyautogui.locateOnScreen(img, confidence=confidence):
+                    return (waitResult, img)
+            except pyautogui.ImageNotFoundException:
+                pass
 
         # verifica timeout
         if time.time() - start > timeout:
             return WaitResult.TIMEOUT
 
         time.sleep(0.5)  # evita sobrecarregar a CPU
+
+# tirar depois
+def wait_for_img_from_imgs(img_paths: List[str], confidence=0.9) -> str:
+    """
+    Waits for any image from a list to appear on the screen.
+    """
+    found:str = ""
+    img_names = [p.basename(img_path) for img_path in img_paths]
+    print(f'Esperando uma dessas imagens: {", ".join(img_names)}')
+
+    continue_loop = True
+    while continue_loop:
+        # Wait for the Firefox window to appear
+        for img_path in img_paths:
+            print(f"Procurando pela imagem: {p.basename(img_path)}")
+            try:
+                if pyautogui.locateOnScreen(img_path, confidence):
+                    found = img_path
+                    continue_loop = False
+                    break
+            except pyautogui.ImageNotFoundException:
+                pass
+        pyautogui.sleep(1)  # Sleep for a while before checking again
+    return found

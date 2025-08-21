@@ -59,6 +59,7 @@ class Paths:
     IMG_SMH_INSTAGRAM_NEW_POST_CREATE_NEW_POST_SHARE:str = cp(IMAGES_DIR, "01_smh_instagram_new_post_create_new_post_share.jpg")
     IMG_SMH_INSTAGRAM_POST_SUCCEED:str = cp(IMAGES_DIR, "01_smh_instagram_post_succeed.jpg")
     IMG_SMH_INSTAGRAM_POST_FAILED:str = cp(IMAGES_DIR, "01_smh_instagram_post_failed.jpg")
+    IMG_SMH_INSTAGRAM_POST_SELECT_OTHER_FILES:str = cp(IMAGES_DIR, "01_smh_instagram_post_failed_select_other_files.jpg")
 
     # TIKTOK
     IMG_SMH_TIKTOK_SELECT_VIDEO:str = cp(IMAGES_DIR, "02_01_smh_tiktok_select_video.jpg")
