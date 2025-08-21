@@ -1,0 +1,14 @@
+Estruturação dos vídeos por livro
+
+Para o vídeo completo (com os capitulos marcados na timeline)
+[Livro] Resumo Completo | TV Amor por Livros 
+
+Para o capítulo resumido (que vai compor a playlist
+[Capítulo c/ Novo Título] - Cap. 1 - [Livro] | TV Amor por Livros
+[Capítulo c/ Novo Título] - Cap. 2 - [Livro] | TV Amor por Livros
+
+Uma explicação enxuta, é semelhante ao resumo completo, porém em exatamente 10, 15 ou 20 minutos
+[Livro] Visão Geral em N minutos | TV Amor por Livros
+
+Shorts, mensagens curtas com valor
+[Título Valor] - [Livro] | TV Amor por Livros
