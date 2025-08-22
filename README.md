@@ -2,6 +2,10 @@
 
 Utilize o estilo de escrita 'underscore_case', exemplo: "arquivo_de_texto.txt"
 
+## Haskell dica
+SUGESTÃO: Utilize o `cabal build` pelo próprio cmd para ver mensagens da compilação haskell
+e o Code Runner do vscode, você pode deixar para rodar sem buildar
+
 ## Bibliotecas Python
 
 instale o pyautogui e o opencv-python:

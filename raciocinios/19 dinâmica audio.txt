@@ -17,8 +17,22 @@ Agora você precisa fazer utilizar os parâmetros
 	Por onde eu começo?
 		Que tal fazer um backup do arquivo GL que gera o audio atual?
 
-@@@@@@
-
 243		AniAutoTask.hs		defaultAudioRequestConfig
 
 processDRichTextIO vai precisar de mais informações nos parâmetros
+	Como vou fazer o vínculo para ter acesso às configurações específicas?
+	Cria um json com o mesmo nome do arquivo PSD do sprite, e você carrega
+	
+	Você precisa dar um jeito de passar o `SSprite` no momento que o áudio será criado
+		Tenta adicionar ele no 
+
+Tem que ser antes de criar o AAT.DRichText, porque alí já tem o file_path
+
+2025-08-22
+Fazendo passar a configuração de áudio no HS para o gerador GL
+	Por onde eu começo hoje?
+		Tenta compilar para ver o que as mudanças geraram de mensagem
+
+@@@@@@@@@@
+PARABÉNS! Parece que o primeiro arquivo você já ajustou `EpisodeSetup.hs`
+	Encontra onde estava sendo feito

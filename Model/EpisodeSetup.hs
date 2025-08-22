@@ -10,10 +10,16 @@ import GHC.Generics (Generic)
 
 import Model.EpisodePersona (EPeLabel(..), EPeNumber(..))
 
-import System.FilePath (replaceExtension)
+import System.FilePath (replaceExtension, (</>))
 
 import qualified Data.List as List
-import qualified Model.AudiosInfo (AudioRequestConfig(..))
+
+import qualified Model.Config as C
+import Model.AudiosInfo (AudioRequestConfig(..))
+
+import Data.Aeson (decode)
+
+import qualified Data.ByteString.Lazy as B
 
 -- Informações adicionais do episódio
 data EpisodeSetup = EpisodeSetup
@@ -84,7 +90,6 @@ loadAudioRequestConfigOptIO es peLabel = do
     Just configFile -> loadAudioRequestConfigOptIO' configFile
     _ -> return Nothing
   where
-    -- está nesta linha
     configFileOpt = episodeSetupAudioRequestConfigFile es peLabel
     loadAudioRequestConfigOptIO' :: FilePath -> IO (Maybe AudioRequestConfig)
     loadAudioRequestConfigOptIO' configPath = do
@@ -92,7 +97,6 @@ loadAudioRequestConfigOptIO es peLabel = do
       conf <- C.loadConfigIO
       let workingDir = C.workingDir conf
 
-      cwd <- getCurrentDirectory
       let path = workingDir </> configPath
       content <- B.readFile path
       case decode content of
