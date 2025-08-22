@@ -44,6 +44,7 @@ import qualified Data.ByteString.Lazy as BL
 import qualified Data.Aeson.Encode.Pretty as Pretty
 
 import qualified Data.List as List
+import qualified Model.EpisodeComplete as E
 
 data AniAutoTask = AniAutoTask
     { aatActions :: [TPeAction]
@@ -192,10 +193,12 @@ processAudiosInfoIO audiosRequest = do
                 texts = [ arText ar | ar <- ars ]
                 (AudiosRequest ars) = audiosRequest
 
-episodeToTaskDialoguesIO :: E.Episode -> IO [TDialoguePe]
-episodeToTaskDialoguesIO ep = do 
+episodeToTaskDialoguesIO :: EpisodeComplete -> IO [TDialoguePe]
+episodeToTaskDialoguesIO episodeComplete = do 
     let -- edp = fmap dialoguePeToTaskDialogue (E.eDialoguePeList ep)
-        listOfEdp = fmap E.dContents (E.eDialoguePeList ep)
+        -- listOfEdp = fmap E.dContents (E.eDialoguePeList ep)
+        listOfEdp = fmap richTextWithPeTuple (E.eDialoguePeList ep)
+
         allTexts = concat listOfEdp
         -- texts = E.dContents dialoguePeToTaskDialogue edp
     allContentsWithAudio <- processDRichTextIO allTexts
@@ -203,6 +206,13 @@ episodeToTaskDialoguesIO ep = do
         res = fmap (dialoguePeToTaskDialogue allTexts') (E.eDialoguePeList ep)
     return res
     where
+        richTextWithPeTuple :: E.EDialoguePe -> [(E.DRichText,E.EPeLabel)]
+        richTextWithPeTuple dialogue = fmap (,pe) contents
+            where
+                pe = E.dPe dialogue
+                contents = E.dContents
+        ep = ecEpisode episodeComplete
+        setup = ecEpisodeSetup episodeComplete
         dialoguePeToTaskDialogue :: [(E.DRichText, DRichText)] -> E.EDialoguePe -> TDialoguePe
         dialoguePeToTaskDialogue allContentsWithAudio edp = res
             where
@@ -222,16 +232,23 @@ episodeToTaskDialoguesIO ep = do
                     , dContents = contentsWithAudio
                     }
         
-        processDRichTextIO :: [E.DRichText, ES.] -> IO [DRichText]
+        processDRichTextIO :: [(E.DRichText,E.EPeLabel)] -> IO [DRichText]
         processDRichTextIO texts = do
             audiosInfo <- processAudiosInfoIO audiosRequest
             let richTexts = richTextsWithAudioAndTimeInfo texts audiosInfo
             return richTexts
             where 
+                configs :: IO [AudioRequestConfig,E.EPeLabel]
+                configs = forM configPathsTuple $ \(configPath, peLabel) -> do
+                    
+                    where
+                        configPathsTuple :: [(FilePath, E.EPeLabel)]
+                        configPathsTuple = episodeSetupAudioRequestConfigFiles setup 
+
                 audiosRequest :: AudiosRequest
                 audiosRequest = richTextsToAudiosRequests texts
 
-                richTextsToAudiosRequests :: [E.DRichText] -> AudiosRequest
+                richTextsToAudiosRequests :: [(E.DRichText,E.EPeLabel)] -> AudiosRequest
                 richTextsToAudiosRequests richTexts = AudiosRequest $ map textToAudioRequest (richTextsToTexts richTexts)
                     where
                         richTextsToTexts :: [E.DRichText] -> [Text]
@@ -289,7 +306,7 @@ buildAniAutoTask episodeComplete = AniAutoTask
 
 episodeCompleteToAniAutoTaskIO :: EpisodeComplete -> C.Config -> IO AniAutoTask
 episodeCompleteToAniAutoTaskIO episodeComplete config = do
-    dialogues <- episodeToTaskDialoguesIO episode
+    dialogues <- episodeToTaskDialoguesIO episodeComplete
     let (actions, totalDuration) = dialoguesToActions dialogues
     let aat = AniAutoTask
             { aatActions = actions

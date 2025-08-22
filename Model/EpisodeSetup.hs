@@ -10,6 +10,11 @@ import GHC.Generics (Generic)
 
 import Model.EpisodePersona (EPeLabel(..), EPeNumber(..))
 
+import System.FilePath (replaceExtension)
+
+import qualified Data.List as List
+import qualified Model.AudiosInfo (AudioRequestConfig(..))
+
 -- Informações adicionais do episódio
 data EpisodeSetup = EpisodeSetup
     { sSprites :: [SSprite]
@@ -72,6 +77,44 @@ exampleEpisodeSetup = EpisodeSetup
         }
     }
 
-episodeSetupAudioRequestConfigFile :: EpisodeSetup -> EPeNumber ->  FilePath
-episodeSetupAudioRequestConfigFile es peNumber = 
-    where
+-- Lê o arquivo "config.json" na raiz do projeto e retorna o Config
+loadAudioRequestConfigOptIO :: EpisodeSetup -> EPeLabel -> IO (Maybe AudioRequestConfig)
+loadAudioRequestConfigOptIO es peLabel = do
+  case configFileOpt of
+    Just configFile -> loadAudioRequestConfigOptIO' configFile
+    _ -> return Nothing
+  where
+    -- está nesta linha
+    configFileOpt = episodeSetupAudioRequestConfigFile es peLabel
+    loadAudioRequestConfigOptIO' :: FilePath -> IO (Maybe AudioRequestConfig)
+    loadAudioRequestConfigOptIO' configPath = do
+
+      conf <- C.loadConfigIO
+      let workingDir = C.workingDir conf
+
+      cwd <- getCurrentDirectory
+      let path = workingDir </> configPath
+      content <- B.readFile path
+      case decode content of
+        Just cfg -> return (Just cfg)
+        Nothing -> return Nothing
+
+episodeSetupAudioRequestConfigFiles :: EpisodeSetup -> [(FilePath, EPeLabel)]
+episodeSetupAudioRequestConfigFiles es = fmap mapper sprites
+  where
+    sprites = sSprites es
+    mapper s = (psdToJson (sPsdPath s), sLabel s)
+
+episodeSetupAudioRequestConfigFile :: EpisodeSetup -> EPeLabel ->  Maybe FilePath
+episodeSetupAudioRequestConfigFile es peLabel = configFileOpt
+  where
+    sprites = sSprites es
+    thisSpriteOpt = List.find ((peLabel ==) . sLabel) sprites
+    spriteFPOpt :: Maybe FilePath
+    spriteFPOpt = fmap sPsdPath thisSpriteOpt
+    configFileOpt :: Maybe FilePath
+    configFileOpt = fmap psdToJson spriteFPOpt
+
+-- converte o tipo psd para json
+psdToJson :: FilePath -> FilePath
+psdToJson path = replaceExtension path "json"

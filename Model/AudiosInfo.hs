@@ -45,7 +45,8 @@ data AudioRequestConfig = AudioRequestConfig
     , arcPitch :: Text -- "+0Hz", Exemplo: "+5Hz" para aumentar o tom
     , arcRate :: Text -- "+0%", Exemplo: "+5Hz" para aumentar o tom
     , arcTimbreScale :: Double -- Padrão 1.0, maior ou igual 0.5, menor ou igual 1.5, fator de variação do timbre
-    } deriving (Show, Eq, Generic, ToJSON)
+    }
+    deriving (Show, Eq, Generic, FromJSON, ToJSON)
 
 defaultAudioRequestConfig :: AudioRequestConfig
 defaultAudioRequestConfig = AudioRequestConfig
