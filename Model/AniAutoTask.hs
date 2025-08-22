@@ -222,7 +222,7 @@ episodeToTaskDialoguesIO ep = do
                     , dContents = contentsWithAudio
                     }
         
-        processDRichTextIO :: [E.DRichText] -> IO [DRichText]
+        processDRichTextIO :: [E.DRichText, ES.] -> IO [DRichText]
         processDRichTextIO texts = do
             audiosInfo <- processAudiosInfoIO audiosRequest
             let richTexts = richTextsWithAudioAndTimeInfo texts audiosInfo

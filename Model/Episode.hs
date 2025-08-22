@@ -78,7 +78,7 @@ data CGesture
 
 exampleEpisode :: Episode
 exampleEpisode = Episode
-    { ePes = [EPeLabel "pe_felipe", EPeLabel "pe_gisele"]
+    { ePes = [EPeLabel "pe_felipe", EPeLabel "pe_felipe777"]
     , eDialoguePeList = exampleDialogues
     }
     where
@@ -87,15 +87,15 @@ exampleEpisode = Episode
             [ EDialoguePe
                 { dPe = EPeLabel "pe_felipe"
                 , dContents =
-                    [ RPlainText "Olá Gisele"
+                    [ RPlainText "Olá Felipe777"
                     , RCommand (CGesture GHi (EPeLabel "pe_felipe"))
-                    , RCommand (CGesture GHi (EPeLabel "pe_gisele"))
+                    , RCommand (CGesture GHi (EPeLabel "pe_felipe777"))
                     , RCommand (CPause 500)
                     , RPlainText "Tudo bem por aí?"
                     ]
                 }
             , EDialoguePe
-                { dPe = EPeLabel "pe_gisele"
+                { dPe = EPeLabel "pe_felipe777"
                 , dContents =
                     [ RPlainText "Olá Felipe! Tudo ótimo!" ]
                 }

@@ -11,5 +11,14 @@ Que tal fazer o procedimento de geração dos arquivos para o vídeo, passando e
 	Aí você já faz os vídeos com os áudios variados
 	Aproveita e substitui o nome gisele e coloca Felipe nos 2
 
+V Limpa a pasta de trabalho
 
+Agora você precisa fazer utilizar os parâmetros
+	Por onde eu começo?
+		Que tal fazer um backup do arquivo GL que gera o audio atual?
 
+@@@@@@
+
+243		AniAutoTask.hs		defaultAudioRequestConfig
+
+processDRichTextIO vai precisar de mais informações nos parâmetros

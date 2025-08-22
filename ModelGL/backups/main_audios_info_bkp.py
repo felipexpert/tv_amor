@@ -8,14 +8,13 @@ from pathlib import Path
 from pydub import AudioSegment
 import edge_tts
 
-from utils.utils_generate_audio import generate_audio
 from utils.utils_paths_config import load_config
 from utils.utils_print import print_alt
-from utils.classes.audios_info import AudioInfo, AudioRequest, AudioRequestConfig
+from utils.classes.audios_info import AudioInfo, AudioRequest
 
 
 
-async def gerar_audio_bkp(texto: str, caminho_wav: Path, voz: str) -> int:
+async def gerar_audio(texto: str, caminho_wav: Path, voz: str) -> int:
     """
     Gera o áudio em .wav com a voz fornecida.
     Salva no caminho especificado e retorna a duração em milissegundos.
@@ -38,12 +37,13 @@ async def gerar_audio_bkp(texto: str, caminho_wav: Path, voz: str) -> int:
 
     return int(audio.duration_seconds * 1000)
 
+
 async def processar_audio_requests(requests: List[AudioRequest], working_dir: Path) -> List[AudioInfo]:
     working_dir.mkdir(parents=True, exist_ok=True)
     audio_infos: List[AudioInfo] = []
 
     for i, req in enumerate(requests):
-        # texto: str = req.arText
+        texto: str = req.arText
         voz: str = req.arConfig.arcVoice
         # voz = req.arConfig.get("arcVoice", "pt-BR-AntonioNeural")
 
@@ -51,14 +51,14 @@ async def processar_audio_requests(requests: List[AudioRequest], working_dir: Pa
         caminho_arquivo = working_dir / nome_arquivo
 
         print_alt(f"🎤 Gerando {nome_arquivo} com voz {voz}...")
-        audio_info = await generate_audio(req, caminho_arquivo)
-        # duracao_ms = await gerar_audio(texto, caminho_arquivo, voz)
 
-        # audio_info = AudioInfo(
-        #     aiFilePath=str(caminho_arquivo),
-        #     aiDuration=duracao_ms,
-        #     aiText=texto
-        # )
+        duracao_ms = await gerar_audio(texto, caminho_arquivo, voz)
+
+        audio_info = AudioInfo(
+            aiFilePath=str(caminho_arquivo),
+            aiDuration=duracao_ms,
+            aiText=texto
+        )
         audio_infos.append(audio_info)
 
     return audio_infos
