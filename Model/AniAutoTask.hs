@@ -9,6 +9,7 @@
 {-# HLINT ignore "Redundant bracket" #-}
 {-# HLINT ignore "Use uncurry" #-}
 {-# HLINT ignore "Use catMaybes" #-}
+{-# HLINT ignore "Use <$>" #-}
 
 -- MyModule.hs
 module Model.AniAutoTask where
@@ -202,7 +203,7 @@ episodeToTaskDialoguesIO episodeComplete = do
   -- texts = E.dContents dialoguePeToTaskDialogue edp
   allContentsWithAudio <- processDRichTextIO allTexts
   let
-    allTexts' = zip allTexts allContentsWithAudio
+    allTexts' = zip (fmap fst allTexts) allContentsWithAudio
     res = fmap (dialoguePeToTaskDialogue allTexts') (E.eDialoguePeList ep)
   return res
   where
@@ -210,7 +211,7 @@ episodeToTaskDialoguesIO episodeComplete = do
     richTextWithPeTuple dialogue = fmap (,pe) contents
       where
         pe = E.dPe dialogue
-        contents = E.dContents
+        contents = E.dContents dialogue
     ep = ecEpisode episodeComplete
     setup = ecEpisodeSetup episodeComplete
     dialoguePeToTaskDialogue :: [(E.DRichText, DRichText)] -> E.EDialoguePe -> TDialoguePe
@@ -234,28 +235,51 @@ episodeToTaskDialoguesIO episodeComplete = do
     
     processDRichTextIO :: [(E.DRichText,EPeLabel)] -> IO [DRichText]
     processDRichTextIO texts = do
+      textWithConfigList <- genTextWithConfigList texts
+      let audiosRequest = richTextsToAudiosRequests textWithConfigList
       audiosInfo <- processAudiosInfoIO audiosRequest
-      let richTexts = richTextsWithAudioAndTimeInfo texts audiosInfo
+      let richTexts = richTextsWithAudioAndTimeInfo (fmap fst texts) audiosInfo
       return richTexts
       where 
+        genTextWithConfigList :: [(E.DRichText, EPeLabel)] -> IO [(E.DRichText,AudioRequestConfig)]
+        genTextWithConfigList textWithPeLabelList = do
+          -- loadAllAudioRequestConfigsIO :: EpisodeSetup -> IO [(AudioRequestConfig, EPeLabel)]
+          configs <- ES.loadAllAudioRequestConfigsIO setup
+          let textWithConfigList = convertToTextWithConfigList configs textWithPeLabelList
+          return textWithConfigList
+          where
+            convertToTextWithConfigList :: [(AudioRequestConfig, EPeLabel)] -> [(E.DRichText,EPeLabel)] -> [(E.DRichText,AudioRequestConfig)]
+            convertToTextWithConfigList configs textWithPeLabelList = res''
+              where
+                res' :: [(E.DRichText,Maybe AudioRequestConfig)]
+                res' = fmap mapper textWithPeLabelList
+                  where
+                    mapper :: (E.DRichText, EPeLabel) -> (E.DRichText, Maybe AudioRequestConfig)
+                    mapper (text, peLabel) = (text, foundOpt)
+                      where
+                        foundOpt :: Maybe AudioRequestConfig
+                        foundOpt = (fmap fst) $ List.find ((==peLabel) . snd) configs
+                res'' :: [(E.DRichText,AudioRequestConfig)]
+                res'' = [ (text, config) | (text, Just config) <- res']
+              
+
+        {-
         configs :: IO [(AudioRequestConfig,EPeLabel)]
         configs = forM configPathsTuple $ \(configPath, peLabel) -> do
           undefined 
           where
             configPathsTuple :: [(FilePath, EPeLabel)]
             configPathsTuple = ES.episodeSetupAudioRequestConfigFiles setup 
+        -}
 
-        audiosRequest :: AudiosRequest
-        audiosRequest = richTextsToAudiosRequests texts
-
-        richTextsToAudiosRequests :: [(E.DRichText,EPeLabel)] -> AudiosRequest
-        richTextsToAudiosRequests richTexts = AudiosRequest $ map textToAudioRequest (richTextsToTexts richTexts)
+        richTextsToAudiosRequests :: [(E.DRichText, AudioRequestConfig)] -> AudiosRequest
+        richTextsToAudiosRequests textWithConfigList = AudiosRequest $ map textToAudioRequest (richTextsToTexts textWithConfigList)
           where
-            richTextsToTexts :: [E.DRichText] -> [Text]
-            richTextsToTexts richTexts = [ text | (E.RPlainText text) <- richTexts ]
+            richTextsToTexts :: [(E.DRichText, AudioRequestConfig)] -> [(Text, AudioRequestConfig)]
+            richTextsToTexts textWithConfigList = [ (text, arc) | (E.RPlainText text, arc) <- textWithConfigList ]
 
-            textToAudioRequest :: Text -> AudioRequestConfig  -> AudioRequest
-            textToAudioRequest text arc = AudioRequest
+            textToAudioRequest :: (Text, AudioRequestConfig)  -> AudioRequest
+            textToAudioRequest (text, arc) = AudioRequest
               { arText = text
               , arConfig =  arc
               }
