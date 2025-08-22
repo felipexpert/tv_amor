@@ -33,6 +33,15 @@ Fazendo passar a configuração de áudio no HS para o gerador GL
 	Por onde eu começo hoje?
 		Tenta compilar para ver o que as mudanças geraram de mensagem
 
-@@@@@@@@@@
+
+
 PARABÉNS! Parece que o primeiro arquivo você já ajustou `EpisodeSetup.hs`
 	Encontra onde estava sendo feito
+
+@@@@@@@@@@
+
+PARABÉNS! Conseguiu fazer a integração com o sistema de configuração de áudio via arquivo
+
+Possivelmente, poderá haver alguns ajustes ainda
+
+Fazer um run, para gerar com 2 vozes configuradas via o JSON
