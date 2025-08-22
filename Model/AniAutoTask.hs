@@ -33,7 +33,7 @@ import qualified System.Directory as SD
 
 import System.FilePath ((</>))
 
-import Control.Monad (forM_)
+import Control.Monad (forM, forM_)
 import qualified Model.TextUtil as TU
 
 import Data.Aeson (ToJSON, FromJSON, encode)
@@ -243,7 +243,7 @@ episodeToTaskDialoguesIO episodeComplete = do
           undefined 
           where
             configPathsTuple :: [(FilePath, EPeLabel)]
-            configPathsTuple = episodeSetupAudioRequestConfigFiles setup 
+            configPathsTuple = ES.episodeSetupAudioRequestConfigFiles setup 
 
         audiosRequest :: AudiosRequest
         audiosRequest = richTextsToAudiosRequests texts
@@ -254,10 +254,10 @@ episodeToTaskDialoguesIO episodeComplete = do
             richTextsToTexts :: [E.DRichText] -> [Text]
             richTextsToTexts richTexts = [ text | (E.RPlainText text) <- richTexts ]
 
-            textToAudioRequest :: Text -> AudioRequest
-            textToAudioRequest text = AudioRequest
+            textToAudioRequest :: Text -> AudioRequestConfig  -> AudioRequest
+            textToAudioRequest text arc = AudioRequest
               { arText = text
-              , arConfig =  defaultAudioRequestConfig -- aqui você pode definir a voz padrão ou outra lógica
+              , arConfig =  arc
               }
         
         -- converte os rich texts do episodio para o formato rich texts com as informações de audios,

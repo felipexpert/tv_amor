@@ -1,5 +1,8 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE TupleSections #-}
+{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
+{-# HLINT ignore "Redundant bracket" #-}
 
 -- MyModule.hs
 module Model.EpisodeSetup where
@@ -13,6 +16,8 @@ import Model.EpisodePersona (EPeLabel(..), EPeNumber(..))
 import System.FilePath (replaceExtension, (</>))
 
 import qualified Data.List as List
+
+import Data.Maybe (catMaybes)
 
 import qualified Model.Config as C
 import Model.AudiosInfo (AudioRequestConfig(..))
@@ -82,6 +87,21 @@ exampleEpisodeSetup = EpisodeSetup
             }
         }
     }
+
+loadAllAudioRequestConfigsIO :: EpisodeSetup -> IO [(AudioRequestConfig, EPeLabel)]
+loadAllAudioRequestConfigsIO es = do
+  configOpts <- mapM  mapperIO peLabels
+  let configs = catMaybes configOpts
+  return configs
+  where
+    peLabels :: [EPeLabel]
+    peLabels = (fmap sLabel) . sSprites $ es
+    mapperIO :: EPeLabel -> IO (Maybe (AudioRequestConfig, EPeLabel))
+    mapperIO peLabel = do
+      configOpt <- loadAudioRequestConfigOptIO es peLabel
+      let configOpt' = fmap (,peLabel) configOpt
+      return configOpt'
+
 
 -- Lê o arquivo "config.json" na raiz do projeto e retorna o Config
 loadAudioRequestConfigOptIO :: EpisodeSetup -> EPeLabel -> IO (Maybe AudioRequestConfig)
