@@ -115,9 +115,9 @@ loadAudioRequestConfigOptIO es peLabel = do
     loadAudioRequestConfigOptIO' configPath = do
 
       conf <- C.loadConfigIO
-      let workingDir = C.workingDir conf
+      let spritesDir = C.spritesDir conf
 
-      let path = workingDir </> configPath
+      let path = spritesDir </> configPath
       content <- B.readFile path
       case decode content of
         Just cfg -> return (Just cfg)
