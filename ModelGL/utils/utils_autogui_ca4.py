@@ -91,8 +91,10 @@ def add_personas(aat: AniAutoTask):
             click_img_s(Paths.IMG_CA4_PSD_LOADING_OPTIONS_OK)
         else:
             click_img_s(Paths.IMG_CA4_PSD_LOADING_OPTIONS_OK_2)
-        pyautogui.sleep(5)
+        pyautogui.sleep(0.5)
         click_to_deselect()
+        pyautogui.sleep(0.5)
+        wait_for_img(Paths.IMG_CA4_PSD_LOADING_OPTIONS_CLOSE)
         click_img_s(Paths.IMG_CA4_PSD_LOADING_OPTIONS_CLOSE)
         click_to_deselect()
         pyautogui.sleep(2)
@@ -348,6 +350,14 @@ def add_personas_gestures(aat: AniAutoTask):
                 actions.append(gesture)
             else:
                 person_gestures_dict.update({pe_number: [ gesture ]})
+
+        # adiciona as pessoas mesmo se não houverem gestos
+        for p in aat.aatPersonas:
+            persona: TPersona = p
+            if persona.pNumber not in person_gestures_dict:
+                # se um personagem da história, não houver sido adicionado ainda, por ausência de gestos, adiciona sem gestos
+                person_gestures_dict.update({persona.pNumber: [ ]})
+
         return person_gestures_dict
 
     person_gestures_dict:Dict[EPeNumber,List[AGesture]] = make_person_gestures_dict()

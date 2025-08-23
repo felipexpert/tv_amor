@@ -37,9 +37,22 @@ def step(aat: AniAutoTask, config: Config):
     # focus_or_open_ca4()
     # render_video()
 
-    video_file_temp_path:str = str(Path(Paths.AAT_WORKING_DIR) / Path('video_temp.mp4')) # video temp
-    pyautogui.write(video_file_temp_path)
-    compact_video(video_file_temp_path)
+    # video_file_temp_path:str = str(Path(Paths.AAT_WORKING_DIR) / Path('video_temp.mp4')) # video temp
+    # pyautogui.write(video_file_temp_path)
+    # compact_video(video_file_temp_path)
+    
+    focus_or_open_ca4()
+    if False:
+        add_personas(aat)
+        add_background(aat)
+        prepare_render_video_configs(aat)
+        place_personas(aat)
+        flip_persona_1_if_needed(aat)
+        set_video_total_duration(aat)
+        display_timeline_if_hidden()
+        add_all_speeches(aat, config)
+
+    add_personas_gestures(aat)
 
     
 
