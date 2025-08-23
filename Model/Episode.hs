@@ -97,6 +97,7 @@ exampleEpisode = Episode
             , EDialoguePe
                 { dPe = EPeLabel "pe_felipe777"
                 , dContents =
-                    [ RPlainText "Olá Felipe! Tudo ótimo!" ]
+                    [ RPlainText "Olá Felipe! Tudo ótimo!"
+                    , RCommand (CGesture GHi (EPeLabel "pe_felipe777")) ]
                 }
             ]

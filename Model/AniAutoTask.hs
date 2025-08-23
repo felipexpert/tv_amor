@@ -131,18 +131,6 @@ dialoguesToActions dialogues = go dialogues 0 []
       let (actions, endTime) = dialogueToActions currentTime d
       in go ds endTime (reverse actions ++ acc)
 
-{-
-dialoguesToActions :: [TDialoguePe] -> ([TPeAction], Int)
-dialoguesToActions dialogues = (actions, totalTime)
-  where
-    actionsAndTimes :: [([TPeAction], Int)]
-    actionsAndTimes = map dialogueToActions dialogues
-    actions :: [TPeAction]
-    actions = concatMap fst actionsAndTimes
-    totalTime :: Int
-    totalTime = sum $ map snd actionsAndTimes
--}
-
 -- cada trecho em que um personagem fala, gera um conjunto de ações, e o total de tempo
 dialogueToActions :: Int -> TDialoguePe -> ([TPeAction], Int)
 dialogueToActions startTime dialogue = generateActions' (dContents dialogue)
@@ -164,7 +152,7 @@ dialogueToActions startTime dialogue = generateActions' (dContents dialogue)
             speechToAction :: RSpeech -> TPeAction
             speechToAction speech = TPeAction peNumber (ASpeech (aiFilePath (rsAudioInfo speech)) currentTime)
             gestureToAction :: CGesture -> EPeNumber -> TPeAction
-            gestureToAction gesture peNumberG = TPeAction peNumber (AGesture gesture currentTime)
+            gestureToAction gesture peNumberG = TPeAction peNumberG (AGesture gesture currentTime)
     generateActions' :: [DRichText] -> ([TPeAction], Int)
     generateActions' ts = (actions, totalTime)
       where 
@@ -331,7 +319,11 @@ buildAniAutoTask episodeComplete = AniAutoTask
 episodeCompleteToAniAutoTaskIO :: EpisodeComplete -> C.Config -> IO AniAutoTask
 episodeCompleteToAniAutoTaskIO episodeComplete config = do
   dialogues <- episodeToTaskDialoguesIO episodeComplete
+  -- putStrLn "Diálogos:"
+  -- putStrLn (show dialogues)
   let (actions, totalDuration) = dialoguesToActions dialogues
+  -- putStrLn "Actions:"
+  -- putStrLn (show actions)
   let
     aat = AniAutoTask
       { aatActions = actions
