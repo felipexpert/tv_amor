@@ -1,7 +1,6 @@
 {
     "workingDir": "C:\\tv_amor_working_dir",
-    "backgroundDir": "C:\\tv_amor_assets\\background",
-    "musicsDir": "C:\\tv_amor_assets\\musics",
-    "spritesDir": "C:\\tv_amor_assets\\sprites"
-    
+    "backgroundDir": "J:\\Meu Drive\\Amor por Livros\\tv_amor_assets\\background",
+    "musicsDir": "J:\\Meu Drive\\Amor por Livros\\tv_amor_assets\\musics",
+    "spritesDir": "J:\\Meu Drive\\Amor por Livros\\tv_amor_assets\\sprites"
 }
