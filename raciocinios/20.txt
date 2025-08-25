@@ -1,0 +1,7 @@
+Quais opções eu tenho para ajustar o cabelo?
+- posso fazer um backhair com pontas que ficam a frente do personagem feminino
+	Todos os personagens femininos vão ficar com o cabelo um pouco curto
+	
+Futuramente eu crio uma abordagem mais apropriada para cabelos longos, com mais tempo para essa melhoria
+	O problema é que se eu fizer o que ele sugeriu de adicionar o cabelo longo como acessório, além de eu ter que ver mais assuntos, e tomar mais tempo, vai aumentar mais um grau de complexidade na automação da animação, vai extender muito o prazo do projeto, e se eu fizer correndo, pode comprometer a qualidade... então por enquanto acho melhor simplificar
+	o cabelo do que mexer em tudo isso
