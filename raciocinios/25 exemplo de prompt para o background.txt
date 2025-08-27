@@ -1,1 +1,1 @@
-Crie um background para o CA4, com traço compatível com o desse personagem. O background deve ser um escritório de cobranças com mesas e pcs. Não coloque o personagem, o background deve ser um espaço para eu por os personagens pelo CA4. o tamanho deve ser 1080x1920
+Crie um background 2D, sem personagens, com um local para 2 personagens conversarem. O background deve ser um escritório de cobranças com mesas e pcs. Não coloque personagens, o background deve ser um espaço para eu por os personagens pelo software depois. o tamanho deve ser 1080x1920

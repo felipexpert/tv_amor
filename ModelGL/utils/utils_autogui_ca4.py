@@ -151,8 +151,20 @@ def place_personas(aat: AniAutoTask):
         pyautogui.hotkey('ctrl', 'a')
         pyautogui.sleep(0.5)
         pyautogui.write(str(posY))
+        # pyautogui.sleep(0.5)
+        # pyautogui.press("enter")
+
+        # temporário START
+        press_key_n_times("tab", 2)
+        pyautogui.write("60")
+        pyautogui.sleep(0.5)
+        pyautogui.press("tab")
+        pyautogui.sleep(0.5)
+        pyautogui.write("60")
         pyautogui.sleep(0.5)
         pyautogui.press("enter")
+        # temporário END
+        
         
 
          
