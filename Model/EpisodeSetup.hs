@@ -74,8 +74,9 @@ data PSpriteNumbered = PSpriteNumbered
 exampleEpisodeSetup :: EpisodeSetup
 exampleEpisodeSetup = EpisodeSetup
     { sSprites = 
-        [ SSprite (EPeLabel "pe_felipe777") "02 sprite mega-sushi-temakeria IMPORT.psd" EPeNum1
-        , SSprite (EPeLabel "pe_felipe") "01 sprite melhores-ofertas IMPORT.psd" EPeNum2
+        -- [ SSprite (EPeLabel "pe_felipe777") "02 sprite mega-sushi-temakeria IMPORT.psd" EPeNum1
+        [ SSprite (EPeLabel "pe_felipe777") "mega-sushi-temakeria.psd" EPeNum1
+        , SSprite (EPeLabel "pe_felipe") "melhores-ofertas.psd" EPeNum2
         ]
     , sBackgroundImage = SBackground
         { bImagePath = "01_escritorio.png"
