@@ -189,6 +189,7 @@ episode05 = undefined -- crie o 5º episode aqui
 
 Capriche nos gestos, não precisa "forçar"... Forneça SOMENTE `episode01`, `episode02`, `episode03`, `episode04` e `episode05`
 
+O primeiro personagem sempre é o personagem 'x' da empresa 'y', e o segundo personagem sempre é o "Melhores Ofertas"
 ____________________________
 
 Algumas CTAs de prova social
