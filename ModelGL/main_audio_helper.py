@@ -6,7 +6,7 @@ from utils.classes.audios_info import AudioInfo, AudioRequest, AudioRequestConfi
 
 
 # Parte 3: Método main para testes
-async def main():
+async def main_bkp():
     """
     Função principal para testar a geração de áudio.
     """
@@ -38,6 +38,44 @@ async def main():
         arcPitch="+10Hz",  # Aumenta o tom
         arcRate="-5%",     # Diminui a velocidade
         arcTimbreScale=1.2 # Varia o timbre
+    )
+    file_variado = pasta_de_saida / Path("audio_variado.wav")
+    print(f"Gerando áudio variado em {file_variado}...")
+    result_variado:AudioInfo = await generate_audio(AudioRequest(arText=text_to_convert, arConfig=config_variada), file_variado)
+    print(f"Áudio variado gerado com sucesso. Duração: {result_variado.aiDuration}ms")
+
+async def main():
+    """
+    Função principal para testar a geração de áudio.
+    """
+    print("Iniciando o teste de geração de áudio...")
+
+    # Texto a ser convertido
+    text_to_convert = "Olá! Este é um teste com variação de pitch, taxa de fala e timbre."
+
+    # Exemplo 1: Áudio padrão
+    config_padrao = AudioRequestConfig(
+        arcVoice="pt-BR-AntonioNeural",
+        arcPitch="+0Hz",
+        arcRate="+0%",
+        arcTimbreScale=1.0
+    )
+
+    base_dir = Path(__file__).resolve().parents[1]  # raiz do projeto
+    pasta_de_saida = base_dir / "teste_vozes"
+
+    file_padrao = pasta_de_saida / Path("audio_padrao.wav")
+    print(f"Gerando áudio padrão em {file_padrao}...")
+    result_padrao = await generate_audio(AudioRequest(arText=text_to_convert, arConfig=config_padrao), file_padrao)
+    print(f"Áudio padrão gerado com sucesso. Duração: {result_padrao.aiDuration}ms")
+    print("-" * 20)
+
+    # Exemplo 2: Áudio com variações
+    config_variada = AudioRequestConfig(
+        arcVoice="pt-BR-AntonioNeural",
+        arcPitch="-20Hz",  # Aumenta o tom
+        arcRate="-5%",     # Diminui a velocidade
+        arcTimbreScale=1.0 # Varia o timbre
     )
     file_variado = pasta_de_saida / Path("audio_variado.wav")
     print(f"Gerando áudio variado em {file_variado}...")
