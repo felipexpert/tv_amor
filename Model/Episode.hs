@@ -60,25 +60,25 @@ data RCCommand
     deriving (Show, Eq)
 
 data CGesture
-    = GHi
-    | GStandShort
-    | GStandLong
-    | GThinkShort
-    | GThinkLong
-    | GTalkShort
-    | GTalkLong
-    | GWorryShort
-    | GWorryLong
-    | GShakeLegShort
-    | GShakeLegLong
-    | GExcited
-    | GDance
-    | GDefault
+    = GHi -- Aceno
+    | GStandShort -- Fica com as mãos juntas, depois volta as mãos
+    | GStandLong -- Fica com as mãos juntas por mais tempo, depois volta as mãos
+    | GThinkShort -- Coloca a mão no queixo, reflexivo
+    | GThinkLong -- Coloca a mão no queixo, reflexivo, por mais tempo
+    | GTalkShort -- movimenta os braços, expressando ideias
+    | GTalkLong -- movimenta os braços, expressando ideias, por mais tempo
+    | GWorryShort -- demonstra um pouco de preocupação
+    | GWorryLong -- demonstra um pouco de preocupação, por mais tempo
+    | GShakeLegShort -- balança um pouco a perna
+    | GShakeLegLong -- balança um pouco a perna, por mais tempo
+    | GExcited -- fica animado!
+    | GDance -- Dança de alegria (um pouco exagerado, não utilize tanto esse)
+    | GDefault -- Este não precisa utilziar, por padrão, onde não tem ação, aplica-se esse automaticamente
     deriving (Show, Eq, Generic, ToJSON)
 
 exampleEpisode :: Episode
 exampleEpisode = Episode
-    { ePes = [EPeLabel "pe_felipe", EPeLabel "pe_felipe777"]
+    { ePes = [EPeLabel "pe_felipe", EPeLabel "pe_fatima"]
     , eDialoguePeList = exampleDialogues
     }
     where
@@ -87,17 +87,17 @@ exampleEpisode = Episode
             [ EDialoguePe
                 { dPe = EPeLabel "pe_felipe"
                 , dContents =
-                    [ RPlainText "Olá Felipe777"
+                    [ RPlainText "Olá Fatima"
                     , RCommand (CGesture GHi (EPeLabel "pe_felipe"))
-                    , RCommand (CGesture GHi (EPeLabel "pe_felipe777"))
+                    , RCommand (CGesture GHi (EPeLabel "pe_fatima"))
                     , RCommand (CPause 500)
                     , RPlainText "Tudo bem por aí?"
                     ]
                 }
             , EDialoguePe
-                { dPe = EPeLabel "pe_felipe777"
+                { dPe = EPeLabel "pe_fatima"
                 , dContents =
                     [ RPlainText "Olá Felipe! Tudo ótimo!"
-                    , RCommand (CGesture GHi (EPeLabel "pe_felipe777")) ]
+                    , RCommand (CGesture GHi (EPeLabel "pe_fatima")) ]
                 }
             ]
