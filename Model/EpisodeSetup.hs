@@ -75,7 +75,7 @@ exampleEpisodeSetup :: EpisodeSetup
 exampleEpisodeSetup = EpisodeSetup
     { sSprites = 
         -- [ SSprite (EPeLabel "pe_felipe777") "02 sprite mega-sushi-temakeria IMPORT.psd" EPeNum1
-        [ SSprite (EPeLabel "pe_felipe777") "mega-sushi-temakeria.psd" EPeNum1
+        [ SSprite (EPeLabel "pe_felipe777") "allianza-consultoria_neto.psd" EPeNum1
         , SSprite (EPeLabel "pe_felipe") "melhores-ofertas.psd" EPeNum2
         ]
     , sBackgroundImage = SBackground
