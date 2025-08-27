@@ -59,48 +59,48 @@ buildEpisodeIO = do
 
 episode01 :: Episode
 episode01 = Episode
-    { ePes = [EPeLabel "pe_felipe", EPeLabel "pe_felipe777"]
+    { ePes = [ EPeLabel "pe_felipe777", EPeLabel "pe_felipe"]
     , eDialoguePeList =
         [ EDialoguePe
-            { dPe = EPeLabel "pe_felipe777"
+            { dPe = EPeLabel "pe_felipe"
             , dContents =
                 [ RPlainText "Fala, pessoal! Aqui é o Melhores Ofertas!"
-                , RCommand (CGesture GHi (EPeLabel "pe_felipe777"))
+                , RCommand (CGesture GHi (EPeLabel "pe_felipe"))
                 , RCommand (CPause 200)
                 , RPlainText "Hoje eu tô aqui com o Neto, da Allianza Consultoria."
                 ]
             }
         , EDialoguePe
-            { dPe = EPeLabel "pe_felipe"
+            { dPe = EPeLabel "pe_felipe777"
             , dContents =
-                [ RCommand (CGesture GTalkShort (EPeLabel "pe_felipe"))
+                [ RCommand (CGesture GTalkShort (EPeLabel "pe_felipe777"))
                 , RPlainText "Fala, Melhores Ofertas! É um prazer estar aqui!"
-                , RCommand (CGesture GHi (EPeLabel "pe_felipe"))
+                , RCommand (CGesture GHi (EPeLabel "pe_felipe777"))
                 ]
             }
         , EDialoguePe
-            { dPe = EPeLabel "pe_felipe777"
+            { dPe = EPeLabel "pe_felipe"
             , dContents =
                 [ RPlainText "Neto, me diz aí, quais as vantagens de ter uma administradora de condomínios?"
                 ]
             }
         , EDialoguePe
-            { dPe = EPeLabel "pe_felipe"
+            { dPe = EPeLabel "pe_felipe777"
             , dContents =
-                [ RCommand (CGesture GTalkLong (EPeLabel "pe_felipe"))
+                [ RCommand (CGesture GTalkLong (EPeLabel "pe_felipe777"))
                 , RPlainText "Terceirizar a gestão financeira e burocrática otimiza a rotina dos síndicos e melhora a qualidade de vida dos moradores!"
                 , RCommand (CPause 500)
                 , RPlainText "Sem falar que garante mais transparência e segurança para o condomínio."
                 ]
             }
         , EDialoguePe
-            { dPe = EPeLabel "pe_felipe777"
+            { dPe = EPeLabel "pe_felipe"
             , dContents =
-                [ RCommand (CGesture GThinkShort (EPeLabel "pe_felipe777"))
+                [ RCommand (CGesture GThinkShort (EPeLabel "pe_felipe"))
                 , RPlainText "A Allianza Consultoria é a solução ideal pra quem busca eficiência e tranquilidade."
                 , RCommand (CPause 200)
                 , RPlainText "Se você já conhece a Allianza, conta pra gente nos comentários como foi sua experiência!"
-                , RCommand (CGesture GExcited (EPeLabel "pe_felipe777"))
+                , RCommand (CGesture GExcited (EPeLabel "pe_felipe"))
                 ]
             }
         ]
