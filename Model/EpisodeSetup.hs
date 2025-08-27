@@ -82,8 +82,8 @@ exampleEpisodeSetup = EpisodeSetup
         , bWidth = 1536
         , bHeight = 1024
         , bSpritePositions = SPositionsFor2
-            { pFor2Sprite1 = PSprite (-100) (-50)
-            , pFor2Sprite2 = PSprite 100 (-50)
+            { pFor2Sprite1 = PSprite (-46) (-13) -- PSprite (-100) (-50)
+            , pFor2Sprite2 = PSprite 46 (-13) -- PSprite 100 (-50)
             }
         }
     }
