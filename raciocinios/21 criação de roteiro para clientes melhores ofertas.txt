@@ -32,14 +32,16 @@ Versão 2 (com orientações da ITec)
 
 # Parte 1: Geração de Valor - Duração Aproximada de 30 segundos
 
-Crie um roteiro de vídeo para redes sociais, com o personagem chamado "Melhores Ofertas" conversando com o personagem 'x' da empresa 'y'.
+A minha empresa, a Melhores Ofertas, presta serviço de Presença Digital, no formato Business to Business B2B, para a empresa cliente deste vídeo, portanto a empresa cliente tem os clientes dela, e os clientes dela são o foco deste roteiro
+
+Crie um roteiro de vídeo para redes sociais, com o personagem chamado "Melhores Ofertas" conversando com o personagem cliente 'x' da empresa cliente 'y'.
 O assunto do vídeo é 'z'.
 O vídeo deve ter aproximadamente 30 segundos, com em torno de 4 falas curtas, cada fala com aproximadamente 5 a 10 segundos de duração.
 O roteiro deve incluir:
-1. Saudação inicial (apresentando o personagem e a empresa 'y')
+1. Saudação inicial (apresentando o personagem e a empresa cliente)
 2. O assunto do vídeo
 
-A seguir estão alguns textos sobre a empresa 'y' para ajudar na criação do roteiro:
+A seguir estão alguns textos sobre a empresa cliente para ajudar na criação do roteiro:
 
 ```
 <textos-sobre-o-cliente>
@@ -189,7 +191,8 @@ episode05 = undefined -- crie o 5º episode aqui
 
 Capriche nos gestos, não precisa "forçar"... Forneça SOMENTE `episode01`, `episode02`, `episode03`, `episode04` e `episode05`
 
-O primeiro personagem sempre é o personagem 'x' da empresa 'y', e o segundo personagem sempre é o "Melhores Ofertas"
+
+Em `ePes`, onde lista os personagens, o personagem do cliente vem sempre em primeiro, e o personagem "Melhores Ofertas" por segundo
 ____________________________
 
 Algumas CTAs de prova social
@@ -212,3 +215,13 @@ Ter uma ideia para quando o cliente não ter muitas informações disponíveis o
 
 Quando eu tiver poucos textos do cliente, como vou criar assuntos bons para as animações?
 - no arquivo do resumo do cliente adicione os "nicho e características adicionais"
+
+____________________________
+
+Prompt para ideias para Assuntos de vídeo:
+
+Tendo em vista o seguinte cliente, sugira 5 assuntos interessantes para um vídeo de 30 segundos sobre esse cliente:
+
+```
+<textos-sobre-o-cliente>
+```
