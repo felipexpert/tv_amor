@@ -74,13 +74,13 @@ data PSpriteNumbered = PSpriteNumbered
 exampleEpisodeSetup :: EpisodeSetup
 exampleEpisodeSetup = EpisodeSetup
     { sSprites = 
-        [ SSprite (EPeLabel "pe_fatima") "02 sprite mega-sushi-temakeria IMPORT.psd" EPeNum1
-        , SSprite (EPeLabel "pe_felipe") "01 sprite melhores-ofertas IMPORT.psd" EPeNum2
+        [ SSprite (EPeLabel "pe_neto_allianza_consultoria") "allianza-consultoria_neto.psd" EPeNum1
+        , SSprite (EPeLabel "pe_felipe") "melhores-ofertas.psd" EPeNum2
         ]
     , sBackgroundImage = SBackground
-        { bImagePath = "01_escritorio.png"
-        , bWidth = 1536
-        , bHeight = 1024
+        { bImagePath = "allianza-consultoria-02.jpg"
+        , bWidth = 1080
+        , bHeight = 1920
         , bSpritePositions = SPositionsFor2
             { pFor2Sprite1 = PSprite (-46) (-13) -- PSprite (-100) (-50)
             , pFor2Sprite2 = PSprite 46 (-13) -- PSprite 100 (-50)
