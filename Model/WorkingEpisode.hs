@@ -17,6 +17,7 @@ import Model.AudiosInfo
 import Model.GuidoLangUtil
 
 import Model.Episode
+import Model.EpisodeSetup
 import Model.EpisodePersona
 
 import qualified Model.EpisodeComplete as EC
@@ -26,39 +27,35 @@ import qualified Model.AniAutoTask as AAT
 
 import qualified Model.Config as C
 
-{-
-testIO :: IO ()
-testIO = do
-    let audioRequest = AudioRequest "Olá, humanos!" (AudioRequestConfig "pt-BR-AntonioNeural")
-        audioRequest2 = AudioRequest "Tudo bem?!" (AudioRequestConfig "pt-BR-AntonioNeural")
-        audiosRequest = AudiosRequest [audioRequest, audioRequest2]
-    
-    -- Envia o pedido de áudio e recebe a resposta
-    TIO.putStrLn "Enviando pedido de áudio ao GuidoLang..."
-    -- audiosInfo <- glCall GLAudiosInfoTest audiosRequest
-    audiosInfo <- glCall GLAudiosInfo audiosRequest
-    
-    let audiosInfo' = audiosInfo :: AudiosInfo
-
-    -- Imprime as informações dos áudios recebidos
-    TIO.putStrLn "Áudios recebidos:"
-    TU.putShowable audiosInfo'
--}
-
--- episodeCompleteToAniAutoTaskIO :: EpisodeComplete -> IO AniAutoTask
-
 buildEpisodeIO :: IO ()
 buildEpisodeIO = do
     config <- C.loadConfigIO
-    AAT.prepareWorkingDirIO config setup
+    AAT.prepareWorkingDirIO config episodeSetup
     task <- AAT.episodeCompleteToAniAutoTaskIO myEpisode config
     return ()
     where 
-      myEpisode = EC.EpisodeComplete episode01 setup
-      setup = ES.exampleEpisodeSetup
+      myEpisode = EC.EpisodeComplete episode episodeSetup
 
-episode01 :: Episode
-episode01 = Episode
+episodeSetup :: EpisodeSetup
+episodeSetup = EpisodeSetup
+    { sSprites = 
+        -- [ SSprite (EPeLabel "pe_felipe777") "02 sprite mega-sushi-temakeria IMPORT.psd" EPeNum1
+        [ SSprite (EPeLabel "pe_felipe777") "allianza-consultoria_neto.psd" EPeNum1
+        , SSprite (EPeLabel "pe_felipe") "melhores-ofertas.psd" EPeNum2
+        ]
+    , sBackgroundImage = SBackground
+        { bImagePath = "allianza-consultoria-02.jpg"
+        , bWidth = 1080
+        , bHeight = 1920
+        , bSpritePositions = SPositionsFor2
+            { pFor2Sprite1 = PSprite (-46) (-13)
+            , pFor2Sprite2 = PSprite 46 (-13)
+            }
+        }
+    }
+
+episode :: Episode
+episode = Episode
     { ePes = [ EPeLabel "pe_felipe777", EPeLabel "pe_felipe"]
     , eDialoguePeList =
         [ EDialoguePe
