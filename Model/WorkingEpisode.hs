@@ -40,11 +40,11 @@ episodeSetup :: EpisodeSetup
 episodeSetup = EpisodeSetup
     { sSprites = 
         -- [ SSprite (EPeLabel "pe_felipe777") "02 sprite mega-sushi-temakeria IMPORT.psd" EPeNum1
-        [ SSprite (EPeLabel "pe_amanda") "cacau-show-itapira_amanda.psd" EPeNum1
+        [ SSprite (EPeLabel "pe_luis") "casa-vermelha_luis.psd" EPeNum1
         , SSprite (EPeLabel "pe_mo") "melhores-ofertas.psd" EPeNum2
         ]
     , sBackgroundImage = SBackground
-        { bImagePath = "cacau-show-itapira-04.jpg"
+        { bImagePath = "casa-vermelha-05.jpg"
         , bWidth = 1080
         , bHeight = 1920
         , bSpritePositions = SPositionsFor2
@@ -56,46 +56,42 @@ episodeSetup = EpisodeSetup
 
 episode :: Episode
 episode = Episode
-    { ePes = [EPeLabel "pe_amanda", EPeLabel "pe_mo"]
+    { ePes = [EPeLabel "pe_luis", EPeLabel "pe_mo"]
     , eDialoguePeList =
         [ EDialoguePe
             { dPe = EPeLabel "pe_mo"
             , dContents =
-                [ RPlainText "Olá, Amanda da Cacau Show Itapira!"
+                [ RPlainText "Olá, Luís da Casa Vermelha! Tudo pronto para falar do que realmente importa para seus clientes?"
                 , RCommand (CGesture GHi (EPeLabel "pe_mo"))
-                , RPlainText "Hoje vamos falar da tradição e qualidade da sua loja!"
-                , RCommand (CGesture GTalkShort (EPeLabel "pe_mo"))
+                , RCommand (CPause 500)
                 ]
             }
         , EDialoguePe
-            { dPe = EPeLabel "pe_amanda"
+            { dPe = EPeLabel "pe_luis"
             , dContents =
-                [ RPlainText "Exato!"
-                , RCommand (CGesture GExcited (EPeLabel "pe_amanda"))
-                , RPlainText "Nossos chocolates são conhecidos por serem os melhores."
-                , RCommand (CGesture GTalkShort (EPeLabel "pe_amanda"))
-                ]
-            }
-        , EDialoguePe
-            { dPe = EPeLabel "pe_mo"
-            , dContents =
-                [ RPlainText "Uma qualidade que o cliente conhece e confia, né?"
-                , RCommand (CGesture GThinkShort (EPeLabel "pe_mo"))
-                ]
-            }
-        , EDialoguePe
-            { dPe = EPeLabel "pe_amanda"
-            , dContents =
-                [ RPlainText "Sim, e isso a gente entrega todos os dias!"
-                , RCommand (CGesture GTalkShort (EPeLabel "pe_amanda"))
+                [ RCommand (CGesture GTalkShort (EPeLabel "pe_luis"))
+                , RPlainText "Olá! Com certeza! Estamos focados em mostrar que aqui a moda masculina que encontra você, oferecendo estilo e qualidade para todos."
                 ]
             }
         , EDialoguePe
             { dPe = EPeLabel "pe_mo"
             , dContents =
-                [ RPlainText "Já teve uma experiência bacana com a Cacau Show Itapira?"
-                , RCommand (CGesture GStandShort (EPeLabel "pe_mo"))
-                , RPlainText "Comente abaixo e inspire outros clientes a conhecerem também!"
+                [ RCommand (CGesture GTalkShort (EPeLabel "pe_mo"))
+                , RPlainText "Perfeito! Então vamos destacar as camisas, calças de sarja, jeans e os sapatênis que são os mais procurados pelos homens de Itapira e região!"
+                ]
+            }
+        , EDialoguePe
+            { dPe = EPeLabel "pe_luis"
+            , dContents =
+                [ RCommand (CGesture GStandShort (EPeLabel "pe_luis"))
+                , RPlainText "Isso mesmo! E não podemos esquecer dos looks plus size, que mostram que moda é para todas as pessoas."
+                ]
+            }
+        , EDialoguePe
+            { dPe = EPeLabel "pe_mo"
+            , dContents =
+                [ RCommand (CPause 500)
+                , RPlainText "Já conhece a Casa Vermelha? Conta pra gente nos comentários como foi a sua experiência!"
                 ]
             }
         ]
