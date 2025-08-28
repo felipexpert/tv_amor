@@ -1,3 +1,5 @@
+DICA: Utilize o Gemini 2.5 pro, pelo https://aistudio.google.com/
+
 # Parte 1: Geração de Valor - Duração Aproximada de 30 segundos
 
 A minha empresa, a Melhores Ofertas, presta serviço de Presença Digital, no formato Business to Business B2B, para a empresa cliente deste vídeo, portanto a empresa cliente tem os clientes dela, e os clientes dela são o foco deste roteiro
@@ -12,7 +14,7 @@ O roteiro deve incluir:
 A seguir estão alguns textos sobre a empresa cliente para ajudar na criação do roteiro:
 
 ```
-<textos-sobre-o-cliente>
+<textos-resumo-da-empresa>
 ```
 
 Caso o texto sobre o cliente seja pequeno, complemente com os benefícios associados ao nicho e características do cliente 
@@ -32,7 +34,7 @@ Após a "Parte 1" de 30 a 50 segundos do vídeo, crie um fechamento de mais algu
 6. Já conhece a [empresa]? Conta pra gente nos comentários como foi sua experiência!
 ```
 
-Este é o formato de cada narração que você deve criar, crie por favor 5 narrações distintas neste formato
+Este é o formato de cada narração que você deve criar, crie por favor 2 narrações distintas neste formato
 
 O formato que você vai entregar a animação, será um Tipo Haskell, o Episode. A seguir o código fonte de Episode.hs
 
@@ -146,58 +148,13 @@ episode01 = undefined -- crie o 1º episode aqui
 
 episode02 :: Episode
 episode02 = undefined -- crie o 2º episode aqui
-
-episode03 :: Episode
-episode03 = undefined -- crie o 3º episode aqui
-
-episode04 :: Episode
-episode04 = undefined -- crie o 4º episode aqui
-
-episode05 :: Episode
-episode05 = undefined -- crie o 5º episode aqui
 ```
 
-Quando for criar `RPlainText :: Text`, evite textos que o `edge_tts` do Python não entende, como "---"
+Quando for criar `RPlainText :: Text`, cuidado para não por textos que o `edge_tts` do Python não entende ao converter para áudio, como "---"
 
-Capriche nos gestos, procure utilizá-los de acordo com o significado do texto no momento em que aparecem (saiba que você pode invocar um gesto durante a fala do outro personagem, por isso o tipo do gesto, CGesture, tem um `cPe :: EPeLabel` próprio. COLOQUE OS GESTOS ENTRE PONTUAÇÕES COMO PONTOS FINAIS, PONTOS DE EXCLAMAÇÃO, E VÍRGULAS, NÃO NO MEIO DA FRASE, PARA NÃO FICAR UMA PAUSA ESTRANHA AO JUNTAR OS ÁUDIOS
+Capriche nos gestos, procure utilizá-los de acordo com o significado do texto no momento em que aparecem, saiba que você pode invocar um gesto durante a fala do outro personagem, por isso o tipo do gesto, CGesture, tem um `cPe :: EPeLabel` próprio. COLOQUE OS GESTOS ENTRE PONTUAÇÕES COMO PONTOS FINAIS, PONTOS DE EXCLAMAÇÃO, E VÍRGULAS, NÃO NO MEIO DA FRASE, PARA NÃO FICAR UMA PAUSA ESTRANHA AO JUNTAR OS ÁUDIOS
 
-Forneça SOMENTE `episode01`, `episode02`, `episode03`, `episode04` e `episode05`
+Forneça SOMENTE `episode01` e `episode02`
 
 
 Em `ePes`, onde lista os personagens, o personagem do cliente vem sempre em primeiro, e o personagem "Melhores Ofertas" por segundo
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-OUTRAS COISAS COMPLEMENTARES
-____________________________
-
-Algumas CTAs de prova social
-
-1. Mostre o seu apoio! Comente elogiando a [empresa]!
-2. Compartilhe nos comentários o que você mais gosta da [empresa]! Sua opinião ajuda outras pessoas!
-3. Se você também ama os serviços da [empresa], deixe seu comentário aqui e ajude outros a descobrirem também!
-4. Já teve uma experiência bacana com a [empresa]? Comente abaixo e inspire outros clientes a conhecerem também!
-5. Queremos saber: qual foi a sua experiência com a [empresa]? Deixe seu comentário e inspire os outros clientes!
-6. Já conhece a [empresa]? Conta pra gente nos comentários como foi sua experiência!
-____________________________
-
-Por favor, reúna tudo sobre a empresa "x", situada no endereço "y", com o contato "z", crie um texto informativo para eu ter um bom conhecimento sobre o negócio. cuidado para não misturar informações de outra empresa com o mesmo nome! Por isso informei o endereço e o telefone, para você conferir. Evite falar de doações, se concentre em coisas focadas no benefício que o cliente final vai perceber
-
-____________________________
-
-Ter uma ideia para quando o cliente não ter muitas informações disponíveis online
-
-
-Quando eu tiver poucos textos do cliente, como vou criar assuntos bons para as animações?
-- no arquivo do resumo do cliente adicione os "nicho e características adicionais"
-
-____________________________
-
-Prompt para ideias para Assuntos de vídeo:
-
-Tendo em vista o seguinte cliente, sugira 5 assuntos interessantes para um vídeo de 30 segundos sobre esse cliente:
-
-```
-<textos-sobre-o-cliente>
-```

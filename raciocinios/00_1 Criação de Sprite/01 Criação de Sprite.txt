@@ -1,0 +1,22 @@
+https://sora.chatgpt.com/library
+
+1. Gera o sprite com a referência
+
+Organize as partes necessárias (o nome é importante)
+- sprite and parts.png (está neste diretório)
+- cliente.jpg (foto do cliente)
+- logo.jpg (logo da empresa)
+
+PROMPT
+Modifique o sprite de "sprite and parts.png" para ficar com os traços da foto de "cliente.jpg". dentro desse "sprite and parts.png", tem os principais itens "Face Only", "Hair Front", "Face Format", "Nose" e "Hip", por favor, faça essas partes do sprite nessas posições, seguindo o mesmo sprite central que você vai fazer, para ficar fácil de eu encaixar no Cartoon Animator 4 depois. A roupinha do sprite, faça com as cores, do logo que estou enviando em "logo.jpg"
+
+1. Copie o mascote mais pacecido, para começar com uma boa referência
+
+2. Se concentra na cabeça
+- Normalmente o que mantem são os olhos e a boca, então você pode não precisar de tantas camadas que utilizou no sprite modelo, que é o sprite da MO inicial
+
+3. Faz um Layer Adjustment Hue/Saturation, para a cor da pele do corpo ficar semelhante à da cabeça
+
+4. Faz o corpo intuitivamente, primeiro a roupa, depois a pele 
+- A mão, esquerda e direita, tem que fazer com paciência, é um pouco repetitivo, mas em 2 a 4 minutos você faz 
+

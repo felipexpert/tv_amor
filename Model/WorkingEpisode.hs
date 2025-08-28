@@ -40,11 +40,11 @@ episodeSetup :: EpisodeSetup
 episodeSetup = EpisodeSetup
     { sSprites = 
         -- [ SSprite (EPeLabel "pe_felipe777") "02 sprite mega-sushi-temakeria IMPORT.psd" EPeNum1
-        [ SSprite (EPeLabel "pe_oseas_couto") "construtora-construcasa_oseas-couto.psd" EPeNum1
-        , SSprite (EPeLabel "pe_melhores_ofertas") "melhores-ofertas.psd" EPeNum2
+        [ SSprite (EPeLabel "Jean") "espetinho-e-cia_jean.psd" EPeNum1
+        , SSprite (EPeLabel "Melhores Ofertas") "melhores-ofertas.psd" EPeNum2
         ]
     , sBackgroundImage = SBackground
-        { bImagePath = "construtora-construcasa-07.jpg"
+        { bImagePath = "espetinho-e-cia-09.jpg"
         , bWidth = 1080
         , bHeight = 1920
         , bSpritePositions = SPositionsFor2
@@ -56,40 +56,64 @@ episodeSetup = EpisodeSetup
 
 episode :: Episode
 episode = Episode
-    { ePes = [EPeLabel "pe_oseas_couto", EPeLabel "pe_melhores_ofertas"]
+    { ePes = [EPeLabel "Jean", EPeLabel "Melhores Ofertas"]
     , eDialoguePeList =
         [ EDialoguePe
-            { dPe = EPeLabel "pe_melhores_ofertas"
+            { dPe = EPeLabel "Melhores Ofertas"
             , dContents =
-                [ RPlainText "Olá, Oséas da Construtora Construcasa!"
-                , RCommand (CGesture GHi (EPeLabel "pe_melhores_ofertas"))
+                [ RPlainText "Olá pessoal!"
+                , RCommand (CGesture GHi (EPeLabel "Melhores Ofertas"))
                 , RCommand (CPause 500)
-                , RPlainText "Hoje vamos falar sobre as soluções completas que a sua empresa oferece."
-                , RCommand (CGesture GTalkShort (EPeLabel "pe_melhores_ofertas"))
+                , RPlainText "Hoje estamos aqui com o Jean da Espetinho & Cia em Itapira!"
+                , RCommand (CGesture GTalkShort (EPeLabel "Melhores Ofertas"))
+                , RCommand (CGesture GHi (EPeLabel "Jean"))
                 ]
             }
         , EDialoguePe
-            { dPe = EPeLabel "pe_oseas_couto"
+            { dPe = EPeLabel "Jean"
             , dContents =
-                [ RPlainText "Exatamente! Da construção sob medida até a venda de terrenos e imóveis, estamos aqui para transformar sonhos em realidade."
-                , RCommand (CGesture GTalkLong (EPeLabel "pe_oseas_couto"))
+                [ RPlainText "É isso aí!"
+                , RCommand (CGesture GExcited (EPeLabel "Jean"))
+                , RCommand (CPause 500)
+                , RPlainText "Vamos falar de uma combinação que todo mundo ama. Churrasco e Chopp!"
                 ]
             }
         , EDialoguePe
-            { dPe = EPeLabel "pe_melhores_ofertas"
+            { dPe = EPeLabel "Melhores Ofertas"
             , dContents =
-                [ RPlainText "E não para por aí, né? A Construcasa também administra obras e facilita financiamentos para a casa própria!"
-                , RCommand (CGesture GTalkShort (EPeLabel "pe_melhores_ofertas"))
-                , RCommand (CGesture GStandShort (EPeLabel "pe_oseas_couto"))
+                [ RPlainText "Combinação perfeita, Jean!"
+                , RCommand (CGesture GTalkShort (EPeLabel "Melhores Ofertas"))
+                , RPlainText "Aqui na Espetinho & Cia, as pessoas encontram tudo para o churrasco, não é mesmo?"
                 ]
             }
         , EDialoguePe
-            { dPe = EPeLabel "pe_melhores_ofertas"
+            { dPe = EPeLabel "Jean"
             , dContents =
-                [ RCommand (CPause 1000)
-                , RPlainText "Se você também ama os serviços da Construtora Construcasa, deixe seu comentário aqui e ajude outros a descobrirem também!"
-                , RCommand (CGesture GStandShort (EPeLabel "pe_melhores_ofertas"))
+                [ RPlainText "Exatamente!"
+                , RCommand (CPause 500)
+                , RPlainText "Temos espetos de todos os tipos, kafta, linguiça, medalhões e o famoso queijo coalho."
+                , RCommand (CGesture GTalkLong (EPeLabel "Jean"))
+                , RCommand (CPause 250)
+                , RPlainText "E claro, o chopp geladinho para acompanhar!"
+                , RCommand (CGesture GExcited (EPeLabel "Jean"))
+                ]
+            }
+        , EDialoguePe
+            { dPe = EPeLabel "Melhores Ofertas"
+            , dContents =
+                [ RPlainText "É de dar água na boca!"
+                , RCommand (CGesture GThinkShort (EPeLabel "Melhores Ofertas"))
+                , RPlainText "A Espetinho & Cia fica na Avenida dos Italianos, 160, no centro de Itapira."
+                , RCommand (CPause 500)
+                ]
+            }
+        , EDialoguePe
+            { dPe = EPeLabel "Melhores Ofertas"
+            , dContents =
+                [ RPlainText "Se você também ama os produtos da Espetinho & Cia,."
+                , RCommand (CPause 500)
+                , RPlainText "deixe seu comentário aqui e ajude outros a descobrirem também!"
                 ]
             }
         ]
-    } 
+    }
