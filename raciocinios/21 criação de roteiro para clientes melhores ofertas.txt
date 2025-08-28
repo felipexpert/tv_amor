@@ -1,42 +1,10 @@
-Como vai ser a animação?
-	Personagens conversando, nesse primeiro momento, falando sobre a empresa
-	
-	
-Vai ter logo?
-	Vou por os logos nos cantos superiores, para quando eu querer fazer os personagens entrarem andando no cenário, eles não "passarem" pelos logos
-
-Vai ter alguma vinhetinha bacana, tipo a que eu fazia com After Effects? Inicialmente não
-
-Como vai ser o background? Qual vai ser a dimensão dos vídeos, vai seguir um padrão? 1080x1350?
-	Vai ser 1080x1920, contudo vou centralizar em 1080x1350
-		Como vou fazer esta marcação?
-			- O posicionamento é simples. Você cria uma variação do background com a marcação 1080x1350, posiciona os 2 personagens, e anota a posição de ambos no arquivo de configuração
-			
-	
--Background: Encontre uma foto da fachada ou interiores da empresa do cliente
--Utilize a ferramenta para transformar em uma bela ilustração 1080x1920 
-
-
-Roteiro:
--Quais ideias ou procedimentos posso criar para os roteiros?
-	IDEIA:
-		Reunia informações sobre a empresa, o máximo de informações 
-____________________________
-
-Versão 1
-Criar um prompt para a ITec me ajudar com o roteiro:
-	Faça um roteiro do personagem "Melhores Ofertas" conversando com o personagem "x" da empresa "y". O assunto do vídeo é "z". O vídeo deve ter em torno de 30 segundos. A seguir disponibilizo alguns textos sobre a empresa "y" para ajudar na criação do roteiro: "<textos-sobre-o-cliente>"
-____________________________
-
-Versão 2 (com orientações da ITec)
-
 # Parte 1: Geração de Valor - Duração Aproximada de 30 segundos
 
 A minha empresa, a Melhores Ofertas, presta serviço de Presença Digital, no formato Business to Business B2B, para a empresa cliente deste vídeo, portanto a empresa cliente tem os clientes dela, e os clientes dela são o foco deste roteiro
 
 Crie um roteiro de vídeo para redes sociais, com o personagem chamado "Melhores Ofertas" conversando com o personagem cliente 'x' da empresa cliente 'y'.
 O assunto do vídeo é 'z'.
-O vídeo deve ter aproximadamente 30 segundos, com em torno de 4 falas curtas, cada fala com aproximadamente 5 a 10 segundos de duração.
+Esta "Parte 1" do vídeo deve ter aproximadamente 30 a 50 segundos, com falas curtas, cada fala com aproximadamente 5 a 15 segundos de duração.
 O roteiro deve incluir:
 1. Saudação inicial (apresentando o personagem e a empresa cliente)
 2. O assunto do vídeo
@@ -53,15 +21,15 @@ O tom do vídeo deve ser amigável, natural e engajador, adequado para Instagram
 
 # Parte 2: Finalização com CTA
 
-Um fechamento curto narrado pelo personagem "Melhores Ofertas", focado em CTA para obter prova social, a seguir alguns exemplos de CTAs:
+Após a "Parte 1" de 30 a 50 segundos do vídeo, crie um fechamento de mais alguns segundos, curto, narrado pelo personagem "Melhores Ofertas", focado em CTA para obter prova social, a seguir alguns exemplos de CTAs:
 
 ```
-1. Já conhece a [empresa]? Conta pra gente nos comentários como foi sua experiência!
-2. Se você também ama os serviços da [empresa], deixe seu comentário aqui e ajude outros a descobrirem também!
-3. Compartilhe nos comentários o que você mais gosta da [empresa]! Sua opinião ajuda outras pessoas!
+1. Mostre o seu apoio! Comente elogiando a [empresa]!
+2. Compartilhe nos comentários o que você mais gosta da [empresa]! Sua opinião ajuda outras pessoas!
+3. Se você também ama os serviços da [empresa], deixe seu comentário aqui e ajude outros a descobrirem também!
 4. Já teve uma experiência bacana com a [empresa]? Comente abaixo e inspire outros clientes a conhecerem também!
 5. Queremos saber: qual foi a sua experiência com a [empresa]? Deixe seu comentário e inspire os outros clientes!
-6. Mostre o seu apoio! Comente elogiando a [empresa]!
+6. Já conhece a [empresa]? Conta pra gente nos comentários como foi sua experiência!
 ```
 
 Este é o formato de cada narração que você deve criar, crie por favor 5 narrações distintas neste formato
@@ -189,21 +157,29 @@ episode05 :: Episode
 episode05 = undefined -- crie o 5º episode aqui
 ```
 
-Capriche nos gestos, não precisa "forçar"... Forneça SOMENTE `episode01`, `episode02`, `episode03`, `episode04` e `episode05`
+Quando for criar `RPlainText :: Text`, evite textos que o `edge_tts` do Python não entende, como "---"
+
+Capriche nos gestos, procure utilizá-los de acordo com o significado do texto no momento em que aparecem (saiba que você pode invocar um gesto durante a fala do outro personagem, por isso o tipo do gesto, CGesture, tem um `cPe :: EPeLabel` próprio. COLOQUE OS GESTOS ENTRE PONTUAÇÕES COMO PONTOS FINAIS, PONTOS DE EXCLAMAÇÃO, E VÍRGULAS, NÃO NO MEIO DA FRASE, PARA NÃO FICAR UMA PAUSA ESTRANHA AO JUNTAR OS ÁUDIOS
+
+Forneça SOMENTE `episode01`, `episode02`, `episode03`, `episode04` e `episode05`
 
 
 Em `ePes`, onde lista os personagens, o personagem do cliente vem sempre em primeiro, e o personagem "Melhores Ofertas" por segundo
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+OUTRAS COISAS COMPLEMENTARES
 ____________________________
 
 Algumas CTAs de prova social
 
-1. Já conhece a [empresa]? Conta pra gente nos comentários como foi sua experiência!
-2. Se você também ama os serviços da [empresa], deixe seu comentário aqui e ajude outros a descobrirem também!
-3. Compartilhe nos comentários o que você mais gosta da [empresa]! Sua opinião ajuda outras pessoas!
+1. Mostre o seu apoio! Comente elogiando a [empresa]!
+2. Compartilhe nos comentários o que você mais gosta da [empresa]! Sua opinião ajuda outras pessoas!
+3. Se você também ama os serviços da [empresa], deixe seu comentário aqui e ajude outros a descobrirem também!
 4. Já teve uma experiência bacana com a [empresa]? Comente abaixo e inspire outros clientes a conhecerem também!
 5. Queremos saber: qual foi a sua experiência com a [empresa]? Deixe seu comentário e inspire os outros clientes!
-6. Mostre o seu apoio! Comente elogiando a [empresa]!
-
+6. Já conhece a [empresa]? Conta pra gente nos comentários como foi sua experiência!
 ____________________________
 
 Por favor, reúna tudo sobre a empresa "x", situada no endereço "y", com o contato "z", crie um texto informativo para eu ter um bom conhecimento sobre o negócio. cuidado para não misturar informações de outra empresa com o mesmo nome! Por isso informei o endereço e o telefone, para você conferir. Evite falar de doações, se concentre em coisas focadas no benefício que o cliente final vai perceber

@@ -40,11 +40,11 @@ episodeSetup :: EpisodeSetup
 episodeSetup = EpisodeSetup
     { sSprites = 
         -- [ SSprite (EPeLabel "pe_felipe777") "02 sprite mega-sushi-temakeria IMPORT.psd" EPeNum1
-        [ SSprite (EPeLabel "pe_luis") "casa-vermelha_luis.psd" EPeNum1
-        , SSprite (EPeLabel "pe_mo") "melhores-ofertas.psd" EPeNum2
+        [ SSprite (EPeLabel "pe_oseas_couto") "construtora-construcasa_oseas-couto.psd" EPeNum1
+        , SSprite (EPeLabel "pe_melhores_ofertas") "melhores-ofertas.psd" EPeNum2
         ]
     , sBackgroundImage = SBackground
-        { bImagePath = "casa-vermelha-05.jpg"
+        { bImagePath = "construtora-construcasa-07.jpg"
         , bWidth = 1080
         , bHeight = 1920
         , bSpritePositions = SPositionsFor2
@@ -56,43 +56,40 @@ episodeSetup = EpisodeSetup
 
 episode :: Episode
 episode = Episode
-    { ePes = [EPeLabel "pe_luis", EPeLabel "pe_mo"]
+    { ePes = [EPeLabel "pe_oseas_couto", EPeLabel "pe_melhores_ofertas"]
     , eDialoguePeList =
         [ EDialoguePe
-            { dPe = EPeLabel "pe_mo"
+            { dPe = EPeLabel "pe_melhores_ofertas"
             , dContents =
-                [ RPlainText "Olá, Luís da Casa Vermelha! Tudo pronto para falar do que realmente importa para seus clientes?"
-                , RCommand (CGesture GHi (EPeLabel "pe_mo"))
+                [ RPlainText "Olá, Oséas da Construtora Construcasa!"
+                , RCommand (CGesture GHi (EPeLabel "pe_melhores_ofertas"))
                 , RCommand (CPause 500)
+                , RPlainText "Hoje vamos falar sobre as soluções completas que a sua empresa oferece."
+                , RCommand (CGesture GTalkShort (EPeLabel "pe_melhores_ofertas"))
                 ]
             }
         , EDialoguePe
-            { dPe = EPeLabel "pe_luis"
+            { dPe = EPeLabel "pe_oseas_couto"
             , dContents =
-                [ RCommand (CGesture GTalkShort (EPeLabel "pe_luis"))
-                , RPlainText "Olá! Com certeza! Estamos focados em mostrar que aqui a moda masculina que encontra você, oferecendo estilo e qualidade para todos."
+                [ RPlainText "Exatamente! Da construção sob medida até a venda de terrenos e imóveis, estamos aqui para transformar sonhos em realidade."
+                , RCommand (CGesture GTalkLong (EPeLabel "pe_oseas_couto"))
                 ]
             }
         , EDialoguePe
-            { dPe = EPeLabel "pe_mo"
+            { dPe = EPeLabel "pe_melhores_ofertas"
             , dContents =
-                [ RCommand (CGesture GTalkShort (EPeLabel "pe_mo"))
-                , RPlainText "Perfeito! Então vamos destacar as camisas, calças de sarja, jeans e os sapatênis que são os mais procurados pelos homens de Itapira e região!"
+                [ RPlainText "E não para por aí, né? A Construcasa também administra obras e facilita financiamentos para a casa própria!"
+                , RCommand (CGesture GTalkShort (EPeLabel "pe_melhores_ofertas"))
+                , RCommand (CGesture GStandShort (EPeLabel "pe_oseas_couto"))
                 ]
             }
         , EDialoguePe
-            { dPe = EPeLabel "pe_luis"
+            { dPe = EPeLabel "pe_melhores_ofertas"
             , dContents =
-                [ RCommand (CGesture GStandShort (EPeLabel "pe_luis"))
-                , RPlainText "Isso mesmo! E não podemos esquecer dos looks plus size, que mostram que moda é para todas as pessoas."
-                ]
-            }
-        , EDialoguePe
-            { dPe = EPeLabel "pe_mo"
-            , dContents =
-                [ RCommand (CPause 500)
-                , RPlainText "Já conhece a Casa Vermelha? Conta pra gente nos comentários como foi a sua experiência!"
+                [ RCommand (CPause 1000)
+                , RPlainText "Se você também ama os serviços da Construtora Construcasa, deixe seu comentário aqui e ajude outros a descobrirem também!"
+                , RCommand (CGesture GStandShort (EPeLabel "pe_melhores_ofertas"))
                 ]
             }
         ]
-    }
+    } 
