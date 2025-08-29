@@ -39,12 +39,11 @@ buildEpisodeIO = do
 episodeSetup :: EpisodeSetup
 episodeSetup = EpisodeSetup
     { sSprites = 
-        -- [ SSprite (EPeLabel "pe_felipe777") "02 sprite mega-sushi-temakeria IMPORT.psd" EPeNum1
-        [ SSprite (EPeLabel "pe_damiao") "mega-sushi-temakeria.psd" EPeNum1
+        [ SSprite (EPeLabel "pe_silmara") "silmara.psd" EPeNum1
         , SSprite (EPeLabel "pe_melhores_ofertas") "melhores-ofertas.psd" EPeNum2
         ]
     , sBackgroundImage = SBackground
-        { bImagePath = "mega-sushi-temakeria-12.jpg"
+        { bImagePath = "silmara-15.jpg"
         , bWidth = 1080
         , bHeight = 1920
         , bSpritePositions = SPositionsFor2
@@ -56,70 +55,53 @@ episodeSetup = EpisodeSetup
 
 episode :: Episode
 episode = Episode
-    { ePes = [EPeLabel "pe_damiao", EPeLabel "pe_melhores_ofertas"]
+    { ePes = [EPeLabel "pe_silmara", EPeLabel "pe_melhores_ofertas"]
     , eDialoguePeList =
         [ EDialoguePe
             { dPe = EPeLabel "pe_melhores_ofertas"
             , dContents =
-                [ RPlainText "Olá, pessoal!"
+                [ RPlainText "Olá! Sou a Melhores Ofertas, e hoje conversamos com a Psicóloga e Neuropsicóloga Silmara Cristina Luciano."
                 , RCommand (CGesture GHi (EPeLabel "pe_melhores_ofertas"))
-                , RCommand (CGesture GHi (EPeLabel "pe_damiao"))
-                , RCommand (CPause 500)
-                , RPlainText "Hoje estou aqui com o Damião, do Mega Sushi Temakeria de Paulínia!"
+                , RCommand (CGesture GHi (EPeLabel "pe_silmara"))
                 ]
             }
         , EDialoguePe
-            { dPe = EPeLabel "pe_damiao"
+            { dPe = EPeLabel "pe_silmara"
             , dContents =
-                [ RPlainText "É isso aí!"
-                , RCommand (CGesture GTalkShort (EPeLabel "pe_damiao"))
-                , RCommand (CPause 500)
-                , RPlainText "E o nosso papo hoje é sobre como a gente tem opções para a família inteira!"
+                [ RPlainText "Olá! É um prazer estar aqui."
+                , RCommand (CGesture GStandShort (EPeLabel "pe_silmara"))
                 ]
             }
         , EDialoguePe
             { dPe = EPeLabel "pe_melhores_ofertas"
             , dContents =
-                [ RPlainText "Exatamente!"
-                , RCommand (CGesture GThinkShort (EPeLabel "pe_melhores_ofertas"))
-                , RCommand (CPause 500)
-				, RPlainText "Porque a gente sabe que as pessoas na família têm diferentes paladares, não é Damião?"
+                [ RPlainText "Silmara, o assunto de hoje é: O que é Avaliação Neuropsicológica e para quem ela serve?"
+                , RCommand (CGesture GTalkShort (EPeLabel "pe_melhores_ofertas"))
                 ]
             }
         , EDialoguePe
-            { dPe = EPeLabel "pe_damiao"
+            { dPe = EPeLabel "pe_silmara"
             , dContents =
-                [ RPlainText "É verdade!"
-                , RCommand (CGesture GExcited (EPeLabel "pe_damiao"))
-                , RCommand (CPause 500)
-                , RPlainText "Por isso, além dos nossos famosos temakis, temos Yakissobas e até porções como batata com queijo!"
+                [ RPlainText "Ótima pergunta! A Avaliação Neuropsicológica é um exame detalhado que investiga como o cérebro funciona." , RCommand (CPause 500) , RPlainText " Ela avalia habilidades como memória, atenção e linguagem." , RCommand (CGesture GThinkShort (EPeLabel "pe_melhores_ofertas"))
                 ]
             }
         , EDialoguePe
             { dPe = EPeLabel "pe_melhores_ofertas"
             , dContents =
-                [ RPlainText "Ou seja, o pai pede um combinado de salmão,"
-                , RCommand (CPause 500)
-                , RPlainText "enquanto a mãe escolhe o hot holl e o filho se delicia com um yakisoba!"
-                , RCommand (CGesture GTalkLong (EPeLabel "pe_melhores_ofertas"))
+                [ RPlainText "Entendi. E para quem ela é indicada?"
                 ]
             }
         , EDialoguePe
-            { dPe = EPeLabel "pe_damiao"
+            { dPe = EPeLabel "pe_silmara"
             , dContents =
-                [ RPlainText "É sabor e alegria pra todas as pessoas,"
-                , RCommand (CGesture GStandShort (EPeLabel "pe_damiao"))
-                , RCommand (CPause 500)
-                , RPlainText "ninguém fica de fora!"
+                [ RPlainText "Serve para todas as idades!" , RCommand (CGesture GExcited (EPeLabel "pe_silmara")) , RCommand (CPause 300) , RPlainText " Desde crianças com dificuldades de aprendizagem, até adultos com suspeita de TDAH ou idosos com queixas de memória."
+                , RCommand (CGesture GTalkLong (EPeLabel "pe_silmara"))
                 ]
             }
         , EDialoguePe
             { dPe = EPeLabel "pe_melhores_ofertas"
             , dContents =
-                [ RPlainText "Já teve uma experiência bacana com a Mega Sushi Temakeria?"
-                , RCommand (CGesture GStandLong (EPeLabel "pe_melhores_ofertas"))
-                , RCommand (CPause 500)
-                , RPlainText "Comente abaixo e inspire outros clientes a conhecerem também!"
+                [ RPlainText "Mostre o seu apoio! Comente elogiando a Psicóloga e Neuropsicóloga Silmara Cristina Luciano!"
                 ]
             }
         ]
