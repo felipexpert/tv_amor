@@ -60,6 +60,7 @@ data RCCommand
     deriving (Show, Eq)
 
 data CGesture
+    -- gestos apropriados para a automação
     = GHi
     | GStandShort
     | GStandLong
@@ -71,9 +72,11 @@ data CGesture
     | GWorryLong
     | GShakeLegShort
     | GShakeLegLong
-    -- | GExcited
-    | GDance
     | GDefault
+
+    -- outros gestos
+    | GExcited
+    | GDance
     deriving (Show, Eq, Generic, ToJSON)
 
 exampleEpisode :: Episode

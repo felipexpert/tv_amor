@@ -39,11 +39,11 @@ buildEpisodeIO = do
 episodeSetup :: EpisodeSetup
 episodeSetup = EpisodeSetup
     { sSprites = 
-        [ SSprite (EPeLabel "pe_silmara") "silmara.psd" EPeNum1
-        , SSprite (EPeLabel "pe_melhores_ofertas") "melhores-ofertas.psd" EPeNum2
+        [ SSprite (EPeLabel "Jean") "espetinho-e-cia_jean.psd" EPeNum1
+        , SSprite (EPeLabel "MO") "melhores-ofertas.psd" EPeNum2
         ]
     , sBackgroundImage = SBackground
-        { bImagePath = "silmara-15.jpg"
+        { bImagePath = "espetinho-e-cia-09.jpg"
         , bWidth = 1080
         , bHeight = 1920
         , bSpritePositions = SPositionsFor2
@@ -55,54 +55,80 @@ episodeSetup = EpisodeSetup
 
 episode :: Episode
 episode = Episode
-    { ePes = [EPeLabel "pe_silmara", EPeLabel "pe_melhores_ofertas"]
+    { ePes = [EPeLabel "Jean", EPeLabel "MO"]
     , eDialoguePeList =
         [ EDialoguePe
-            { dPe = EPeLabel "pe_melhores_ofertas"
+            { dPe = EPeLabel "MO"
             , dContents =
-                [ RPlainText "Olá! Sou o Melhores Ofertas, e hoje conversamos com a Psicóloga e Neuropsicóloga Silmara Cristina Luciano."
-                , RCommand (CGesture GHi (EPeLabel "pe_melhores_ofertas"))
-                , RCommand (CGesture GHi (EPeLabel "pe_silmara"))
+                [ RPlainText "Olá"
+                , RCommand (CGesture GHi (EPeLabel "MO"))
+                , RCommand (CPause 5000)
                 ]
             }
         , EDialoguePe
-            { dPe = EPeLabel "pe_silmara"
+            { dPe = EPeLabel "Jean"
             , dContents =
-                [ RPlainText "Olá! É um prazer estar aqui."
-                , RCommand (CGesture GStandShort (EPeLabel "pe_silmara"))
+                [ RPlainText "Stand Short"
+                , RCommand (CGesture GStandShort (EPeLabel "Jean"))
+                , RCommand (CPause 5000)
                 ]
             }
         , EDialoguePe
-            { dPe = EPeLabel "pe_melhores_ofertas"
+            { dPe = EPeLabel "MO"
             , dContents =
-                [ RPlainText "Silmara, o assunto de hoje é: O que é Avaliação Neuropsicológica e para quem ela serve?"
-                , RCommand (CGesture GTalkShort (EPeLabel "pe_melhores_ofertas"))
+                [ RPlainText "Stand Long"
+                , RCommand (CGesture GStandLong (EPeLabel "MO"))
+                , RCommand (CPause 5000)
                 ]
             }
         , EDialoguePe
-            { dPe = EPeLabel "pe_silmara"
+            { dPe = EPeLabel "Jean"
             , dContents =
-                [ RPlainText "Ótima pergunta! A Avaliação Neuropsicológica é um exame detalhado que investiga como o cérebro funciona." , RCommand (CPause 500) , RPlainText " Ela avalia habilidades como memória, atenção e linguagem." , RCommand (CGesture GThinkShort (EPeLabel "pe_melhores_ofertas"))
+                [ RPlainText "Think Short"
+                , RCommand (CGesture GThinkShort (EPeLabel "Jean"))
+                , RCommand (CPause 5000)
                 ]
             }
         , EDialoguePe
-            { dPe = EPeLabel "pe_melhores_ofertas"
+            { dPe = EPeLabel "MO"
             , dContents =
-                [ RPlainText "Entendi. E para quem ela é indicada?"
+                [ RPlainText "Think Long"
+                , RCommand (CGesture GThinkLong (EPeLabel "MO"))
+                , RCommand (CPause 5000)
                 ]
             }
         , EDialoguePe
-            { dPe = EPeLabel "pe_silmara"
+            { dPe = EPeLabel "Jean"
             , dContents =
-                [ RPlainText "Serve para todas as idades!" , RCommand (CGesture GExcited (EPeLabel "pe_silmara")) , RCommand (CPause 300) , RPlainText " Desde crianças com dificuldades de aprendizagem, até adultos com suspeita de T.D.A.H. ou idosos com queixas de memória."
-                , RCommand (CGesture GTalkLong (EPeLabel "pe_silmara"))
+                [ RPlainText "Worry Short"
+                , RCommand (CGesture GWorryShort (EPeLabel "Jean"))
+                , RCommand (CPause 5000)
                 ]
             }
         , EDialoguePe
-            { dPe = EPeLabel "pe_melhores_ofertas"
+            { dPe = EPeLabel "MO"
             , dContents =
-                [ RPlainText "Mostre o seu apoio! Comente elogiando a Psicóloga e Neuropsicóloga Silmara Cristina Luciano!"
+                [ RPlainText "Worry Long"
+                , RCommand (CGesture GWorryLong (EPeLabel "MO"))
+                , RCommand (CPause 5000)
                 ]
             }
+        , EDialoguePe
+            { dPe = EPeLabel "Jean"
+            , dContents =
+                [ RPlainText "Shake Leg Short"
+                , RCommand (CGesture GShakeLegShort (EPeLabel "Jean"))
+                , RCommand (CPause 5000)
+                ]
+            }
+        , EDialoguePe
+            { dPe = EPeLabel "MO"
+            , dContents =
+                [ RPlainText "Shake Leg Long"
+                , RCommand (CGesture GShakeLegLong (EPeLabel "MO"))
+                , RCommand (CPause 5000)
+                ]
+            }
+
         ]
     }
