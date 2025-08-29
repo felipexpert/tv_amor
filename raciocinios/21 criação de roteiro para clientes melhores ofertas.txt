@@ -5,7 +5,7 @@ DICA: Após gerar o áudio, VERIFIQUE SE ESTÁ FALANDO O NOME DO CLIENTE E DA EM
 
 A minha empresa, a Melhores Ofertas, presta serviço de Presença Digital, no formato Business to Business B2B, para a empresa cliente deste vídeo, portanto a empresa cliente tem os clientes dela, e os clientes dela são o foco deste roteiro
 
-Crie um roteiro de vídeo para redes sociais, com o personagem chamado "Melhores Ofertas" conversando com o personagem cliente 'x' da empresa cliente 'y'.
+Crie um roteiro de vídeo para redes sociais, com o personagem chamado "Melhores Ofertas" (trate sempre no masculino Melhores Ofertas) conversando com o personagem cliente 'x' da empresa cliente 'y'.
 O assunto do vídeo é 'z'.
 Esta "Parte 1" do vídeo deve ter aproximadamente 30 a 50 segundos, com falas curtas, cada fala com aproximadamente 5 a 15 segundos de duração.
 O roteiro deve incluir:
@@ -114,7 +114,7 @@ data CGesture
     | GWorryLong -- demonstra um pouco de preocupação, por mais tempo
     | GShakeLegShort -- balança um pouco a perna
     | GShakeLegLong -- balança um pouco a perna, por mais tempo
-    | GExcited -- fica animado!
+    -- | GExcited -- fica animado!
     | GDance -- Dança de alegria (um pouco exagerado, não utilize tanto esse)
     | GDefault -- Este não precisa utilziar, por padrão, onde não tem ação, aplica-se esse automaticamente
     deriving (Show, Eq, Generic, ToJSON)

@@ -60,7 +60,7 @@ episode = Episode
         [ EDialoguePe
             { dPe = EPeLabel "pe_melhores_ofertas"
             , dContents =
-                [ RPlainText "Olá! Sou a Melhores Ofertas, e hoje conversamos com a Psicóloga e Neuropsicóloga Silmara Cristina Luciano."
+                [ RPlainText "Olá! Sou o Melhores Ofertas, e hoje conversamos com a Psicóloga e Neuropsicóloga Silmara Cristina Luciano."
                 , RCommand (CGesture GHi (EPeLabel "pe_melhores_ofertas"))
                 , RCommand (CGesture GHi (EPeLabel "pe_silmara"))
                 ]
@@ -94,7 +94,7 @@ episode = Episode
         , EDialoguePe
             { dPe = EPeLabel "pe_silmara"
             , dContents =
-                [ RPlainText "Serve para todas as idades!" , RCommand (CGesture GExcited (EPeLabel "pe_silmara")) , RCommand (CPause 300) , RPlainText " Desde crianças com dificuldades de aprendizagem, até adultos com suspeita de TDAH ou idosos com queixas de memória."
+                [ RPlainText "Serve para todas as idades!" , RCommand (CGesture GExcited (EPeLabel "pe_silmara")) , RCommand (CPause 300) , RPlainText " Desde crianças com dificuldades de aprendizagem, até adultos com suspeita de T.D.A.H. ou idosos com queixas de memória."
                 , RCommand (CGesture GTalkLong (EPeLabel "pe_silmara"))
                 ]
             }

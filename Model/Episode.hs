@@ -71,7 +71,7 @@ data CGesture
     | GWorryLong
     | GShakeLegShort
     | GShakeLegLong
-    | GExcited
+    -- | GExcited
     | GDance
     | GDefault
     deriving (Show, Eq, Generic, ToJSON)
