@@ -1,6 +1,7 @@
 DICA: Utilize o Gemini 2.5 pro, pelo https://aistudio.google.com/
+DICA: Após gerar o áudio, VERIFIQUE SE ESTÁ FALANDO O NOME DO CLIENTE E DA EMPRESA CORRETAMENTE!
 
-# Parte 1: Geração de Valor - Duração Aproximada de 30 segundos
+# Parte 1: Geração de Valor - Duração Aproximada de 30 a 50 segundos
 
 A minha empresa, a Melhores Ofertas, presta serviço de Presença Digital, no formato Business to Business B2B, para a empresa cliente deste vídeo, portanto a empresa cliente tem os clientes dela, e os clientes dela são o foco deste roteiro
 

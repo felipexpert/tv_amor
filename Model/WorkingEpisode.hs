@@ -40,11 +40,11 @@ episodeSetup :: EpisodeSetup
 episodeSetup = EpisodeSetup
     { sSprites = 
         -- [ SSprite (EPeLabel "pe_felipe777") "02 sprite mega-sushi-temakeria IMPORT.psd" EPeNum1
-        [ SSprite (EPeLabel "Jean") "espetinho-e-cia_jean.psd" EPeNum1
-        , SSprite (EPeLabel "Melhores Ofertas") "melhores-ofertas.psd" EPeNum2
+        [ SSprite (EPeLabel "pe_damiao") "mega-sushi-temakeria.psd" EPeNum1
+        , SSprite (EPeLabel "pe_melhores_ofertas") "melhores-ofertas.psd" EPeNum2
         ]
     , sBackgroundImage = SBackground
-        { bImagePath = "espetinho-e-cia-09.jpg"
+        { bImagePath = "mega-sushi-temakeria-12.jpg"
         , bWidth = 1080
         , bHeight = 1920
         , bSpritePositions = SPositionsFor2
@@ -56,63 +56,70 @@ episodeSetup = EpisodeSetup
 
 episode :: Episode
 episode = Episode
-    { ePes = [EPeLabel "Jean", EPeLabel "Melhores Ofertas"]
+    { ePes = [EPeLabel "pe_damiao", EPeLabel "pe_melhores_ofertas"]
     , eDialoguePeList =
         [ EDialoguePe
-            { dPe = EPeLabel "Melhores Ofertas"
+            { dPe = EPeLabel "pe_melhores_ofertas"
             , dContents =
-                [ RPlainText "Olá pessoal!"
-                , RCommand (CGesture GHi (EPeLabel "Melhores Ofertas"))
+                [ RPlainText "Olá, pessoal!"
+                , RCommand (CGesture GHi (EPeLabel "pe_melhores_ofertas"))
+                , RCommand (CGesture GHi (EPeLabel "pe_damiao"))
                 , RCommand (CPause 500)
-                , RPlainText "Hoje estamos aqui com o Jean da Espetinho & Cia em Itapira!"
-                , RCommand (CGesture GTalkShort (EPeLabel "Melhores Ofertas"))
-                , RCommand (CGesture GHi (EPeLabel "Jean"))
+                , RPlainText "Hoje estou aqui com o Damião, do Mega Sushi Temakeria de Paulínia!"
                 ]
             }
         , EDialoguePe
-            { dPe = EPeLabel "Jean"
+            { dPe = EPeLabel "pe_damiao"
             , dContents =
                 [ RPlainText "É isso aí!"
-                , RCommand (CGesture GExcited (EPeLabel "Jean"))
+                , RCommand (CGesture GTalkShort (EPeLabel "pe_damiao"))
                 , RCommand (CPause 500)
-                , RPlainText "Vamos falar de uma combinação que todo mundo ama. Churrasco e Chopp!"
+                , RPlainText "E o nosso papo hoje é sobre como a gente tem opções para a família inteira!"
                 ]
             }
         , EDialoguePe
-            { dPe = EPeLabel "Melhores Ofertas"
-            , dContents =
-                [ RPlainText "Combinação perfeita, Jean!"
-                , RCommand (CGesture GTalkShort (EPeLabel "Melhores Ofertas"))
-                , RPlainText "Aqui na Espetinho & Cia, as pessoas encontram tudo para o churrasco, não é mesmo?"
-                ]
-            }
-        , EDialoguePe
-            { dPe = EPeLabel "Jean"
+            { dPe = EPeLabel "pe_melhores_ofertas"
             , dContents =
                 [ RPlainText "Exatamente!"
+                , RCommand (CGesture GThinkShort (EPeLabel "pe_melhores_ofertas"))
                 , RCommand (CPause 500)
-                , RPlainText "Temos espetos de todos os tipos, kafta, linguiça, medalhões e o famoso queijo coalho."
-                , RCommand (CGesture GTalkLong (EPeLabel "Jean"))
-                , RCommand (CPause 250)
-                , RPlainText "E claro, o chopp geladinho para acompanhar!"
-                , RCommand (CGesture GExcited (EPeLabel "Jean"))
+				, RPlainText "Porque a gente sabe que as pessoas na família têm diferentes paladares, não é Damião?"
                 ]
             }
         , EDialoguePe
-            { dPe = EPeLabel "Melhores Ofertas"
+            { dPe = EPeLabel "pe_damiao"
             , dContents =
-                [ RPlainText "É de dar água na boca!"
-                , RCommand (CGesture GThinkShort (EPeLabel "Melhores Ofertas"))
-                , RPlainText "A Espetinho & Cia fica na Avenida dos Italianos, 160, no centro de Itapira."
+                [ RPlainText "É verdade!"
+                , RCommand (CGesture GExcited (EPeLabel "pe_damiao"))
                 , RCommand (CPause 500)
+                , RPlainText "Por isso, além dos nossos famosos temakis, temos Yakissobas e até porções como batata com queijo!"
                 ]
             }
         , EDialoguePe
-            { dPe = EPeLabel "Melhores Ofertas"
+            { dPe = EPeLabel "pe_melhores_ofertas"
             , dContents =
-                [ RPlainText "Se você também ama os produtos da Espetinho & Cia,."
+                [ RPlainText "Ou seja, o pai pede um combinado de salmão,"
                 , RCommand (CPause 500)
-                , RPlainText "deixe seu comentário aqui e ajude outros a descobrirem também!"
+                , RPlainText "enquanto a mãe escolhe o hot holl e o filho se delicia com um yakisoba!"
+                , RCommand (CGesture GTalkLong (EPeLabel "pe_melhores_ofertas"))
+                ]
+            }
+        , EDialoguePe
+            { dPe = EPeLabel "pe_damiao"
+            , dContents =
+                [ RPlainText "É sabor e alegria pra todas as pessoas,"
+                , RCommand (CGesture GStandShort (EPeLabel "pe_damiao"))
+                , RCommand (CPause 500)
+                , RPlainText "ninguém fica de fora!"
+                ]
+            }
+        , EDialoguePe
+            { dPe = EPeLabel "pe_melhores_ofertas"
+            , dContents =
+                [ RPlainText "Já teve uma experiência bacana com a Mega Sushi Temakeria?"
+                , RCommand (CGesture GStandLong (EPeLabel "pe_melhores_ofertas"))
+                , RCommand (CPause 500)
+                , RPlainText "Comente abaixo e inspire outros clientes a conhecerem também!"
                 ]
             }
         ]

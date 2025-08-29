@@ -1,4 +1,4 @@
-Tendo em vista o seguinte cliente, sugira 5 assuntos interessantes para um vídeo de 30 segundos sobre esse cliente:
+Tendo em vista o seguinte cliente, sugira 5 assuntos interessantes para um vídeo de 30 a 60 segundos sobre esse cliente:
 ```
 <textos de resumo do cliente>
 ```
