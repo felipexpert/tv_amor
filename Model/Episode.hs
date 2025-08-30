@@ -64,7 +64,7 @@ data RCCommand
 -- mais o gesto deve ser aplicado em relação aos outros gestos
 data CGesture
     = GThinkShort       -- FREQUÊNCIA: 10.0		- Coloca a mão no queixo, reflexivo
-    | GThinkLong        -- FREQUÊNCIA: 9.5		- Coloca a mão no queixo, reflexivo,
+    | GThinkLong        -- FREQUÊNCIA: 9.5		- Coloca a mão no queixo, reflexivo, por mais tempo
 	  | GStandShort		  	-- FREQUÊNCIA: 9.0		- Fica com as mãos juntas, depois volta as mãos
     | GStandLong	  		-- FREQUÊNCIA: 8.5		- Fica com as mãos juntas por mais tempo, depois volta as mãos, por mais tempo
     | GHi					      -- FREQUÊNCIA: 6.0		- Acena
@@ -74,7 +74,7 @@ data CGesture
     | GTalkLong			  	-- FREQUÊNCIA: 3.5		- Movimenta os braços, expressando ideias, por mais tempo
     | GWorryShort		  	-- FREQUÊNCIA: 2.0		- Demonstra um pouco de preocupação
 
-    -- Menos indicados para automação:
+    -- Não indicados para automação:
     | GExcited -- fica animado!
     | GDance -- Dança de alegria (um pouco exagerado, não utilize tanto esse)
     | GDefault
