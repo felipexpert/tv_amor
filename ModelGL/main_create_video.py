@@ -42,16 +42,8 @@ def step(aat: AniAutoTask, config: Config):
     # compact_video(video_file_temp_path)
     
     focus_or_open_ca4()
-    if False:
-        add_personas(aat)
-        add_background(aat)
-        prepare_render_video_configs(aat)
-        place_personas(aat)
-        flip_persona_1_if_needed(aat)
-        set_video_total_duration(aat)
-        display_timeline_if_hidden()
-        add_all_speeches(aat, config)
-
+    # add_all_speeches(aat, config)
+    # render_video()
     add_personas_gestures(aat)
 
     
@@ -66,9 +58,9 @@ def main():
 
     # run_sequence(aat, config)
 
-    run_sequence_ca4_opened(aat, config)
+    # run_sequence_ca4_opened(aat, config)
 
-    # step(aat, config)
+    step(aat, config)
     
     # pass 
 
