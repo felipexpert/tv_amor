@@ -1,0 +1,39 @@
+Passo a passo simplificado adição de novo cliente no sistema de animação
+
+Utilize o prompt para obter ideias de Assunto
+
+Utilize o prompt para obter Epsódio
+	Verifica se está com CTA
+
+Coloque o episodio no codigo fonte
+	Opcional, faça um `cabal clean` e `cabal build` para ver se está compilando após por o episódio
+
+Veja se o background foi posto
+	Arquivo
+		Para gerar, encontre o prompt (está em tv_amor/raciocínios/25 exemplo de prompt para o background.txt)
+		Crie um diretório para por as coisas da criação do background 
+		Coloque a imagem da fachada ou interiores da empresa com o nome ambiente.<extensão>
+		Coloque o arquivo `perspectiva do background.png`
+		Faça o Prompt na ITec para ter a imagem 2D
+			Edite Adicione ao Photoshop
+			Ajuste a imagem para ter 1080x1920
+				Utilize a ferramenta "Image/Image Size..." e/ou a ferramenta de recorte
+				Crie as guias View/New Guide
+					285
+					1635
+	Codigo Fonte
+	
+Personagem
+	Arquivo
+		Copia o que você já fez
+			Copie de "Meu Drive\Amor por Livros\mascotes-ca4\sprites-fonte"
+			E cole em "Meu Drive\Amor por Livros\tv_amor_assets\sprites"
+		Simplifique o nome
+			<nome-da-empresa>_<nome-do-personagem>.psd
+		Simplifique as camadas para o CA4
+		Json
+	Código Fonte
+
+E o conteúdo
+	V Tenta fazer a pasta tv_amor_working_dir
+	V Posiciona a cópia do tv_amor_working_dir no diretório que será lido pelo projeto

@@ -1,6 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DeriveAnyClass #-}
+{-# OPTIONS_GHC -Wno-tabs #-}
 
 -- MyModule.hs
 module Model.Episode where
@@ -59,21 +60,25 @@ data RCCommand
     | CPause Int -- Pausa em milissegundos
     deriving (Show, Eq)
 
+-- A "FREQUÊNCIA" é o quanto um gesto normalmente aparece, quanto maior o valor da "FREQUÊNCIA",
+-- mais o gesto deve ser aplicado em relação aos outros gestos
 data CGesture
-    = GHi -- Aceno
-    | GStandShort -- Fica com as mãos juntas, depois volta as mãos
-    | GStandLong -- Fica com as mãos juntas por mais tempo, depois volta as mãos
-    | GThinkShort -- Coloca a mão no queixo, reflexivo
-    | GThinkLong -- Coloca a mão no queixo, reflexivo, por mais tempo
-    | GTalkShort -- movimenta os braços, expressando ideias
-    | GTalkLong -- movimenta os braços, expressando ideias, por mais tempo
-    | GWorryShort -- demonstra um pouco de preocupação
-    | GWorryLong -- demonstra um pouco de preocupação, por mais tempo
-    | GShakeLegShort -- balança um pouco a perna
-    | GShakeLegLong -- balança um pouco a perna, por mais tempo
+    = GThinkShort       -- FREQUÊNCIA: 10.0		- Coloca a mão no queixo, reflexivo
+    | GThinkLong        -- FREQUÊNCIA: 9.5		- Coloca a mão no queixo, reflexivo, por mais tempo
+	  | GStandShort		  	-- FREQUÊNCIA: 9.0		- Fica com as mãos juntas, depois volta as mãos
+    | GStandLong	  		-- FREQUÊNCIA: 8.5		- Fica com as mãos juntas por mais tempo, depois volta as mãos, por mais tempo
+    | GHi					      -- FREQUÊNCIA: 6.0		- Acena
+	  | GShakeLegShort		-- FREQUÊNCIA: 5.0		- Balança um pouco a perna
+    | GShakeLegLong			-- FREQUÊNCIA: 4.5		- Balança um pouco a perna, por mais tempo
+	  | GTalkShort		  	-- FREQUÊNCIA: 4.0		- Movimenta os braços, expressando ideias
+    | GTalkLong			  	-- FREQUÊNCIA: 3.5		- Movimenta os braços, expressando ideias, por mais tempo
+    | GWorryShort		  	-- FREQUÊNCIA: 2.0		- Demonstra um pouco de preocupação
+
+    -- Não indicados para automação:
     | GExcited -- fica animado!
     | GDance -- Dança de alegria (um pouco exagerado, não utilize tanto esse)
-    | GDefault -- Este não precisa utilziar, por padrão, onde não tem ação, aplica-se esse automaticamente
+    | GDefault
+    | GWorryLong -- demonstra um pouco de preocupação, por mais tempo
     deriving (Show, Eq, Generic, ToJSON)
 
 exampleEpisode :: Episode
