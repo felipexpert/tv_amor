@@ -391,6 +391,7 @@ def add_gestures(gestures_initial: List[AGesture], total_duration_millis: int):
         # pyautogui.sleep(0.5)
         time_frames = milliseconds_to_frames(gesture.agStartTime)
         match gesture_enum:
+            # gestos apropriados para a automação
             case CGesture.GHi:
                 start_inserting_action(time_frames)
                 press_key_n_times('up', 3)
@@ -496,6 +497,12 @@ def add_gestures(gestures_initial: List[AGesture], total_duration_millis: int):
                 start_inserting_action(time_frames)
                 press_key_n_times('up', 13)
                 gesture_conclude()
+            case CGesture.GDefault:
+                start_inserting_action(time_frames)
+                press_key_n_times('down', 2)
+                gesture_conclude()
+            
+            # outros gestos
             case CGesture.GExcited:
                 start_inserting_action(time_frames)
                 press_key_n_times('up', 16)
@@ -503,10 +510,6 @@ def add_gestures(gestures_initial: List[AGesture], total_duration_millis: int):
             case CGesture.GDance:
                 start_inserting_action(time_frames)
                 press_key_n_times('up', 2)
-                gesture_conclude()
-            case CGesture.GDefault:
-                start_inserting_action(time_frames)
-                press_key_n_times('down', 2)
                 gesture_conclude()
 
 def start_inserting_action(time_frames:int):

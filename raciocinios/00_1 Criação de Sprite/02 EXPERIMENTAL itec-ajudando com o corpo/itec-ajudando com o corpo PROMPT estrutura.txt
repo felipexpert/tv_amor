@@ -1,0 +1,17 @@
+Por favor, edite o "Hip atual.png", para ter as características da "camiseta-cinto-parte-da-calça-modelo.png"
+
+Versão 2, mais completa
+Por favor, edite o "Hip, Left Arm, Right Arm, Left Thigh, Right Thigh, Left Foot, Right Foot, atuais.png", para o Hip, o Left Arm, o Right Arm, o Left Thigh, o Right Thigh, o Left Foot, e o Right Foot, terem as características da "personagem-corpo-modelo.png". Não é para mudar o formato do  "Hip, Left Arm, Right Arm, Left Thigh, Right Thigh, Left Foot, Right Foot, atuais.png", a sua imagem final deve ser no molde do "Hip, Left Arm, Right Arm, Left Thigh, Right Thigh, Left Foot, Right Foot, atuais.png", contudo com as características (como o formato da gola, cor da camisa, cor do cinto, cor da calça, detalhes da calça, modelo do calçado) do "personagem-corpo-modelo.png"
+
+
+NOTA PARA FELIPE: Encontre o "Hip, Left Arm, Right Arm, atuais.psd" (arquivo photoshop) em "Drive\Amor por Livros\mascotes-ca4\00_1 Criação de Sprite\editar-Hip-com-modelo arquivos exemplo", utilize para referência para ajudar a criar o "Hip, Left Arm, Right Arm, atuais.png"
+
+NOTA PARA FELIPE: No final do prompt ("contudo com as características (como o formato da gola, cor da camisa, cor do cinto, cor da calça) do "camiseta-cinto-parte-da-calça-modelo.png") defina mais especificamente o que quer que seja migrado de "camiseta-cinto-parte-da-calça-modelo.png" para "Hip, Left Arm, Right Arm, atuais.png"
+
+
+Versão 3: Para Hip e Arms
+Por favor, edite o "Hip, Left Arm, Right Arm, atuais.png", para o Hip, o Left Arm, e o Right Arm, terem as características da "modelo-hip-arms.png". Não é para mudar o formato do  "Hip, Left Arm, Right Arm, atuais.png", a sua imagem final deve ser "quase idêntica"/"no molde" ao "Hip, Left Arm, Right Arm, atuais.png", contudo com as características (como o formato da gola, cor da camisa, cor do cinto, cor da calça) do "modelo-hip-arms.png". "Hip, Left Arm, Right Arm, atuais.png" é a 1ª imagem que enviei agora, e "modelo-hip-arms.png" é a 2ª imagem que enviei agora
+
+
+Versão 3: Para Thighs e Foots
+Por favor, edite o "Hip, Left Thigh, Right Thigh, Left Foot, Right Foot, atuais.png", para o Hip, o Left Thigh, o Right Thigh, o Left Foot, e o Right Foot, terem as características da "modelo-thighs-foots.png". Não é para mudar o formato do  "Hip, Left Thigh, Right Thigh, Left Foot, Right Foot, atuais.png", a sua imagem final deve ser "quase idêntica"/"no molde" de "Hip, Left Thigh, Right Thigh, Left Foot, Right Foot, atuais.png", contudo com as características (como os detalhes da calça, o modelo do sapato) do "modelo-thighs-foots.png". "Hip, Left Thigh, Right Thigh, Left Foot, Right Foot, atuais.png" é a 1ª imagem que enviei agora, e "modelo-thighs-foots.png" é a 2ª imagem que enviei agora

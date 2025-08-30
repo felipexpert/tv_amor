@@ -1,0 +1,16 @@
+Posicione a cabeça do modelo
+	Coloque na camada face
+	Mouth (boca)
+	Eyes (nota, quando o personagem tiver óculos escuros, não precisa da camada)
+
+Camisa/Camiseta/Polo
+	Recorta a gola e posiciona
+	se  for camisa ou camiseta, adapte a abotoação
+	se o personagem for um pouco mais "cheinho" dos lados, faça com a caneta um contorno mais arredondado
+
+Calça
+
+Sapato
+
+Cor da pele do corpo
+	Se precisar mudar a cor da pele, lembre-se do script "merge_hue_hands" que aplica um ajuste Hue/Saturation nos 30 itens dos grupos inseridos (pode inserir LHand e RHand

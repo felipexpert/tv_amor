@@ -34,10 +34,10 @@ async def main_bkp():
 
     # Exemplo 2: Áudio com variações
     config_variada = AudioRequestConfig(
-        arcVoice="pt-BR-AntonioNeural",
-        arcPitch="+10Hz",  # Aumenta o tom
-        arcRate="-5%",     # Diminui a velocidade
-        arcTimbreScale=1.2 # Varia o timbre
+        arcVoice="pt-BR-FranciscaNeural",
+        arcPitch="+0Hz",  # Aumenta o tom
+        arcRate="+0%",     # Diminui a velocidade
+        arcTimbreScale=1.0 # Varia o timbre
     )
     file_variado = pasta_de_saida / Path("audio_variado.wav")
     print(f"Gerando áudio variado em {file_variado}...")

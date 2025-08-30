@@ -20,7 +20,7 @@ import Model.EpisodeComplete (EpisodeComplete(..))
 
 import qualified Model.Test2 as Test2
 
-import qualified Model.WorkingEpisode as WP
+import qualified Model.WorkingEpisode as WE
 
 main_ :: IO ()
 main_ = do 
@@ -47,5 +47,5 @@ main = do
     -- hSetEncoding stdin utf8
     -- hSetEncoding stderr utf8
     
-    WP.buildEpisodeIO
+    WE.buildEpisodeIO
 
