@@ -41,10 +41,10 @@ def step(aat: AniAutoTask, config: Config):
     # pyautogui.write(video_file_temp_path)
     # compact_video(video_file_temp_path)
     
-    focus_or_open_ca4()
+    # focus_or_open_ca4()
     # add_all_speeches(aat, config)
-    # render_video()
-    add_personas_gestures(aat)
+    render_video()
+    # add_personas_gestures(aat)
 
     
 
@@ -58,9 +58,9 @@ def main():
 
     # run_sequence(aat, config)
 
-    # run_sequence_ca4_opened(aat, config)
+    run_sequence_ca4_opened(aat, config)
 
-    step(aat, config)
+    # step(aat, config)
     
     # pass 
 
