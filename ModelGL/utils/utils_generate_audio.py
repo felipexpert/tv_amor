@@ -10,7 +10,10 @@ from pydub.silence import detect_nonsilent
 
 from utils.utils_print import print_alt
 
-def cortar_silencio_final(audio: AudioSegment, margem_ms: int = 140) -> AudioSegment:
+def cortar_silencio_final_bkp(audio: AudioSegment, margem_ms: int = 70) -> AudioSegment:
+  return audio
+
+def cortar_silencio_final(audio: AudioSegment, margem_ms: int = 70) -> AudioSegment:
     """
     Remove silêncio no final do áudio, mantendo uma margem mínima.
     """
@@ -56,7 +59,7 @@ async def generate_audio(audio_request: AudioRequest, file_path: Path) -> AudioI
 
     # 4. Carregar com pydub e cortar silêncio
     audio = AudioSegment.from_wav(temp_processed)
-    audio = cortar_silencio_final(audio, margem_ms=140)
+    audio = cortar_silencio_final(audio, margem_ms=70)
     audio.export(file_path, format="wav")
 
     # 5. Calcular a duração do áudio final

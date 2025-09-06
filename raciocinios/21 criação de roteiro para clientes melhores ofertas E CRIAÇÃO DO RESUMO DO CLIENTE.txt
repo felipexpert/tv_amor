@@ -1,6 +1,13 @@
 DICA: Utilize o Gemini 2.5 pro, pelo https://aistudio.google.com/
 DICA: Após gerar o áudio, VERIFIQUE SE ESTÁ FALANDO O NOME DO CLIENTE E DA EMPRESA CORRETAMENTE!
 
+___________________
+
+Para obter a pesquisa do Resumo do cliente: 
+
+Por favor, reúna tudo sobre a empresa "Guga Doces e Fraldas", situada no endereço "Francisco Glicélio, 300, Centro, Itapira - SP", com o contato "(19) 3813-4582", crie um texto informativo para eu ter um bom conhecimento sobre o negócio. Cuidado para não misturar informações de outra empresa com o mesmo nome! Por isso informei o endereço e o telefone, para você conferir. FOQUE NOS BENEFÍCIOS PARA O CONSUMIDOR FINAL! O objetivo desse resumo é a criação de conteúdos comerciais para divulgação
+___________________
+
 # Parte 1: Geração de Valor - Duração Aproximada de 30 a 50 segundos
 
 A minha empresa, a Melhores Ofertas, presta serviço de Presença Digital, no formato Business to Business B2B, para a empresa cliente deste vídeo, portanto a empresa cliente tem os clientes dela, e os clientes dela são o foco deste roteiro
@@ -109,13 +116,8 @@ data CGesture
     | GThinkLong        -- FREQUÊNCIA: 9.5		- Coloca a mão no queixo, reflexivo, por mais tempo
 	  | GStandShort		  	-- FREQUÊNCIA: 9.0		- Fica com as mãos juntas, depois volta as mãos
     | GStandLong	  		-- FREQUÊNCIA: 8.5		- Fica com as mãos juntas por mais tempo, depois volta as mãos, por mais tempo
-    | GHi					      -- FREQUÊNCIA: 6.0		- Acena
-	  | GShakeLegShort		-- FREQUÊNCIA: 5.0		- Balança um pouco a perna
-    | GShakeLegLong			-- FREQUÊNCIA: 4.5		- Balança um pouco a perna, por mais tempo
-	  | GTalkShort		  	-- FREQUÊNCIA: 4.0		- Movimenta os braços, expressando ideias
-    | GTalkLong			  	-- FREQUÊNCIA: 3.5		- Movimenta os braços, expressando ideias, por mais tempo
-    | GWorryShort		  	-- FREQUÊNCIA: 2.0		- Demonstra um pouco de preocupação
-    deriving (Show, Eq, Generic, ToJSON)
+	  | GShakeLegShort		-- FREQUÊNCIA: 6.0		- Balança um pouco a perna
+    | GWorryShort		  	-- FREQUÊNCIA: 1.0		- Demonstra um pouco de preocupação
 
 exampleEpisode :: Episode
 exampleEpisode = Episode
