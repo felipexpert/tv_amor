@@ -84,6 +84,11 @@ class Paths:
     IMG_CA4_RENDER_SETTINGS_EXPORT:str = cp(IMAGES_DIR, "14_ca4_render_settings_export.jpg")
     IMG_CA4_VIDEO_EXPORT_COMPLETE:str = cp(IMAGES_DIR, "15_ca4_video_export_complete.jpg")
     IMG_CA4_WATCH_VIDEO_NOW_NO_BUTTON:str = cp(IMAGES_DIR, "15_ca4_watch_video_now_no_button.jpg")
+
+    IMG_CA4_EDIT_POSE:str = cp(IMAGES_DIR, "16_ca4_edit_pose.jpg")
+    IMG_CA4_EDIT_POSE_LARM:str = cp(IMAGES_DIR, "16_ca4_edit_pose_larm.jpg")
+    IMG_CA4_EDIT_POSE_RARM:str = cp(IMAGES_DIR, "16_ca4_edit_pose_rarm.jpg")
+    IMG_CA4_EDIT_POSE_R:str = cp(IMAGES_DIR, "16_ca4_edit_pose_r.jpg")
     # END   - PyAutoGUI images - END
     
     # AAT é ani_auto_task

@@ -74,7 +74,7 @@ def add_personas(aat: AniAutoTask):
         click_img_s(Paths.IMG_CA4_CHARACTER_G3_HUMAN_G3_S, double_click=True)
 
         # espera o character carregar
-        pyautogui.sleep(5)
+        pyautogui.sleep(7)
 
         # coloca o PSD correto
         click_img_s(Paths.IMG_CA4_COMPOSER)
@@ -99,6 +99,30 @@ def add_personas(aat: AniAutoTask):
         click_to_deselect()
         pyautogui.sleep(2)
         
+        # ajusta o ângulo dos braços
+        click_img_s(Paths.IMG_CA4_EDIT_POSE)
+        pyautogui.sleep(0.5)
+        # braço esquerdo (sequencia da interface CA4)
+        click_img_s(Paths.IMG_CA4_EDIT_POSE_LARM)
+        click_img_s(Paths.IMG_CA4_EDIT_POSE_R, 31)
+        pyautogui.sleep(0.5)
+        pyautogui.hotkey('ctrl', 'a')
+        pyautogui.sleep(0.5)
+        pyautogui.write("38")
+        pyautogui.sleep(0.5)
+        pyautogui.press("enter")
+        pyautogui.sleep(0.5)
+        # braço direito (sequencia da interface CA4)
+        click_img_s(Paths.IMG_CA4_EDIT_POSE_RARM)
+        click_img_s(Paths.IMG_CA4_EDIT_POSE_R, 31)
+        pyautogui.sleep(0.5)
+        pyautogui.hotkey('ctrl', 'a')
+        pyautogui.sleep(0.5)
+        pyautogui.write("325")
+        pyautogui.sleep(0.5)
+        pyautogui.press("enter")
+        pyautogui.sleep(0.5)
+
         # volta
         click_img_s(Paths.IMG_CA4_BACK_STAGE)
 
@@ -352,7 +376,7 @@ def set_video_total_duration(aat: AniAutoTask):
     pyautogui.press('esc')
     pyautogui.sleep(0.5)
 
-def add_personas_gestures(aat: AniAutoTask):
+def add_personas_gestures_default(aat: AniAutoTask):
     def make_person_gestures_dict():
         person_gestures_dict:Dict[EPeNumber,List[AGesture]] = {}
         for action in aat.aatActions:
@@ -528,6 +552,29 @@ def add_gestures(gestures_initial: List[AGesture], total_duration_millis: int):
                 start_inserting_action(time_frames)
                 press_key_n_times('up', 2)
                 gesture_conclude()
+
+def add_personas_without_gesture_stay_static(aat: AniAutoTask):
+    print("Sem Gestos, modo estático...")
+
+def add_personas_without_gesture_stay_normal(aat: AniAutoTask):
+    def make_person_gestures_dict():
+        person_gestures_dict:Dict[EPeNumber,List[AGesture]] = {}
+
+        # adiciona cada pessoa, sem os gestos
+        for p in aat.aatPersonas:
+            persona: TPersona = p
+            if persona.pNumber not in person_gestures_dict:
+                # se um personagem da história, não houver sido adicionado ainda, por ausência de gestos, adiciona sem gestos
+                person_gestures_dict.update({persona.pNumber: [ ]})
+
+        return person_gestures_dict
+
+    person_gestures_dict:Dict[EPeNumber,List[AGesture]] = make_person_gestures_dict()
+
+    print('person_gestures_dict', person_gestures_dict)
+
+    for pe_number, gestures in person_gestures_dict.items():
+        add_persona_gestures(pe_number, gestures, aat.aatTotalDuration)
 
 def start_inserting_action(time_frames:int):
     set_time_position_in_frames(time_frames)
