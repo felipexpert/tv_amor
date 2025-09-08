@@ -16,6 +16,7 @@ module Model.AniAutoTask where
 
 import qualified Data.Text as T
 import Data.Text (Text)
+import Data.Maybe (fromMaybe)
 import GHC.Generics (Generic) 
 import Model.EpisodeComplete
 import Model.AudiosInfo(AudioInfo(..), aiDuration, aiFilePath, AudiosInfo(..), AudiosRequest(..), AudioRequest(..), AudioRequestConfig(..), requestAudiosIO, defaultAudioRequestConfig)
@@ -54,6 +55,7 @@ data AniAutoTask = AniAutoTask
   -- Precisa por a imagem no tipo AniAutoTask (por que varia a extensão)
   , aatBackgroundImage :: FilePath
   , aatPersonas :: [TPersona]
+  , aatGestureApplicationType :: !ES.GestureApplicationType
   } 
   deriving (Show, Eq, Generic, ToJSON)
 
@@ -332,6 +334,7 @@ episodeCompleteToAniAutoTaskIO episodeComplete config = do
       , aatTotalDuration = totalDuration
       , aatBackgroundImage = bg
       , aatPersonas = personas
+      , aatGestureApplicationType = gestureApplicationType
       } 
   saveAniAutoTaskIO aat config
   return aat
@@ -340,6 +343,10 @@ episodeCompleteToAniAutoTaskIO episodeComplete config = do
     episode = ecEpisode episodeComplete
     setup :: ES.EpisodeSetup
     setup = ecEpisodeSetup episodeComplete
+    gestureApplicationType = ES.GATDefault `fromMaybe` gOpt
+      where
+        prefsOpt = ES.sCustomExtraPrefsOpt setup
+        gOpt = fmap ES.cepGestureApplicationType prefsOpt
     bg :: FilePath
     bg = getBG setup
       where

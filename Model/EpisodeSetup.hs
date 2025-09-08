@@ -36,7 +36,7 @@ data GestureApplicationType
   deriving (Show, Eq, Generic, ToJSON, FromJSON)
 
 data CustomExtraPrefs = CustomExtraPrefs
-  { gestureApplicationType :: GestureApplicationType }
+  { cepGestureApplicationType :: GestureApplicationType }
   deriving (Show, Eq, Generic, ToJSON, FromJSON)
 
 data EpisodeSetupLoader = EpisodeSetupLoader
