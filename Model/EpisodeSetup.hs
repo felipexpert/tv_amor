@@ -3,6 +3,8 @@
 {-# LANGUAGE TupleSections #-}
 {-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 {-# HLINT ignore "Redundant bracket" #-}
+{-# HLINT ignore "Use newtype instead of data" #-}
+{-# OPTIONS_GHC -Wno-tabs #-}
 
 -- MyModule.hs
 module Model.EpisodeSetup where
@@ -26,68 +28,77 @@ import Data.Aeson (decode)
 
 import qualified Data.ByteString.Lazy as B
 
+data GestureApplicationType
+	= GATDefault
+	| GATWithoutGestureStayStatic
+	| GATWithoutGestureStayNormal
+
+data CustomExtraPrefs = CustomExtraPrefs
+  { gestureApplicationType :: GestureApplicationType }
+
 -- Informações adicionais do episódio
 data EpisodeSetup = EpisodeSetup
-    { sSprites :: [SSprite]
-    , sBackgroundImage :: SBackground
-    } deriving (Show, Eq, Generic)
+  { sSprites :: [SSprite]
+  , sBackgroundImage :: SBackground
+  , sCustomExtraPrefsOpt :: Maybe CustomExtraPrefs
+  } deriving (Show, Eq, Generic)
 
 data SSprite = SSprite
-    { sLabel :: EPeLabel   -- Nome do sprite
-    , sPsdPath :: FilePath     -- Caminho do sprite
-    , sNumber :: EPeNumber -- Número do sprite (posição no background)
-    } deriving (Show, Eq, Generic)
+  { sLabel :: EPeLabel   -- Nome do sprite
+  , sPsdPath :: FilePath     -- Caminho do sprite
+  , sNumber :: EPeNumber -- Número do sprite (posição no background)
+  } deriving (Show, Eq, Generic)
 
 data SBackground = SBackground
-    { bImagePath :: FilePath -- Caminho da imagem de fundo
-    , bWidth :: Int -- Largura da imagem
-    , bHeight :: Int -- Altura da imagem
-    , bSpritePositions :: BSpritePositions -- Posições dos sprites no fundo
-    } deriving (Show, Eq, Generic)
+  { bImagePath :: FilePath -- Caminho da imagem de fundo
+  , bWidth :: Int -- Largura da imagem
+  , bHeight :: Int -- Altura da imagem
+  , bSpritePositions :: BSpritePositions -- Posições dos sprites no fundo
+  } deriving (Show, Eq, Generic)
 
 data BSpritePositions
-    = SPositionsFor1
-        {pFor1Sprite :: PSprite }
-    | SPositionsFor2
-        { pFor2Sprite1 :: PSprite
-        , pFor2Sprite2 :: PSprite }
-    deriving (Show, Eq, Generic)
+  = SPositionsFor1
+    {pFor1Sprite :: PSprite }
+  | SPositionsFor2
+    { pFor2Sprite1 :: PSprite
+    , pFor2Sprite2 :: PSprite }
+  deriving (Show, Eq, Generic)
 
 bSpritePositionsList :: BSpritePositions -> [PSpriteNumbered]
 bSpritePositionsList (SPositionsFor1 sprite) =
-    [ PSpriteNumbered sprite EPeNum1 ]
+  [ PSpriteNumbered sprite EPeNum1 ]
 bSpritePositionsList (SPositionsFor2 sprite1 sprite2) =
-    [ PSpriteNumbered sprite1 EPeNum1
-    , PSpriteNumbered sprite2 EPeNum2]
+  [ PSpriteNumbered sprite1 EPeNum1
+  , PSpriteNumbered sprite2 EPeNum2]
 
 data PSprite = PSprite
-    { sX :: Int -- Posição X do sprite no fundo
-    , sY :: Int -- Posição Y do sprite no fundo
-    } deriving (Show, Eq, Generic)
+  { sX :: Int -- Posição X do sprite no fundo
+  , sY :: Int -- Posição Y do sprite no fundo
+  } deriving (Show, Eq, Generic)
 
 data PSpriteNumbered = PSpriteNumbered
-    { snSprite :: PSprite
-    , snNumber :: EPeNumber 
-    } deriving (Show, Eq, Generic)
+  { snSprite :: PSprite
+  , snNumber :: EPeNumber 
+  } deriving (Show, Eq, Generic)
 
 
 exampleEpisodeSetup :: EpisodeSetup
 exampleEpisodeSetup = EpisodeSetup
-    { sSprites = 
-        -- [ SSprite (EPeLabel "pe_felipe777") "02 sprite mega-sushi-temakeria IMPORT.psd" EPeNum1
-        [ SSprite (EPeLabel "pe_felipe777") "allianza-consultoria_neto.psd" EPeNum1
-        , SSprite (EPeLabel "pe_felipe") "melhores-ofertas.psd" EPeNum2
-        ]
-    , sBackgroundImage = SBackground
-        { bImagePath = "allianza-consultoria-02.jpg"
-        , bWidth = 1080
-        , bHeight = 1920
-        , bSpritePositions = SPositionsFor2
-            { pFor2Sprite1 = PSprite (-46) (-13)
-            , pFor2Sprite2 = PSprite 46 (-13)
-            }
-        }
+  { sSprites = 
+    -- [ SSprite (EPeLabel "pe_felipe777") "02 sprite mega-sushi-temakeria IMPORT.psd" EPeNum1
+    [ SSprite (EPeLabel "pe_felipe777") "allianza-consultoria_neto.psd" EPeNum1
+    , SSprite (EPeLabel "pe_felipe") "melhores-ofertas.psd" EPeNum2
+    ]
+  , sBackgroundImage = SBackground
+    { bImagePath = "allianza-consultoria-02.jpg"
+    , bWidth = 1080
+    , bHeight = 1920
+    , bSpritePositions = SPositionsFor2
+      { pFor2Sprite1 = PSprite (-46) (-13)
+      , pFor2Sprite2 = PSprite 46 (-13)
+      }
     }
+  }
 
 loadAllAudioRequestConfigsIO :: EpisodeSetup -> IO [(AudioRequestConfig, EPeLabel)]
 loadAllAudioRequestConfigsIO es = do
