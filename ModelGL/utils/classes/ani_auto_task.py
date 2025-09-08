@@ -53,9 +53,16 @@ class TPersona(BaseModel):
     pX: int
     pY: int
 
+# ===== GestureApplicationType =====
+class GestureApplicationType(Enum):
+	GATDefault = "GATDefault"
+	GATWithoutGestureStayStatic = "GATWithoutGestureStayStatic"
+	GATWithoutGestureStayNormal =  "GATWithoutGestureStayNormal"
+
 # ===== AniAutoTask =====
 class AniAutoTask(BaseModel):
     aatActions: List[TPeAction]
     aatTotalDuration: int
     aatBackgroundImage: str
     aatPersonas: List[TPersona]
+    aatGestureApplicationType: GestureApplicationType
