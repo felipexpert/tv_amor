@@ -54,8 +54,8 @@ main_2 = do
         , ES.bWidth = 1080
         , ES.bHeight = 1920
         , ES.bSpritePositions = ES.SPositionsFor2
-            { ES.pFor2Sprite1 = ES.PSprite (-46) (-13)
-            , ES.pFor2Sprite2 = ES.PSprite 46 (-13)
+            { ES.pFor2Sprite1 = ES.PSprite (-46) (-13) 60 60
+            , ES.pFor2Sprite2 = ES.PSprite 46 (-13) 60 60
             }
         }
   config <- C.loadConfigIO

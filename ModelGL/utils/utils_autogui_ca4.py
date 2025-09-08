@@ -154,6 +154,8 @@ def place_personas(aat: AniAutoTask):
         pNumber: EPeNumber = persona.pNumber
         posX: int = persona.pX
         posY: int = persona.pY
+        width: int = persona.pW
+        height: int = persona.pH
         pyautogui.sleep(0.5)
         persona_number_ca4_selector(pNumber)
 
@@ -176,23 +178,16 @@ def place_personas(aat: AniAutoTask):
         pyautogui.sleep(0.5)
         pyautogui.write(str(posY))
 
-        is60 = True
-
-        if not is60:
-            pyautogui.sleep(0.5)
-            pyautogui.press("enter")
-
-        else:
-            # temporário START
-            press_key_n_times("tab", 2)
-            pyautogui.write("60")
-            pyautogui.sleep(0.5)
-            pyautogui.press("tab")
-            pyautogui.sleep(0.5)
-            pyautogui.write("60")
-            pyautogui.sleep(0.5)
-            pyautogui.press("enter")
-            # temporário END
+        # temporário START
+        press_key_n_times("tab", 2)
+        pyautogui.write(str(width))
+        pyautogui.sleep(0.5)
+        pyautogui.press("tab")
+        pyautogui.sleep(0.5)
+        pyautogui.write(str(height))
+        pyautogui.sleep(0.5)
+        pyautogui.press("enter")
+        # temporário END
         
         
 

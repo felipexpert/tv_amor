@@ -63,6 +63,8 @@ data TPersona = TPersona
   { pNumber :: EPeNumber
   , pX :: Int
   , pY :: Int
+  , pW :: Int
+  , pH :: Int
   }
   deriving (Show, Eq, Generic, ToJSON)
 
@@ -355,10 +357,12 @@ episodeCompleteToAniAutoTaskIO episodeComplete config = do
     personas = fmap mapper sprites
       where
         mapper :: ES.PSpriteNumbered -> TPersona
-        mapper (ES.PSpriteNumbered (ES.PSprite x y) n) = TPersona 
+        mapper (ES.PSpriteNumbered (ES.PSprite x y w h) n) = TPersona 
           { pNumber = n
           , pX = x
           , pY = y
+          , pW = w
+          , pH = h
           }
         sprites :: [ES.PSpriteNumbered]
         sprites = ES.bSpritePositionsList positions

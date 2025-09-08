@@ -118,6 +118,8 @@ bSpritePositionsList (SPositionsFor2 sprite1 sprite2) =
 data PSprite = PSprite
   { sX :: Int -- Posição X do sprite no fundo
   , sY :: Int -- Posição Y do sprite no fundo
+  , sW :: Int -- Width do sprite no fundo
+  , sH :: Int -- Height do sprite no fundo
   } deriving (Show, Eq, Generic, ToJSON, FromJSON)
 
 data PSpriteNumbered = PSpriteNumbered
@@ -138,8 +140,8 @@ exampleEpisodeSetup = EpisodeSetup
     , bWidth = 1080
     , bHeight = 1920
     , bSpritePositions = SPositionsFor2
-      { pFor2Sprite1 = PSprite (-46) (-13)
-      , pFor2Sprite2 = PSprite 46 (-13)
+      { pFor2Sprite1 = PSprite (-46) (-13) 60 60
+      , pFor2Sprite2 = PSprite 46 (-13) 60 60
       }
     }
   }

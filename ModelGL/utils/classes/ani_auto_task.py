@@ -52,6 +52,8 @@ class TPersona(BaseModel):
     pNumber: EPeNumber 
     pX: int
     pY: int
+    pW: int
+    pH: int
 
 # ===== GestureApplicationType =====
 class GestureApplicationType(Enum):
