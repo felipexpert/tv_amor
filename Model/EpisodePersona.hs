@@ -13,12 +13,12 @@ import Data.Aeson (ToJSON, FromJSON)
 
 -- Representa o personagem que está falando, o E prefixo é Episode
 newtype EPeLabel = EPeLabel Text
-    deriving (Show, Eq, Ord, Generic)
+    deriving (Show, Eq, Ord, Generic, ToJSON, FromJSON)
 
 data EPeNumber
     = EPeNum1
     | EPeNum2
-    deriving (Show, Eq, Ord, Generic, ToJSON)
+    deriving (Show, Eq, Ord, Generic, ToJSON, FromJSON)
 
 ePeNumberToInt :: EPeNumber -> Int
 ePeNumberToInt EPeNum1 = 1

@@ -1,5 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DeriveAnyClass #-}
 {-# LANGUAGE TupleSections #-}
 {-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 {-# HLINT ignore "Redundant bracket" #-}
@@ -24,7 +25,7 @@ import Data.Maybe (catMaybes)
 import qualified Model.Config as C
 import Model.AudiosInfo (AudioRequestConfig(..))
 
-import Data.Aeson (decode)
+import Data.Aeson (decode, ToJSON, FromJSON)
 
 import qualified Data.ByteString.Lazy as B
 
@@ -32,29 +33,72 @@ data GestureApplicationType
 	= GATDefault
 	| GATWithoutGestureStayStatic
 	| GATWithoutGestureStayNormal
+  deriving (Show, Eq, Generic, ToJSON, FromJSON)
 
 data CustomExtraPrefs = CustomExtraPrefs
   { gestureApplicationType :: GestureApplicationType }
+  deriving (Show, Eq, Generic, ToJSON, FromJSON)
+
+data EpisodeSetupLoader = EpisodeSetupLoader
+  { eslSprites :: [SSprite]
+  , eslBackgroundImageJSON :: FilePath -- <nome-do-arquivo>.json
+  , eslCustomExtraPrefsJSONOpt :: Maybe FilePath -- <nome-do-arquivo>.json
+  } deriving (Show, Eq, Generic, ToJSON, FromJSON)
+
+loadEpisodeSetupIO :: EpisodeSetupLoader -> IO EpisodeSetup
+loadEpisodeSetupIO loader = do
+  -- carregar as configuracoes
+  config <- C.loadConfigIO
+  bg <- loadBGIO config
+  customExtraPrefsOpt <- loadCustomExtraPrefsIO config
+  return EpisodeSetup
+    { sSprites = eslSprites loader
+    , sBackgroundImage = bg
+    , sCustomExtraPrefsOpt = customExtraPrefsOpt
+    }
+  where
+    loadBGIO :: C.Config -> IO SBackground
+    loadBGIO config = do
+      let fileJSON = eslBackgroundImageJSON loader
+      let pathJSON = bgDir </> fileJSON
+      content <- B.readFile pathJSON
+      case decode content of
+        Just bg -> return bg
+        Nothing -> error $ "Erro ao decodificar o arquivo de background: " <> pathJSON
+      where
+        bgDir = C.backgroundDir config
+    loadCustomExtraPrefsIO :: C.Config -> IO (Maybe CustomExtraPrefs)
+    loadCustomExtraPrefsIO config = do
+      case eslCustomExtraPrefsJSONOpt loader of
+        Just fileJSON -> do
+          let pathJSON = customDir </> fileJSON
+          content <- B.readFile pathJSON
+          case decode content of
+            Just prefs -> return (Just prefs)
+            Nothing -> error $ "Erro ao decodificar o arquivo de custom extra prefs: " <> pathJSON
+        Nothing -> return Nothing
+      where
+        customDir = C.customDir config
 
 -- Informações adicionais do episódio
 data EpisodeSetup = EpisodeSetup
   { sSprites :: [SSprite]
   , sBackgroundImage :: SBackground
   , sCustomExtraPrefsOpt :: Maybe CustomExtraPrefs
-  } deriving (Show, Eq, Generic)
+  } deriving (Show, Eq, Generic, ToJSON, FromJSON)
 
 data SSprite = SSprite
   { sLabel :: EPeLabel   -- Nome do sprite
   , sPsdPath :: FilePath     -- Caminho do sprite
   , sNumber :: EPeNumber -- Número do sprite (posição no background)
-  } deriving (Show, Eq, Generic)
+  } deriving (Show, Eq, Generic, ToJSON, FromJSON)
 
 data SBackground = SBackground
   { bImagePath :: FilePath -- Caminho da imagem de fundo
   , bWidth :: Int -- Largura da imagem
   , bHeight :: Int -- Altura da imagem
   , bSpritePositions :: BSpritePositions -- Posições dos sprites no fundo
-  } deriving (Show, Eq, Generic)
+  } deriving (Show, Eq, Generic, ToJSON, FromJSON)
 
 data BSpritePositions
   = SPositionsFor1
@@ -62,7 +106,7 @@ data BSpritePositions
   | SPositionsFor2
     { pFor2Sprite1 :: PSprite
     , pFor2Sprite2 :: PSprite }
-  deriving (Show, Eq, Generic)
+  deriving (Show, Eq, Generic, ToJSON, FromJSON)
 
 bSpritePositionsList :: BSpritePositions -> [PSpriteNumbered]
 bSpritePositionsList (SPositionsFor1 sprite) =
@@ -74,12 +118,12 @@ bSpritePositionsList (SPositionsFor2 sprite1 sprite2) =
 data PSprite = PSprite
   { sX :: Int -- Posição X do sprite no fundo
   , sY :: Int -- Posição Y do sprite no fundo
-  } deriving (Show, Eq, Generic)
+  } deriving (Show, Eq, Generic, ToJSON, FromJSON)
 
 data PSpriteNumbered = PSpriteNumbered
   { snSprite :: PSprite
   , snNumber :: EPeNumber 
-  } deriving (Show, Eq, Generic)
+  } deriving (Show, Eq, Generic, ToJSON, FromJSON)
 
 
 exampleEpisodeSetup :: EpisodeSetup

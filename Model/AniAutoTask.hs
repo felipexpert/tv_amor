@@ -26,6 +26,8 @@ import Model.Episode(CGesture(..), Episode (Episode))
 
 import Model.GuidoLangUtil (glCall, GLScript(GLAudiosInfo))
 
+import Model.JSONUtil (savePrettyIO)
+
 import qualified Model.Episode as E
 import qualified Model.EpisodeSetup as ES
 
@@ -439,6 +441,3 @@ saveAniAutoTaskIO task c = savePrettyIO filePath task
   where
     filePath :: FilePath
     filePath = (C.workingDir c) </> "ani_auto_task.json"
-
-savePrettyIO :: ToJSON a => FilePath -> a -> IO ()
-savePrettyIO path value = BL.writeFile path (Pretty.encodePretty value)

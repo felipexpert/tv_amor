@@ -18,6 +18,7 @@ data Config = Config
     , backgroundDir :: FilePath
     , musicsDir :: FilePath
     , spritesDir :: FilePath
+    , customDir :: FilePath
     }
     deriving (Show, Eq, Generic, FromJSON, ToJSON)
 

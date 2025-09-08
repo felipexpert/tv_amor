@@ -30,13 +30,26 @@ import qualified Model.Config as C
 buildEpisodeIO :: IO ()
 buildEpisodeIO = do
     config <- C.loadConfigIO
+    episodeSetup <- loadEpisodeSetupIO episodeSetupLoader
+    let myEpisode = EC.EpisodeComplete episode' episodeSetup
     AAT.prepareWorkingDirIO config episodeSetup
     task <- AAT.episodeCompleteToAniAutoTaskIO myEpisode config
     return ()
     where 
-      myEpisode = EC.EpisodeComplete episode' episodeSetup
       episode' = addPauseIfNeeded episode
 
+episodeSetupLoader :: EpisodeSetupLoader
+episodeSetupLoader = EpisodeSetupLoader
+  { eslSprites = 
+        [ SSprite (EPeLabel "pe_guga") "guga-doces-e-fraldas_mascote-guga.psd" EPeNum1
+        , SSprite (EPeLabel "pe_mo") "melhores-ofertas.psd" EPeNum2
+        ]
+  , eslBackgroundImageJSON = "guga-doces-e-fraldas-17.json"
+  , eslCustomExtraPrefsJSONOpt = Just "guga-doces-e-fraldas-custom-prefs.json"
+  }
+
+
+{-
 episodeSetup :: EpisodeSetup
 episodeSetup = EpisodeSetup
     { sSprites = 
@@ -52,7 +65,9 @@ episodeSetup = EpisodeSetup
             , pFor2Sprite2 = PSprite 46 (-13)
             }
         }
+    , sCustomExtraPrefsOpt = Just (CustomExtraPrefs GATWithoutGestureStayStatic)
     }
+-}
 
 episode :: Episode
 episode = Episode
