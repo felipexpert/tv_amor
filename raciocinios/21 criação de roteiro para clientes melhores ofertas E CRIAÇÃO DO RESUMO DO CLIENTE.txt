@@ -112,11 +112,11 @@ data RCCommand
 -- A "FREQUÊNCIA" é o quanto um gesto normalmente aparece, quanto maior o valor da "FREQUÊNCIA",
 -- mais o gesto deve ser aplicado em relação aos outros gestos
 data CGesture
-    = GThinkShort       -- FREQUÊNCIA: 10.0		- Coloca a mão no queixo, reflexivo
-    | GThinkLong        -- FREQUÊNCIA: 9.5		- Coloca a mão no queixo, reflexivo, por mais tempo
-	  | GStandShort		  	-- FREQUÊNCIA: 9.0		- Fica com as mãos juntas, depois volta as mãos
-    | GStandLong	  		-- FREQUÊNCIA: 8.5		- Fica com as mãos juntas por mais tempo, depois volta as mãos, por mais tempo
-	  | GShakeLegShort		-- FREQUÊNCIA: 6.0		- Balança um pouco a perna
+    = GThinkShort       	-- FREQUÊNCIA: 10.0		- Coloca a mão no queixo, reflexivo
+    | GThinkLong        	-- FREQUÊNCIA: 9.5		- Coloca a mão no queixo, reflexivo, por mais tempo
+	| GStandShort		  	-- FREQUÊNCIA: 6.0		- Fica com as mãos juntas, depois volta as mãos
+    | GStandLong	  		-- FREQUÊNCIA: 4.5		- Fica com as mãos juntas por mais tempo, depois volta as mãos, por mais tempo
+	| GShakeLegShort		-- FREQUÊNCIA: 3.0		- Balança um pouco a perna
     | GWorryShort		  	-- FREQUÊNCIA: 1.0		- Demonstra um pouco de preocupação
 
 exampleEpisode :: Episode
@@ -151,9 +151,13 @@ episode02 :: Episode
 episode02 = undefined -- crie o 2º episode aqui
 ```
 
+
+
 Quando for criar `RPlainText :: Text`, cuidado para não por textos que o `edge_tts` do Python não entende ao converter para áudio, como "---"
 
 Capriche nos gestos, procure utilizá-los de acordo com o significado do texto no momento em que aparecem, saiba que você pode invocar um gesto durante a fala do outro personagem, por isso o tipo do gesto, CGesture, tem um `cPe :: EPeLabel` próprio. COLOQUE OS GESTOS ENTRE PONTUAÇÕES COMO PONTOS FINAIS, PONTOS DE EXCLAMAÇÃO, E VÍRGULAS, NÃO NO MEIO DA FRASE, PARA NÃO FICAR UMA PAUSA ESTRANHA AO JUNTAR OS ÁUDIOS
+
+Comece com uma pausa de meio segundo
 
 Forneça SOMENTE `episode01` e `episode02`
 

@@ -34,7 +34,8 @@ buildEpisodeIO = do
     task <- AAT.episodeCompleteToAniAutoTaskIO myEpisode config
     return ()
     where 
-      myEpisode = EC.EpisodeComplete episode episodeSetup
+      myEpisode = EC.EpisodeComplete episode' episodeSetup
+      episode' = addPauseIfNeeded episode
 
 episodeSetup :: EpisodeSetup
 episodeSetup = EpisodeSetup

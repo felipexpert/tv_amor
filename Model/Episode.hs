@@ -81,6 +81,28 @@ data CGesture
     | GWorryLong -- demonstra um pouco de preocupação, por mais tempo
     deriving (Show, Eq, Generic, ToJSON)
 
+-- Função que insere uma pequena pausa (500ms) caso a primeira ação do primeiro diálogo
+-- seja uma fala (RPlainText)
+addPauseIfNeeded :: Episode -> Episode
+addPauseIfNeeded ep = ep { eDialoguePeList = newDialogueList }
+    where 
+        newDialogueList :: [EDialoguePe]
+        newDialogueList = case eDialoguePeList ep of
+            [] -> []
+            (firstBlock:restBlocks) -> 
+                let newFirstBlock = addPauseToFirstDialog firstBlock
+                in newFirstBlock : restBlocks
+
+        addPauseToFirstDialog :: EDialoguePe -> EDialoguePe
+        addPauseToFirstDialog block = block { dContents = newContents }
+            where 
+                newContents :: [DRichText]
+                newContents = case dContents block of
+                    [] -> []
+                    (firstContent:restContents) -> case firstContent of
+                        RPlainText _ -> RCommand (CPause 500) : firstContent : restContents
+                        _            -> firstContent : restContents
+
 exampleEpisode :: Episode
 exampleEpisode = Episode
     { ePes = [EPeLabel "pe_felipe", EPeLabel "pe_fatima"]
