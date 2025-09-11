@@ -8,9 +8,12 @@ from pathlib import Path
 
 # ====== CONFIG ======
 # VIDEO_PATH = r"C:\Users\MelhoresOfertas\OneDrive\clientes\sol-ração-líquida\video_2025-09-09.mp4"
-VIDEO_PATH = r"C:\Users\MelhoresOfertas\OneDrive\clientes\sol-ração-líquida\video_2025-09-09\video_2025-09-09_novo.mp4"
+# VIDEO_PATH = r"C:\Users\MelhoresOfertas\OneDrive\clientes\sol-ração-líquida\video_2025-09-09\video_2025-09-09_novo.mp4"
+# VIDEO_PATH = r"C:\Users\MelhoresOfertas\OneDrive\clientes\sol-ração-líquida\video_2025-09-09\video_2025-09-09_novo.mp4"
 WORKING_DIR = r"C:\working_subtitles"
+VIDEO_PATH = r"C:\Users\MelhoresOfertas\OneDrive\clientes\sol-ração-líquida\sol-ração-líquida_2025-09-11\exportado-4.mp4"
 MODEL_NAME = "small"   # tiny | base | small | medium | large
+SUBTITLES_CREATED = True
 # BURN_IN = False        # False = embute como faixa (softsub mov_text). True = "queima" a legenda no vídeo (-vf subtitles)
 # ====================
 
@@ -49,30 +52,31 @@ def legendar_video(video_file_str: str, model_name: str = "small"):
     str_file_path = Path(srt_file_str)
     # output_path = base_dir / f"{base_name}_legendado.mp4"
 
-    print(f"[1/3] Carregando modelo Whisper '{model_name}' (pode baixar na primeira execução)...")
-    model = whisper.load_model(model_name)
+    if not SUBTITLES_CREATED:
+      print(f"[1/3] Carregando modelo Whisper '{model_name}' (pode baixar na primeira execução)...")
+      model = whisper.load_model(model_name)
 
-    print("[2/3] Transcrevendo áudio e gerando legenda (isso pode demorar)...")
-    result = model.transcribe(video_file_str, language="pt")
+      print("[2/3] Transcrevendo áudio e gerando legenda (isso pode demorar)...")
+      result = model.transcribe(video_file_str, language="pt")
 
-    # -------------- tentar usar util do whisper se existir ---------------
-    write_func = getattr(whisper.utils, "write_srt", None)
-    if callable(write_func):
-        print("Usando whisper.utils.write_srt()")
-        with str_file_path.open("w", encoding="utf-8") as f:
-            write_func(result["segments"], file=f)
-    else:
-        print("whisper.utils.write_srt() não disponível — usando writer interno")
-        write_srt_custom(result["segments"], str_file_path)
+      # -------------- tentar usar util do whisper se existir ---------------
+      write_func = getattr(whisper.utils, "write_srt", None)
+      if callable(write_func):
+          print("Usando whisper.utils.write_srt()")
+          with str_file_path.open("w", encoding="utf-8") as f:
+              write_func(result["segments"], file=f)
+      else:
+          print("whisper.utils.write_srt() não disponível — usando writer interno")
+          write_srt_custom(result["segments"], str_file_path)
 
-    print(f"\n✅ Legenda gerada: {str_file_path}")
-    print("👉 Edite o arquivo se desejar corrigir. Salve as alterações e, quando pronto, digite 'CONTINUAR' e pressione Enter.\n")
+      print(f"\n✅ Legenda gerada: {str_file_path}")
+      print("👉 Edite o arquivo se desejar corrigir. Salve as alterações e, quando pronto, digite 'CONTINUAR' e pressione Enter.\n")
 
-    # espera confirmação do usuário
-    user_input = input(">>> ")
-    while user_input.strip().upper() != "CONTINUAR":
-        print("Digite 'CONTINUAR' para prosseguir com a criação do vídeo legendado...")
-        user_input = input(">>> ")
+      # espera confirmação do usuário
+      user_input = input(">>> ")
+      while user_input.strip().upper() != "CONTINUAR":
+          print("Digite 'CONTINUAR' para prosseguir com a criação do vídeo legendado...")
+          user_input = input(">>> ")
 
     # -------------- embutir legendas ---------------
     print("[3/3] Criando vídeo com legenda...")
