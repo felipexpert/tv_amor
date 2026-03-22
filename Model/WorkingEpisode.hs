@@ -41,93 +41,210 @@ buildEpisodeIO = do
 episodeSetupLoader :: EpisodeSetupLoader
 episodeSetupLoader = EpisodeSetupLoader
   { eslSprites = 
-        [ SSprite (EPeLabel "pe_guga") "guga-doces-e-fraldas_mascote-guga.psd" EPeNum1
-        , SSprite (EPeLabel "pe_mo") "melhores-ofertas.psd" EPeNum2
+        [ SSprite (EPeLabel "pe_representante_drogaria_total") "drogaria-total_representante.psd" EPeNum1
+        , SSprite (EPeLabel "pe_melhores_ofertas") "melhores-ofertas.psd" EPeNum2
         ]
-  , eslBackgroundImageJSON = "guga-doces-e-fraldas-17.json"
-  , eslCustomExtraPrefsJSONOpt = Just "guga-doces-e-fraldas-custom-prefs.json"
+  , eslBackgroundImageJSON = "drogaria-total-itapira.json"
+  , eslCustomExtraPrefsJSONOpt = Nothing
   }
-
-
-{-
-episodeSetup :: EpisodeSetup
-episodeSetup = EpisodeSetup
-    { sSprites = 
-        [ SSprite (EPeLabel "pe_guga") "guga-doces-e-fraldas_mascote-guga.psd" EPeNum1
-        , SSprite (EPeLabel "pe_mo") "melhores-ofertas.psd" EPeNum2
-        ]
-    , sBackgroundImage = SBackground
-        { bImagePath = "guga-doces-e-fraldas-17.jpg"
-        , bWidth = 1080
-        , bHeight = 1920
-        , bSpritePositions = SPositionsFor2
-            { pFor2Sprite1 = PSprite (-46) (-13)
-            , pFor2Sprite2 = PSprite 46 (-13)
-            }
-        }
-    , sCustomExtraPrefsOpt = Just (CustomExtraPrefs GATWithoutGestureStayStatic)
-    }
--}
 
 episode :: Episode
 episode = Episode
-    { ePes = [EPeLabel "pe_guga", EPeLabel "pe_mo"]
+    { ePes = [EPeLabel "pe_cliente", EPeLabel "pe_melhores_ofertas"]
     , eDialoguePeList =
-        [ EDialoguePe
-            { dPe = EPeLabel "pe_mo"
+        [ -- Narração 1
+          EDialoguePe
+            { dPe = EPeLabel "pe_melhores_ofertas"
             , dContents =
-                [ RPlainText "E aí, Guga! "
-                , RCommand (CGesture GStandShort (EPeLabel "pe_mo"))
-                , RPlainText "Beleza? "
-                , RCommand (CGesture GStandShort (EPeLabel "pe_guga"))
-                , RPlainText "Melhores Ofertas aqui, com o Guga da Guga Doces e Fraldas! "
-                , RPlainText "Hoje, a gente vai falar daquele momento que todo mundo ama: o \"Cliente Feliz na Festa!\""
-                , RCommand (CGesture GThinkShort (EPeLabel "pe_guga"))
+                [ RPlainText "Olá. Eu sou o Melhores Ofertas, e hoje estou com você da Allianza Consultoria de Itapira."
+                , RCommand (CGesture GStandShort (EPeLabel "pe_melhores_ofertas"))
                 ]
             }
         , EDialoguePe
-            { dPe = EPeLabel "pe_guga"
+            { dPe = EPeLabel "pe_cliente"
             , dContents =
-                [ RPlainText "É isso mesmo, Melhores Ofertas! "
-                , RCommand (CGesture GStandShort (EPeLabel "pe_guga"))
-                , RPlainText "A gente sabe que festa de criança é uma bagunça deliciosa, mas também é um desafio, né? "
-                , RPlainText "Principalmente pra manter todo mundo satisfeito e o aniversariante feliz. "
-                , RCommand (CGesture GThinkLong (EPeLabel "pe_mo"))
+                [ RPlainText "Se você é síndico ou morador, já pensou como reduzir custos do seu condomínio sem perder qualidade?"
+                , RCommand (CGesture GThinkShort (EPeLabel "pe_cliente"))
                 ]
             }
         , EDialoguePe
-            { dPe = EPeLabel "pe_mo"
+            { dPe = EPeLabel "pe_melhores_ofertas"
             , dContents =
-                [ RPlainText "Exatamente! "
-                , RCommand (CGesture GStandShort (EPeLabel "pe_mo"))
-                , RPlainText "E é aí que os doces e os kits de festa da Guga fazem toda a diferença!"
-                , RCommand (CGesture GShakeLegShort (EPeLabel "pe_guga"))
-                , RPlainText "Imagina a alegria do cliente em ver a festa do filho com produtos de qualidade, "
-                , RCommand (CPause 200)
-                , RPlainText "feitos com carinho. "
-                , RPlainText "Isso não tem preço!"
-                , RCommand (CGesture GStandShort (EPeLabel "pe_guga"))
+                [ RPlainText "Boa pergunta. Muita gente acha que cortar custos é só reduzir serviços, mas não é bem assim."
+                , RCommand (CGesture GThinkShort (EPeLabel "pe_melhores_ofertas"))
                 ]
             }
         , EDialoguePe
-            { dPe = EPeLabel "pe_guga"
+            { dPe = EPeLabel "pe_cliente"
             , dContents =
-                [ RPlainText "Sem falar da praticidade, né? "
-                , RCommand (CGesture GStandShort (EPeLabel "pe_guga"))
-                , RPlainText "O cliente não tem que se preocupar com nada, "
-                , RCommand (CPause 200)
-                , RPlainText "é só fazer o pedido, receber e aproveitar a festa! "
-                , RCommand (CGesture GStandShort (EPeLabel "pe_mo"))
-                , RPlainText "Isso que é cliente feliz!"
+                [ RPlainText "Aqui na Allianza, a gente trabalha com planejamento estratégico e organização financeira para evitar desperdícios."
+                , RCommand (CGesture GStandLong (EPeLabel "pe_cliente"))
                 ]
             }
         , EDialoguePe
-            { dPe = EPeLabel "pe_mo"
+            { dPe = EPeLabel "pe_cliente"
             , dContents =
-                [ RPlainText "Queremos saber: qual foi a sua experiência com a Guga Doces e Fraldas?"
-                , RCommand (CPause 200)
-                , RPlainText "Deixe seu comentário e inspire os outros clientes!"
+                [ RPlainText "Além disso, usamos tecnologia para automatizar processos e trazer mais controle no dia a dia."
+                , RCommand (CGesture GThinkShort (EPeLabel "pe_melhores_ofertas"))
+                ]
+            }
+        , EDialoguePe
+            { dPe = EPeLabel "pe_melhores_ofertas"
+            , dContents =
+                [ RPlainText "Ou seja, menos desperdício, mais eficiência e transparência para todos no condomínio."
+                , RCommand (CGesture GStandShort (EPeLabel "pe_melhores_ofertas"))
+                ]
+            }
+        , EDialoguePe
+            { dPe = EPeLabel "pe_cliente"
+            , dContents =
+                [ RPlainText "Exatamente. O resultado é mais economia e mais tranquilidade para síndicos e moradores."
+                , RCommand (CGesture GStandShort (EPeLabel "pe_cliente"))
+                ]
+            }
+        , EDialoguePe
+            { dPe = EPeLabel "pe_melhores_ofertas"
+            , dContents =
+                [ RPlainText "Curta e compartilhe este vídeo para ajudar mais pessoas a encontrar soluções como essa."
+                , RCommand (CGesture GStandLong (EPeLabel "pe_melhores_ofertas"))
+                ]
+            }
+
+        , -- Narração 2
+          EDialoguePe
+            { dPe = EPeLabel "pe_melhores_ofertas"
+            , dContents =
+                [ RPlainText "Olá. Eu sou o Melhores Ofertas, e hoje estou com você da Allianza Consultoria de Itapira."
+                , RCommand (CGesture GStandShort (EPeLabel "pe_melhores_ofertas"))
+                ]
+            }
+        , EDialoguePe
+            { dPe = EPeLabel "pe_cliente"
+            , dContents =
+                [ RPlainText "Você sabia que muitos condomínios pagam mais caro simplesmente por falta de organização?"
+                , RCommand (CGesture GWorryShort (EPeLabel "pe_cliente"))
+                ]
+            }
+        , EDialoguePe
+            { dPe = EPeLabel "pe_melhores_ofertas"
+            , dContents =
+                [ RPlainText "Sério. E o pior é que isso acontece sem que o síndico perceba no dia a dia."
+                , RCommand (CGesture GThinkShort (EPeLabel "pe_melhores_ofertas"))
+                ]
+            }
+        , EDialoguePe
+            { dPe = EPeLabel "pe_cliente"
+            , dContents =
+                [ RPlainText "Por isso usamos planejamento estratégico para identificar onde estão os gargalos e desperdícios."
+                , RCommand (CGesture GThinkLong (EPeLabel "pe_cliente"))
+                ]
+            }
+        , EDialoguePe
+            { dPe = EPeLabel "pe_cliente"
+            , dContents =
+                [ RPlainText "Depois, aplicamos tecnologia e otimização de processos para melhorar toda a gestão."
+                , RCommand (CGesture GStandShort (EPeLabel "pe_melhores_ofertas"))
+                ]
+            }
+        , EDialoguePe
+            { dPe = EPeLabel "pe_melhores_ofertas"
+            , dContents =
+                [ RPlainText "Isso significa mais controle financeiro e decisões mais inteligentes no condomínio."
+                , RCommand (CGesture GStandShort (EPeLabel "pe_melhores_ofertas"))
+                ]
+            }
+        , EDialoguePe
+            { dPe = EPeLabel "pe_cliente"
+            , dContents =
+                [ RPlainText "E no final, quem ganha são os moradores, com mais transparência e menos custos."
+                , RCommand (CGesture GStandLong (EPeLabel "pe_cliente"))
+                ]
+            }
+        , EDialoguePe
+            { dPe = EPeLabel "pe_melhores_ofertas"
+            , dContents =
+                [ RPlainText "Comente elogiando a Allianza Consultoria e ajude mais pessoas a conhecer esse trabalho."
+                , RCommand (CGesture GStandLong (EPeLabel "pe_melhores_ofertas"))
                 ]
             }
         ]
     }
+{-
+episode :: Episode
+episode = Episode
+    { ePes = [EPeLabel "pe_representante_drogaria_total", EPeLabel "pe_melhores_ofertas"]
+    , eDialoguePeList =
+        [ 
+          -- Abertura e Apresentação
+          EDialoguePe
+            { dPe = EPeLabel "pe_representante_drogaria_total"
+            , dContents =
+                [ RPlainText "Olá pessoal! Aqui é o representante da Drogaria Total de Itapira."
+                , RCommand (CGesture GStandShort (EPeLabel "pe_representante_drogaria_total"))
+                , RPlainText "Estamos bem no coração da cidade, na Rua Francisco Glicério, 310."
+                ]
+            }
+        , EDialoguePe
+            { dPe = EPeLabel "pe_melhores_ofertas"
+            , dContents =
+                [ RPlainText "Oi! Eu sou o Melhores Ofertas, e hoje vim mostrar por que a Drogaria Total é a drogaria que cuida de você em Itapira!"
+                , RCommand (CGesture GThinkShort (EPeLabel "pe_melhores_ofertas"))
+                ]
+            }
+
+          -- Parte principal: destaque da Drogaria
+        , EDialoguePe
+            { dPe = EPeLabel "pe_representante_drogaria_total"
+            , dContents =
+                [ RPlainText "Aqui você encontra medicamentos de marca e genéricos, perfumaria, cosméticos e muito mais."
+                , RCommand (CGesture GStandShort (EPeLabel "pe_representante_drogaria_total"))
+                , RPlainText "E o melhor: sempre com atendimento próximo e humanizado."
+                , RCommand (CGesture GThinkLong (EPeLabel "pe_melhores_ofertas"))
+                ]
+            }
+
+        , EDialoguePe
+            { dPe = EPeLabel "pe_melhores_ofertas"
+            , dContents =
+                [ RPlainText "Isso mesmo! A Drogaria Total oferece descontos de até oitenta por cento em produtos selecionados e um programa de fidelidade com prêmios incríveis."
+                , RCommand (CGesture GStandShort (EPeLabel "pe_melhores_ofertas"))
+                ]
+            }
+
+          -- Encerramento e reforço do tema
+        , EDialoguePe
+            { dPe = EPeLabel "pe_representante_drogaria_total"
+            , dContents =
+                [ RPlainText "Temos também convênios com empresas, cartão próprio e entrega em domicílio."
+                , RCommand (CGesture GThinkShort (EPeLabel "pe_representante_drogaria_total"))
+                , RPlainText "Tudo pra facilitar a sua vida e cuidar da sua saúde com carinho."
+                ]
+            }
+
+        , EDialoguePe
+            { dPe = EPeLabel "pe_melhores_ofertas"
+            , dContents =
+                [ RPlainText "Então já sabe, né? Drogaria Total Itapira, a drogaria que cuida de você!"
+                , RCommand (CGesture GStandLong (EPeLabel "pe_melhores_ofertas"))
+                ]
+            }
+
+          -- Parte 2: CTA (duas variações)
+        , EDialoguePe
+            { dPe = EPeLabel "pe_melhores_ofertas"
+            , dContents =
+                [ RPlainText "Mostre o seu apoio! Comente elogiando a Drogaria Total e curta o vídeo pra ajudar a alcançar mais pessoas!"
+                , RCommand (CGesture GStandShort (EPeLabel "pe_melhores_ofertas"))
+                ]
+            }
+
+        , EDialoguePe
+            { dPe = EPeLabel "pe_melhores_ofertas"
+            , dContents =
+                [ RPlainText "Curta e compartilhe este vídeo pra que mais pessoas conheçam o cuidado da Drogaria Total Itapira!"
+                , RCommand (CGesture GThinkShort (EPeLabel "pe_melhores_ofertas"))
+                ]
+            }
+        ]
+    }
+-}

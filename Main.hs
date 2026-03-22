@@ -66,9 +66,9 @@ main_2 = do
 main :: IO ()
 main = do 
   setLocaleEncoding utf8
-  -- hSetEncoding stdout utf8
-  -- hSetEncoding stdin utf8
-  -- hSetEncoding stderr utf8
+  -- hSetEncoding stdout utf8 
+  -- hSetEncoding stdin utf8  
+  -- hSetEncoding stderr utf8 
   
   WE.buildEpisodeIO
 

@@ -1,20 +1,10 @@
-DICA: Utilize o Gemini 2.5 pro, pelo https://aistudio.google.com/
-DICA: Após gerar o áudio, VERIFIQUE SE ESTÁ FALANDO O NOME DO CLIENTE E DA EMPRESA CORRETAMENTE!
-
-___________________
-
-Para obter a pesquisa do Resumo do cliente: 
-
-Por favor, reúna tudo sobre a empresa "Guga Doces e Fraldas", situada no endereço "Francisco Glicélio, 300, Centro, Itapira - SP", com o contato "(19) 3813-4582", crie um texto informativo para eu ter um bom conhecimento sobre o negócio. Cuidado para não misturar informações de outra empresa com o mesmo nome! Por isso informei o endereço e o telefone, para você conferir. FOQUE NOS BENEFÍCIOS PARA O CONSUMIDOR FINAL! O objetivo desse resumo é a criação de conteúdos comerciais para divulgação
-___________________
-
-# Parte 1: Geração de Valor - Duração Aproximada de 30 a 50 segundos
+# Parte 1: Geração de Valor - Duração Aproximada de 25 a 50 segundos
 
 A minha empresa, a Melhores Ofertas, presta serviço de Presença Digital, no formato Business to Business B2B, para a empresa cliente deste vídeo, portanto a empresa cliente tem os clientes dela, e os clientes dela são o foco deste roteiro
 
-Crie um roteiro de vídeo para redes sociais, com o personagem chamado "Melhores Ofertas" (trate sempre no masculino Melhores Ofertas) conversando com o personagem cliente 'x' da empresa cliente 'y'.
-O assunto do vídeo é 'z'.
-Esta "Parte 1" do vídeo deve ter aproximadamente 30 a 50 segundos, com falas curtas, cada fala com aproximadamente 5 a 15 segundos de duração.
+Crie um roteiro de vídeo para redes sociais, com o personagem chamado "Melhores Ofertas" (trate sempre no masculino Melhores Ofertas) conversando com o personagem cliente 'Representante da Drogaria Total' da empresa cliente 'Drogaria Total'.
+O assunto do vídeo é 'A Drogaria que Cuida de Você em Itapira'.
+Esta "Parte 1" do vídeo deve ter aproximadamente 25 a 50 segundos, com falas curtas, cada fala com aproximadamente 5 a 15 segundos de duração.
 O roteiro deve incluir:
 1. Saudação inicial (apresentando o personagem e a empresa cliente)
 2. O assunto do vídeo
@@ -22,7 +12,33 @@ O roteiro deve incluir:
 A seguir estão alguns textos sobre a empresa cliente para ajudar na criação do roteiro:
 
 ```
-<textos-resumo-da-empresa>
+Drogaria Total – Unidade Itapira (Rua Francisco Glicério, 310)
+Visão Geral
+Localizada no coração de Itapira, na Rua Francisco Glicério, 310, Centro, a Drogaria Total é uma das unidades da maior rede associativa de farmácias do Brasil. Fundada sobre os princípios de compromisso, cordialidade, respeito e responsabilidade, a rede possui mais de 600 lojas em 300+ cidades nos estados de São Paulo, Paraná e Minas Gerais, oferecendo produtos e serviços de alta qualidade aliando preço competitivo e atendimento humanizado.​
+Endereço e Contatos
+Rua Francisco Glicério, 310, Centro, Itapira – SP
+Telefone: (19) 99545-8933 / (19) 3863-3148​
+Serviços e Produtos
+A unidade Itapira disponibiliza:
+    • Medicamentos de marca e genéricos
+    • Perfumaria e cosméticos
+    • Higiene pessoal e cuidados diários
+    • Suplementos nutricionais e vitaminas
+    • Conveniência em itens para lar e saúde
+Programas de Fidelidade e Descontos
+    • Descontos de até 80% em produtos selecionados​
+    • Programa de fidelidade com acúmulo de pontos e prêmios exclusivos
+    • Cartão de crédito próprio com condições diferenciadas
+    • Convênio Farmácia Total: descontos direto em folha de pagamento para empresas conveniadas, válido em toda a rede, com entrega domiciliar
+Diferenciais da Rede
+    • Suporte especializado em gestão para associados, garantindo padronização e excelência operacional​
+    • Mix amplo de perfumaria e cuidados pessoais, reconhecido como um dos maiores do setor
+    • Mais de 2 milhões de clientes ativos no programa de relacionamento
+    • Campanhas frequentes de ofertas e promoções temáticas
+    • Entrega em domicílio, recomendação de medicamentos e monitoramento farmacêutico
+Compromisso com o Cliente
+A Drogaria Total Itapira preza pelo atendimento próximo e humanizado, com farmacêuticos disponíveis para orientação e acompanhamento de tratamentos. A unidade reforça seus valores ao oferecer praticidade, variedade e economia como pilares do serviço, alinhados às diretrizes da Rede Drogaria Total.
+
 ```
 
 Caso o texto sobre o cliente seja pequeno, complemente com os benefícios associados ao nicho e características do cliente 
@@ -31,15 +47,14 @@ O tom do vídeo deve ser amigável, natural e engajador, adequado para Instagram
 
 # Parte 2: Finalização com CTA
 
-Após a "Parte 1" de 30 a 50 segundos do vídeo, crie um fechamento de mais alguns segundos, curto, narrado pelo personagem "Melhores Ofertas", focado em CTA para obter prova social, a seguir alguns exemplos de CTAs:
+Após a "Parte 1" de 25 a 50 segundos do vídeo, crie um fechamento de mais alguns segundos, curto, narrado pelo personagem "Melhores Ofertas", focado em CTA para obter prova social, a seguir alguns exemplos de CTAs:
 
 ```
 1. Mostre o seu apoio! Comente elogiando a [empresa]!
-2. Compartilhe nos comentários o que você mais gosta da [empresa]! Sua opinião ajuda outras pessoas!
-3. Se você também ama os serviços da [empresa], deixe seu comentário aqui e ajude outros a descobrirem também!
-4. Já teve uma experiência bacana com a [empresa]? Comente abaixo e inspire outros clientes a conhecerem também!
-5. Queremos saber: qual foi a sua experiência com a [empresa]? Deixe seu comentário e inspire os outros clientes!
-6. Já conhece a [empresa]? Conta pra gente nos comentários como foi sua experiência!
+2. Curta o vídeo para nos ajudar a alcançar mais pessoas!
+3. Elogie o vídeo para nos ajudar a alcançar mais pessoas!
+4. Curta e compartilhe
+ 
 ```
 
 Este é o formato de cada narração que você deve criar, crie por favor 2 narrações distintas neste formato
@@ -131,9 +146,8 @@ exampleEpisode = Episode
                 { dPe = EPeLabel "pe_felipe"
                 , dContents =
                     [ RPlainText "Olá Fatima"
-                    , RCommand (CGesture GHi (EPeLabel "pe_felipe"))
-                    , RCommand (CGesture GHi (EPeLabel "pe_fatima"))
-                    , RCommand (CPause 500)
+                    , RCommand (CGesture GThinkShort (EPeLabel "pe_felipe"))
+                    , RCommand (CGesture GStandShort (EPeLabel "pe_fatima"))
                     , RPlainText "Tudo bem por aí?"
                     ]
                 }
@@ -141,25 +155,21 @@ exampleEpisode = Episode
                 { dPe = EPeLabel "pe_fatima"
                 , dContents =
                     [ RPlainText "Olá Felipe! Tudo ótimo!"
-                    , RCommand (CGesture GHi (EPeLabel "pe_fatima")) ]
+                    , RCommand (CGesture GThinkShort (EPeLabel "pe_fatima")) ]
                 }
             ]
 episode01 :: Episode
 episode01 = undefined -- crie o 1º episode aqui
 
-episode02 :: Episode
-episode02 = undefined -- crie o 2º episode aqui
 ```
 
 
 
 Quando for criar `RPlainText :: Text`, cuidado para não por textos que o `edge_tts` do Python não entende ao converter para áudio, como "---"
 
-Capriche nos gestos, procure utilizá-los de acordo com o significado do texto no momento em que aparecem, saiba que você pode invocar um gesto durante a fala do outro personagem, por isso o tipo do gesto, CGesture, tem um `cPe :: EPeLabel` próprio. COLOQUE OS GESTOS ENTRE PONTUAÇÕES COMO PONTOS FINAIS, PONTOS DE EXCLAMAÇÃO, E VÍRGULAS, NÃO NO MEIO DA FRASE, PARA NÃO FICAR UMA PAUSA ESTRANHA AO JUNTAR OS ÁUDIOS
+Procure utilizá-los de acordo com o significado do texto no momento em que aparecem. Cuidado para não colocar muitos gestos, e tente não repetir muito os mesmos gestos. Saiba que você pode invocar um gesto durante a fala do outro personagem, por isso o tipo do gesto, CGesture, tem um `cPe :: EPeLabel` próprio. COLOQUE OS GESTOS LOGO APÓS PONTUAÇÕES COMO PONTO FINAL, PONTO DE EXCLAMAÇÃO E PONTO DE INTERROGAÇÃO, NÃO NO MEIO DE FRASES, PARA NÃO FICAR UMA PAUSA ESTRANHA AO JUNTAR OS ÁUDIOS
 
-Comece com uma pausa de meio segundo
-
-Forneça SOMENTE `episode01` e `episode02`
+Forneça SOMENTE `episode01`
 
 
 Em `ePes`, onde lista os personagens, o personagem do cliente vem sempre em primeiro, e o personagem "Melhores Ofertas" por segundo

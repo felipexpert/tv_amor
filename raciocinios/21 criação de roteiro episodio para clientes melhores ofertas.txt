@@ -1,0 +1,155 @@
+DICA: Utilize o Gemini 2.5 pro, pelo https://aistudio.google.com/
+DICA: Após gerar o áudio, VERIFIQUE SE ESTÁ FALANDO O NOME DO CLIENTE E DA EMPRESA CORRETAMENTE!
+___________________
+
+***** O PROMPT COMEÇA AQUI *****
+
+# Parte 1: Geração de Valor - Duração Aproximada de 25 a 50 segundos
+
+A minha empresa, a Melhores Ofertas, presta serviço de Presença Digital, no formato Business to Business B2B, para a empresa cliente deste vídeo, portanto a empresa cliente tem os clientes dela, e os clientes dela são o foco deste roteiro
+
+Crie um roteiro de vídeo para redes sociais, com o personagem chamado "Melhores Ofertas" (trate sempre no masculino Melhores Ofertas) conversando com o personagem cliente 'x' da empresa cliente 'y'.
+O assunto do vídeo é 'z'.
+Esta "Parte 1" do vídeo deve ter aproximadamente 25 a 50 segundos, com falas curtas, cada fala com aproximadamente 5 a 15 segundos de duração.
+O roteiro deve incluir:
+1. Saudação inicial (apresentando o personagem e a empresa cliente)
+2. O assunto do vídeo
+
+A seguir estão alguns textos sobre a empresa cliente para ajudar na criação do roteiro:
+
+```
+<textos-resumo-da-empresa>
+```
+
+Caso o texto sobre o cliente seja pequeno, complemente com os benefícios associados ao nicho e características do cliente 
+
+O tom do vídeo deve ser amigável, natural e engajador, adequado para Instagram Reels, TikTok e Shorts.
+
+# Parte 2: Finalização com CTA
+
+Após a "Parte 1" de 25 a 50 segundos do vídeo, crie um fechamento de mais alguns segundos, curto, narrado pelo personagem "Melhores Ofertas", focado em CTA para obter prova social, a seguir alguns exemplos de CTAs:
+
+```
+1. Mostre o seu apoio! Comente elogiando a [empresa]!
+2. Curta o vídeo para nos ajudar a alcançar mais pessoas!
+3. Elogie o vídeo para nos ajudar a alcançar mais pessoas!
+4. Curta e compartilhe
+ 
+```
+
+Este é o formato de cada narração que você deve criar, crie por favor 2 narrações distintas neste formato
+
+O formato que você vai entregar a animação, será um Tipo Haskell, o Episode. A seguir o código fonte de Episode.hs
+
+Episode.hs:
+```
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DeriveAnyClass #-}
+
+-- MyModule.hs
+module Model.Episode where
+
+import qualified Data.Text as T
+import Data.Text (Text)
+import GHC.Generics (Generic) 
+
+import Model.EpisodePersona (EPeLabel(..), EPeNumber(..))
+
+import qualified Data.List as List
+
+import Data.Aeson (ToJSON, FromJSON)
+
+
+-- O episódio completo (lista de blocos)
+-- NOTA: Posso fazer validação, aceita 1 ou 2 personas, e no eDialogueBlock, aceita apenas
+-- EPeLabel que estão na lista de ePes
+data Episode = Episode 
+    { ePes :: [EPeLabel] -- Lista de personagens que participam do episódio
+    , eDialoguePeList :: [EDialoguePe] -- Lista de blocos de fala
+    } deriving (Show, Eq, Generic)
+
+episodePeNumber :: Episode -> EPeLabel -> EPeNumber
+episodePeNumber episode label = peNumber
+    where 
+        indexOpt :: Maybe Int
+        indexOpt = List.findIndex sameLabel (ePes episode)
+            where 
+                sameLabel :: EPeLabel -> Bool
+                sameLabel = (== label) 
+        peNumber :: EPeNumber
+        peNumber = case indexOpt of
+            Just 0 -> EPeNum1
+            Just 1 -> EPeNum2
+            _      -> EPeNum1 -- Default, caso não encontre, retorna EPeNum1
+
+-- Um bloco de fala, associado a um personagem
+data EDialoguePe = EDialoguePe
+    { dPe :: EPeLabel
+    , dContents :: [DRichText]
+    } deriving (Show, Eq)
+
+-- Um trecho de texto com comandos embutidos
+data DRichText
+    = RPlainText Text
+    | RCommand RCCommand
+    deriving (Show, Eq)
+
+-- Representa os comandos embutidos no texto
+data RCCommand 
+    -- ERTCGesture tem quem está fazendo o gesto, porque durante a fala de um, o outro pode fazer um gesto
+    = CGesture
+        { cGesture :: CGesture
+        , cPe :: EPeLabel }
+    | CPause Int -- Pausa em milissegundos
+    deriving (Show, Eq)
+
+-- A "FREQUÊNCIA" é o quanto um gesto normalmente aparece, quanto maior o valor da "FREQUÊNCIA",
+-- mais o gesto deve ser aplicado em relação aos outros gestos
+data CGesture
+    = GThinkShort       	-- FREQUÊNCIA: 10.0		- Coloca a mão no queixo, reflexivo
+    | GThinkLong        	-- FREQUÊNCIA: 9.5		- Coloca a mão no queixo, reflexivo, por mais tempo
+	| GStandShort		  	-- FREQUÊNCIA: 6.0		- Fica com as mãos juntas, depois volta as mãos
+    | GStandLong	  		-- FREQUÊNCIA: 4.5		- Fica com as mãos juntas por mais tempo, depois volta as mãos, por mais tempo
+	| GShakeLegShort		-- FREQUÊNCIA: 3.0		- Balança um pouco a perna
+    | GWorryShort		  	-- FREQUÊNCIA: 1.0		- Demonstra um pouco de preocupação
+
+exampleEpisode :: Episode
+exampleEpisode = Episode
+    { ePes = [EPeLabel "pe_felipe", EPeLabel "pe_fatima"]
+    , eDialoguePeList = exampleDialogues
+    }
+    where
+        exampleDialogues :: [EDialoguePe]
+        exampleDialogues =
+            [ EDialoguePe
+                { dPe = EPeLabel "pe_felipe"
+                , dContents =
+                    [ RPlainText "Olá Fatima"
+                    , RCommand (CGesture GThinkShort (EPeLabel "pe_felipe"))
+                    , RCommand (CGesture GStandShort (EPeLabel "pe_fatima"))
+                    , RPlainText "Tudo bem por aí?"
+                    ]
+                }
+            , EDialoguePe
+                { dPe = EPeLabel "pe_fatima"
+                , dContents =
+                    [ RPlainText "Olá Felipe! Tudo ótimo!"
+                    , RCommand (CGesture GThinkShort (EPeLabel "pe_fatima")) ]
+                }
+            ]
+episode01 :: Episode
+episode01 = undefined -- crie o 1º episode aqui
+
+```
+
+
+
+Quando for criar `RPlainText :: Text`, cuidado para não por textos que o `edge_tts` do Python não entende ao converter para áudio, como "---"
+
+Procure utilizá-los de acordo com o significado do texto no momento em que aparecem. Cuidado para não colocar muitos gestos, e tente não repetir muito os mesmos gestos. Saiba que você pode invocar um gesto durante a fala do outro personagem, por isso o tipo do gesto, CGesture, tem um `cPe :: EPeLabel` próprio. COLOQUE OS GESTOS ENTRE PONTUAÇÕES COMO PONTOS FINAIS, PONTOS DE EXCLAMAÇÃO, E VÍRGULAS, NÃO NO MEIO DA FRASE, PARA NÃO FICAR UMA PAUSA ESTRANHA AO JUNTAR OS ÁUDIOS
+
+Forneça SOMENTE `episode01`
+
+
+Em `ePes`, onde lista os personagens, o personagem do cliente vem sempre em primeiro, e o personagem "Melhores Ofertas" por segundo

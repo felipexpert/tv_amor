@@ -1,0 +1,1 @@
+Por favor, reúna tudo sobre a empresa "<nome da empresa>", situada no endereço "<endereco>", com o contato "<contato>", crie um texto informativo para eu ter um bom conhecimento sobre o negócio. cuidado para não misturar informações de outra empresa com o mesmo nome! Por isso informei o endereço e o contato, para você conferir
